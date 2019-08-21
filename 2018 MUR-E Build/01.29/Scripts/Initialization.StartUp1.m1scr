@@ -1,0 +1,2 @@
+Timer.Start(1.0);
+LogFlag= Logging Mode.Run;

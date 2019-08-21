@@ -1,0 +1,32 @@
+BMS.CurrentLowRange=(CurrentSensorLowRange-2.5)/0.04;
+BMS.SoCAnalog = SOC * 20;
+BMS.DCLAnalog = DCL / 5 * 200;
+BMS.CCLAnalog = CCL;
+
+local BMSmsg = CanComms.RxOpenStandard(0, 0x010, 0x0, true);
+
+if (CanComms.RxMessage(BMSmsg)){
+
+	BMS.PackCurrent = 0.1 * CanComms.GetUnsignedInteger(BMSmsg,0,16);
+	BMS.PackVoltage = 0.1 * CanComms.GetUnsignedInteger(BMSmsg,16,16);
+	BMS.TempHigh = CanComms.GetUnsignedInteger(BMSmsg,32,16);
+	BMS.TempLow = CanComms.GetUnsignedInteger(BMSmsg,48,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x020, 0x0, true);
+
+if (CanComms.RxMessage(BMSmsg)){
+	BMS.DCLviaCAN = CanComms.GetUnsignedInteger(BMSmsg,0,16);
+	BMS.CCLviaCAN = CanComms.GetUnsignedInteger(BMSmsg,16,16);
+	BMS.SoCviaCAN = CanComms.GetUnsignedInteger(BMSmsg,32,16) / 2.0;
+	BMS.BMSTemp = CanComms.GetUnsignedInteger(BMSmsg,48,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x030, 0x0, true);
+
+if (CanComms.RxMessage(BMSmsg)){
+	BMS.VoltHigh = CanComms.GetUnsignedInteger(BMSmsg,0,16) * 0.0001;
+	BMS.VoltLow = CanComms.GetUnsignedInteger(BMSmsg,16,16) * 0.0001;
+}
+
+BMS.InverterTotalCurrent = Inverter Control.LHSData.InverterCurrent + Inverter Control.RHSData.InverterCurrent;

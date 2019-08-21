@@ -1,0 +1,23 @@
+//rate of change ~= 80 when slipping
+//max rate of change ~= 10 by calculation
+
+local samplingsize = 4;
+
+//Pass prev values on
+RPM4 = RPM3;
+RPM3 = RPM2;
+RPM2 = RPM1;
+
+//update with newest data input, RPM is updated at 100hz
+RPM1 = Inverter Control.RHSData.RPMReceived;
+
+//calculate Rate of Change using linear regression
+local sumy = RPM1 + RPM2 + RPM3 + RPM4;
+local sumxx = 30;
+local sumx = 10;
+local sumxy = RPM4 + RPM3*2 + RPM2*3 + RPM1*4;
+
+RPMRateofChange = (samplingsize * sumxy - sumx * sumy) 
+					/ (samplingsize * sumxx - sumx * sumx);
+
+

@@ -1,0 +1,20 @@
+local t = CanComms.TxOpen(false);
+local DLC = 3;
+
+//-------------------------Torque Vectoring-------------------------
+
+Regen.RHScmd = Regen.RegenAmountBeforeTV + Steering.Right * Steering.MappedSteering * Regen.TVK;
+
+//------LHS send------
+
+CanComms.TxInitialise(t,DLC);
+
+CanComms.SetUnsignedInteger(t, 56, 8, 0x90); //Register 0x90 is torque command
+CanComms.SetUnsignedInteger(t, (8-DLC)*8, 16, Convert.ToUnsignedInteger((65535 - Regen.RHScmd)*RHSON));
+
+//same refrence
+if(CanComms.TxStandard(t,2,0x1)){
+	Inverter Control.Channels.TXStatusRHS = 1;
+}else{ 
+	Inverter Control.Channels.TXStatusRHS = 0;
+}

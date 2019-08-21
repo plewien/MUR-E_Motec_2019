@@ -1,0 +1,21 @@
+Regen.Calc();
+
+Mapping.ThrottleMapping();
+
+Mapping.ProcessedThrottle = Mapping.MappedThrottle * Mapping.TorqueMax * (BMS.DCLviaCAN/DCLSetting);
+
+
+//---Send on CAN-----
+
+//if((AcceleratorPedalIL eq 1) and (ReadyToDrive.ReadyToDriveIL eq 1)) {
+if((ReadyToDrive.ReadyToDriveIL eq 1)  and (Regen.ON eq 0)) {
+
+	SendThrottleLHS();
+	SendThrottleRHS();
+
+} else if((ReadyToDrive.ReadyToDriveIL eq 1)  and (Regen.ON eq 1)) {
+	
+	SendRegenLHS();
+	SendRegenRHS();
+	
+}	

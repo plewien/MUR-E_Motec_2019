@@ -1,0 +1,5 @@
+TorqueVectoring.TVKLog = TorqueVectoring.TorqueVectorK;
+Regen.ManualSwitchLog = Regen.ManualSwitch;
+Regen.RegenKlog = Regen.RegenK;
+Regen.RegenCruiseOffsetlog = Regen.RegenCruiseOffset;
+Regen.TVKlog = Regen.TVK;

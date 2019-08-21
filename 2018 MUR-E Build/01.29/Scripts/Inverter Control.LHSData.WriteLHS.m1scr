@@ -1,0 +1,100 @@
+// in this project we are logging RPM, Motor Temp, Inverter Temp and Iq
+//--------------------------- required handles ------------------------------------------------------------
+local DLC = 3;
+
+// LHS status map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local LHSStatMapHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(LHSStatMapHandle,DLC);
+CanComms.SetUnsignedInteger(LHSStatMapHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(LHSStatMapHandle, (8-DLC)*8, 16, 0x3240); //48:REG for actual speed, 0a:repeat every 10ms
+
+
+// LHS Error-Warning map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local LHSEWMapHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(LHSEWMapHandle,DLC);
+CanComms.SetUnsignedInteger(LHSEWMapHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(LHSEWMapHandle, (8-DLC)*8, 16, 0x328f); //8f:REG for actual speed, 0a:repeat every 10ms
+
+// LHS TorqueCmd. format: dlc = 3, byte0-REGID read, byte1-REGID for I Actual, byte2-time interval 
+local LHSTorqueCmdHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(LHSTorqueCmdHandle,DLC);
+CanComms.SetUnsignedInteger(LHSTorqueCmdHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(LHSTorqueCmdHandle, (8-DLC)*8, 16, 0x3290); //90:REG for Tcmd, 0a:repeat every 10ms
+
+// I Actual handle. format: dlc = 3, byte0-REGID read, byte1-REGID for I Actual, byte2-time interval 
+local IActualHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(IActualHandle,DLC);
+CanComms.SetUnsignedInteger(IActualHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(IActualHandle, (8-DLC)*8, 16, 0x0a20); //20:REG for IActual, 0a:repeat every 10ms
+
+
+// Actual speed handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local ActualSpeedHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(ActualSpeedHandle,DLC);
+CanComms.SetUnsignedInteger(ActualSpeedHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(ActualSpeedHandle, (8-DLC)*8, 16, 0x0a30); //30:REG for actual speed, 0a:repeat every 10ms
+
+
+
+// Motor Temperature handle. format: dlc = 3, byte0-REGID read, byte1-REGID for T Motor value, byte2-time interval 
+local TMotorHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(TMotorHandle,DLC);
+CanComms.SetUnsignedInteger(TMotorHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(TMotorHandle, (8-DLC)*8, 16, 0x6449); //49:REG for Motor Temperature, 0a:repeat every 10ms
+
+// Igbt Temperature handle. format: dlc = 3, byte0-REGID read, byte1-REGID for T Motor value, byte2-time interval 
+local TIgbtHandle = CanComms.TxOpen(false);
+
+CanComms.TxInitialise(TIgbtHandle,DLC);
+CanComms.SetUnsignedInteger(TIgbtHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(TIgbtHandle, (8-DLC)*8, 16, 0x644a); //4a:REG for Igbt Temperature, 0a:repeat every 10ms
+
+
+//--------------------------- Sending required handles --------------------------------------------------------
+// confirm status of sent handles
+
+// sent STAT MAP handle
+if (CanComms.TxStandard(LHSStatMapHandle,1,0x1)){
+LHSStatMapSent = LHSStatMapSent + 1;}else{
+LHSStatMapSent = 0;}
+
+
+// sent Error-warning handle
+if (CanComms.TxStandard(LHSEWMapHandle,1,0x1)){
+LHSEWMapSent = LHSEWMapSent + 1;}else{
+LHSEWMapSent = 0;}
+
+
+// sent TorqueCmd handle
+if (CanComms.TxStandard(LHSTorqueCmdHandle,1,0x1)){
+LHSTorqueCmdSent = LHSTorqueCmdSent + 1;}else{
+LHSTorqueCmdSent = 0;}
+
+// sent I Actual handle
+if (CanComms.TxStandard(IActualHandle,1,0x1)){
+IActualMsgSent = IActualMsgSent + 1;}else{
+IActualMsgSent = 0;}
+
+
+// sent RPM handle
+if (CanComms.TxStandard(ActualSpeedHandle,1,0x1)){
+ActualSpeedMsgSent = ActualSpeedMsgSent+ 1;}else{
+ActualSpeedMsgSent = 0;}
+
+// sent TMotor handle
+if (CanComms.TxStandard(TMotorHandle,1,0x1)){
+TMotorMsgSent = TMotorMsgSent + 1;}else{
+TMotorMsgSent = 0;}
+
+// sent TIgbt handle
+if (CanComms.TxStandard(TIgbtHandle,1,0x1)){
+TIgbtMsgSent = TIgbtMsgSent + 1;}else{
+TIgbtMsgSent = 0;}
+
+//--------------------------- End sending handles ---------------------------------------------------------

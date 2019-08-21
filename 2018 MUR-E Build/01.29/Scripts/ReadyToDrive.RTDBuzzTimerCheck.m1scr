@@ -1,0 +1,5 @@
+if(Timer.Remaining()>0.0) {
+	RTDSound.SetState(true);
+}	else if(Timer.Remaining() <= 0.0) {
+	RTDSound.SetState(false);
+}

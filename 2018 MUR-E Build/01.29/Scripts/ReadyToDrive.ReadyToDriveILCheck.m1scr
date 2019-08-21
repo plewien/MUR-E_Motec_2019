@@ -1,0 +1,25 @@
+// Ready to start check
+
+if(
+	(SDCFault.BMSFault1 eq Universal Switch State.off) and 
+	(SDCFault.BSPDFault1 eq Universal Switch State.off) and
+	(SDCFault.IMDFault1 eq Universal Switch State.off) and
+	(SDCFault.PDOCFault1 eq Universal Switch State.off) and
+	(Inverter Control.InverterRFE eq Universal Switch State.On) and
+	(ReadyToDriveButtonDI eq Universal Switch State.on)and 
+	(BrakePedal.Mapping.BrakePressed eq 1) and
+	(AcceleratorPedal.Mapping.AcceleratorPedalIL eq 1)){
+	ReadyToDriveIL=1;
+	
+}else if(
+	(SDCFault.BMSFault1 eq Universal Switch State.On) or
+	(SDCFault.BSPDFault1 eq Universal Switch State.On) or
+	(SDCFault.IMDFault1 eq Universal Switch State.On) or
+	(SDCFault.PDOCFault1 eq Universal Switch State.On) or
+	(Inverter Control.InverterRFE eq Universal Switch State.Off) or 
+	(AcceleratorPedal.Mapping.AcceleratorPedalIL eq 0)){
+	
+	ReadyToDriveIL=0;
+	
+}
+

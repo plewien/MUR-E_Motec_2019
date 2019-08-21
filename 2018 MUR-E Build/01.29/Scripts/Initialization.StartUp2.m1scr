@@ -1,0 +1,11 @@
+if(AcceleratorPedal.DelayedGround.State eq Switched Output State Enumeration.Off){ 
+	Events.Initialization.Default();
+}
+
+if(Timer.Remaining() <=0){
+	AcceleratorPedal.DelayedGround.SetState(true);
+}
+
+if(AcceleratorPedal.DelayedGround.State eq Switched Output State Enumeration.On) {
+	Events.Initialization.Idle();
+}

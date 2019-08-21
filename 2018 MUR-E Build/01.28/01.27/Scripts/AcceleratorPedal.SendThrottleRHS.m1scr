@@ -1,0 +1,45 @@
+local t = CanComms.TxOpen(false);
+local DLC = 3;
+
+//-------------------------Torque Vectoring-------------------------
+local TV = Steering.Right* Convert.ToInteger(Steering.MappedSteering) *TorqueVectoring.TorqueVectorK;
+
+//-------------------------Traction Control-------------------------
+//TCK expected to be 0-200
+local <Floating Point> TractionC = 0;
+
+TractionControl.RHS.RPMRateCalc();
+
+if(TractionControl.RHS.RPMRateofChange > TractionControl.RPMRateMax){
+	TractionC = TractionControl.TractionControlK * (TractionControl.RHS.RPMRateofChange - TractionControl.RPMRateMax);
+}
+
+//calculated overall throttle
+if(Mapping.ProcessedThrottle - TV - TractionC < 0){
+
+	//Keeping it positive
+	TorqueCmdRHS = 0;
+	
+	//let it go neg
+//	TorqueCmdRHS = 65535 - TV + Mapping.ProcessedThrottle;
+
+}else{
+	TorqueCmdRHS = Mapping.ProcessedThrottle - TV - TractionC;
+}
+
+
+
+
+//------RHS------
+
+CanComms.TxInitialise(t,DLC);
+
+CanComms.SetUnsignedInteger(t, 56, 8, 0x90); //Register 0x90 is torque command
+CanComms.SetUnsignedInteger(t, (8-DLC)*8, 16, Convert.ToUnsignedInteger(TorqueCmdRHS*RHSON));
+
+//same refrence
+if(CanComms.TxStandard(t,2,0x1)){
+	Inverter Control.Channels.TXStatusRHS = 1;
+}else{ 
+	Inverter Control.Channels.TXStatusRHS = 0;
+}

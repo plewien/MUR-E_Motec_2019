@@ -1,0 +1,64 @@
+local bt1 = CellTemp1;
+local bt2 = bt1 * CellTemp1;
+local bt3 = bt2 * CellTemp1;
+local bt4 = bt3 * CellTemp1;
+local bt5 = bt4 * CellTemp1;
+
+
+	CellTempDegrees 1 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+
+
+bt1 = CellTemp2;
+bt2 = bt1 * CellTemp2;
+bt3 = bt2 * CellTemp2;
+bt4 = bt3 * CellTemp2;
+bt5 = bt4 * CellTemp2;
+
+
+	CellTempDegrees 2 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+	
+
+
+bt1 = CellTemp3;
+bt2 = bt1 * CellTemp3;
+bt3 = bt2 * CellTemp3;
+bt4 = bt3 * CellTemp3;
+bt5 = bt4 * CellTemp3;
+
+
+	CellTempDegrees 3 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+	
+
+
+bt1 = CellTemp4;
+bt2 = bt1 * CellTemp4;
+bt3 = bt2 * CellTemp4;
+bt4 = bt3 * CellTemp4;
+bt5 = bt4 * CellTemp4;
+
+
+	CellTempDegrees 4 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+	
+
+
+bt1 = CellTemp5;
+bt2 = bt1 * CellTemp5;
+bt3 = bt2 * CellTemp5;
+bt4 = bt3 * CellTemp5;
+bt5 = bt4 * CellTemp5;
+
+
+	CellTempDegrees 5 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+	
+
+
+bt1 = CellTemp6;
+bt2 = bt1 * CellTemp6;
+bt3 = bt2 * CellTemp6;
+bt4 = bt3 * CellTemp6;
+bt5 = bt4 * CellTemp6;
+
+
+	CellTempDegrees 6 = -740.85 * bt5 + 7056.8 * bt4 - 26800 * bt3 + 50732 * bt2 - 47967 * bt1 + 18213;
+	
+

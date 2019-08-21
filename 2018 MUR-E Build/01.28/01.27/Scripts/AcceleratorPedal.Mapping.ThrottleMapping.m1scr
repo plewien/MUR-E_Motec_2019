@@ -1,0 +1,19 @@
+//---------------Mapping-------------------------
+LHSPercentage = (AcceleratorPedal.ThrottleA - AcceleratorPedal.Mapping.LHSReleased) / (AcceleratorPedal.Mapping.LHSPressed - AcceleratorPedal.Mapping.LHSReleased);
+RHSPercentage = (AcceleratorPedal.ThrottleB - AcceleratorPedal.Mapping.RHSReleased) / (AcceleratorPedal.Mapping.RHSPressed - AcceleratorPedal.Mapping.RHSReleased);
+
+MappedThrottle = (LHSPercentage + RHSPercentage) / 2;
+
+
+//-------------Plausibility----------------------
+local Diffrence = Calculate.Absolute(LHSPercentage - RHSPercentage);
+
+if (Diffrence >= APPS Plausibility Threshold) {
+
+	AcceleratorPedalIL = 0;
+
+} else if (Diffrence < APPS Plausibility Threshold)  {
+
+	AcceleratorPedalIL = 1;
+
+}

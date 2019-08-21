@@ -1,0 +1,27 @@
+ReadyToDriveILCheck();
+
+if (ReadyToDriveIL eq 1) {
+
+	if (ReadyToDriveState eq 0){
+	Timer.Start(0.5);
+	}
+	
+	ReadyToDriveState=1;
+	Inverter Control.InverterFRG.SetState(true);
+	//Inverter Control.WriteLHS();
+	
+	}else{
+	
+	ReadyToDrivestate=0;
+	Inverter Control.InverterFRG.SetState(false);
+	}
+
+
+if (SDCECUPar eq 1) {
+
+	SDCECU.SetState(true);
+	} else if (SDCECUPar eq 0) {
+	
+	SDCECU.SetState(false);
+	}
+	

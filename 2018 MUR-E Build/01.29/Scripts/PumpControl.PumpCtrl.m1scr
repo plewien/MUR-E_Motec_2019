@@ -1,0 +1,8 @@
+if((ReadyToDrive.ReadyToDriveState eq 1) and ((Inverter Control.LHSData.TIgbt > 30) or (Inverter Control.RHSData.TIgbt > 30)) ){
+	PumpLeft.SetState(true);
+	PumpRight.SetState(true);
+}else{
+	PumpLeft.SetState(false);
+	PumpRight.SetState(false);	
+}
+

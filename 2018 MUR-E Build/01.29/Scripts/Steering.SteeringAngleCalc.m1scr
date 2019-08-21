@@ -1,0 +1,32 @@
+local FullRight = 1.6;
+local FullLeft = 3.35;
+local Scale = 100;
+
+tmp2 = tmp1;
+tmp1 = MappedSteering;
+
+
+if (SteeringAngle > FullLeft and SteeringAngle < 4.45 ){
+	tmp3 = -Scale * (4.45 - SteeringAngle) / (4.45-FullLeft);
+}else if(SteeringAngle > 0.55 and SteeringAngle < FullRight){
+	tmp3 = Scale * (SteeringAngle - 0.55) / (FullRight - 0.55);
+}else if(SteeringAngle < 0.55 or SteeringAngle > 4.45){
+	tmp3 = 0;
+}
+
+MappedSteering = (tmp1+tmp2+tmp3)/3;
+
+if(MappedSteering<0){
+	Left = 1;
+	Right = 0;
+}else if(MappedSteering > 0){
+	Right = 1;
+	Left = 0;
+}else{
+	Left = 0;
+	Right = 0;
+}
+
+//4.5 - 3.313V center to full left
+//~0.5 4.5 centered
+//0.5 - 1.1779 center to full right

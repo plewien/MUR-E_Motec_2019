@@ -1,0 +1,14 @@
+if ((ManualSwitch eq 1) and 
+	(AcceleratorPedal.Mapping.MappedThrottle < 5) and
+	(Inverter Control.LHSData.RPMReceived > 400) and
+	(Inverter Control.RHSData.RPMReceived > 400) ){
+	
+	ON = 1;
+	
+}else{
+
+	ON = 0;
+
+}
+
+RegenAmountBeforeTV = RegenCruiseOffset + BrakePedal.Mapping.MappedBrakePressure * RegenK;

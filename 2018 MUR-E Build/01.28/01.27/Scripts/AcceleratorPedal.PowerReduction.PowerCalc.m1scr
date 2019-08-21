@@ -1,0 +1,11 @@
+ActualPower = BMS.InverterTotalCurrent * BMS.PackVoltage / 1000;
+
+if((ActualPower > (PowerLimit * PRHysterisis)) and (PRState eq 1) ){
+
+	PowerFactor = PowerReductionK / (1+ (ActualPower - PowerLimit));
+
+}else if(ActualPower < PowerLimit){
+
+	PowerFactor = 1;
+
+}

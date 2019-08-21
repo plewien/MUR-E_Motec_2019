@@ -1,0 +1,30 @@
+//INPUT: Raw Break Pressure Analogue Input Voltage Signal
+//OUTPUT: Break Pressure
+//Brake pressure sensor raw signal processing
+
+FrontPercentage = (BrakePedal.FrontBrakePressure - BrakePedal.Mapping.FrontReleased) / (BrakePedal.Mapping.FrontPressed - BrakePedal.Mapping.FrontReleased);
+RearPercentage = (BrakePedal.RearBrakePressure - BrakePedal.Mapping.RearReleased) / (BrakePedal.Mapping.RearPressed - BrakePedal.Mapping.RearReleased);
+
+MappedBrakePressure = (FrontPercentage + RearPercentage) / 2;
+
+//----------Plausibility Check-------------
+if (BrakePedal.FrontBrakePressure.Validate(BrakePedal.FrontBrakePressure) & BrakePedal.RearBrakePressure.Validate(BrakePedal.RearBrakePressure) ){
+	BSEIL = 1;
+}else{
+	BSEIL = 0;
+}
+
+//-----------Brake Pressed & Brake Light----------------
+if (MappedBrakePressure > BrakePressedThreshold) {
+
+	BrakePressed = 1;
+	BrakePedal.BrakeLight.SetState(true);
+	
+} else {
+
+	BrakePressed = 0;
+	BrakePedal.BrakeLight.SetState(false);
+	
+}
+	
+	

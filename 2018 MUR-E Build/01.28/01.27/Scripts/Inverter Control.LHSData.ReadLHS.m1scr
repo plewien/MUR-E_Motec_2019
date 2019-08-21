@@ -1,0 +1,61 @@
+local r1 = CanComms.RxOpenStandard(1, 0x2, 0x0, false);
+
+
+if (CanComms.RxMessage(r1)){
+
+	RegID = CanComms.GetUnsignedInteger(r1,56,8);
+	
+	// Status map
+	if (RegID eq 0x40){
+		LHSStatMapReceived = CanComms.GetInteger(r1,40,16) ;
+		
+	}
+	
+	// actual current limit
+	if (RegID eq 0x48){
+		LHSIlimActReceived = CanComms.GetInteger(r1,40,16) ;
+		
+	}
+	
+	// Error-warning map
+	if (RegID eq 0x8f){
+		LHSEWMapReceived = CanComms.GetInteger(r1,24,32) ;
+	}
+	// TorqueCmd
+	if (RegID eq 0x90){
+		LHSTorqueReceived = CanComms.GetInteger(r1,40,16) ;
+		
+	}
+	
+	// RPM
+	if (RegID eq 0x30){
+		RPMReceived = CanComms.GetInteger(r1,40,16) * 6000 / 32768;
+		WheelSpeed = 3.6 * RPMReceived * (2*3.1416/60) * (11/38) * 0.231;
+	}
+
+	// ActualI formula from CAN manual
+	if (RegID eq 0x20){
+		local <Integer> readValue = CanComms.GetInteger(r1,40,16);
+//		InverterCurrent = 2/10 * 2000 * readValue / 1070;
+		InverterCurrent = readValue*0.3738;
+	}
+
+	// Iq
+	if (RegID eq 0x27){
+		IqReceived = CanComms.GetInteger(r1,40,16);
+	}
+	
+	
+	// T Motor
+	if (RegID eq 0x49){
+		TMotorReceived = CanComms.GetInteger(r1,40,16);
+	}
+	
+	// T IGBT
+	if (RegID eq 0x4a){
+		TIgbtReceived = CanComms.GetInteger(r1,40,16);
+	}		
+	
+	
+	
+}

@@ -1,0 +1,10 @@
+TorqueVectoring.TVKLog = TorqueVectoring.TorqueVectorK;
+PowerReduction.PLLog = PowerReduction.PowerLimit;
+PowerReduction.PRKLog = PowerReduction.PowerReductionK;
+PowerReduction.PRStateLog = PowerReduction.PRState;
+PowerReduction.PRHysterisisLog = PowerReduction.PRHysterisis;
+TorqueMaxLog = TorqueMax;
+Regen.ManualSwitchLog = Regen.ManualSwitch;
+Regen.RegenKlog = Regen.RegenK;
+Regen.RegenCruiseOffsetlog = Regen.RegenCruiseOffset;
+Regen.TVKlog = Regen.TVK;

@@ -1,0 +1,18 @@
+if (InvertInputsEnableTEST eq 1) {
+
+	Inverter1END1.SetState(true);
+	Inverter1END2.SetState(true);
+	Inverter2END1.SetState(true);
+	Inverter2END2.SetState(true);
+	Inverter1DIN1.SetState(true);
+	Inverter2DIN1.SetState(true);
+	} else if (InvertInputsEnableTEST eq 0) {
+	
+	Inverter1END1.SetState(false);
+	Inverter1END2.SetState(false);
+	Inverter2END1.SetState(false);
+	Inverter2END2.SetState(false);
+	Inverter1DIN1.SetState(false);
+	Inverter2DIN1.SetState(false);
+
+	}

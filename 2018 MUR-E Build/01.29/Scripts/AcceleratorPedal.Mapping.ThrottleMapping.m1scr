@@ -1,0 +1,50 @@
+//---------------Mapping-------------------------
+if(Inverter Control.LHSData.RPMReceived < Inverter Control.RHSData.RPMReceived){
+	LowerRPM = Inverter Control.LHSData.RPMReceived;
+}else{
+	LowerRPM = Inverter Control.RHSData.RPMReceived;
+}
+
+
+LHSPercentageRaw = (AcceleratorPedal.ThrottleA - AcceleratorPedal.Mapping.LHSReleased) / (AcceleratorPedal.Mapping.LHSPressed - AcceleratorPedal.Mapping.LHSReleased);
+RHSPercentageRaw = (AcceleratorPedal.ThrottleB - AcceleratorPedal.Mapping.RHSReleased) / (AcceleratorPedal.Mapping.RHSPressed - AcceleratorPedal.Mapping.RHSReleased);
+
+if( (LHSPercentageRaw > 0.03) and (LHSPercentageRaw<1.06)){
+	LHSPercentage = LHSPercentageRaw;
+}else{
+	LHSPercentage = 0;
+}
+
+if( (RHSPercentageRaw > 0.03) and (RHSPercentageRaw<1.05)){
+	RHSPercentage = RHSPercentageRaw;
+}else{
+	RHSPercentage = 0;
+} 
+
+
+
+
+//-------------Plausibility----------------------
+Diffrence = Calculate.Absolute(LHSPercentageRaw - RHSPercentageRaw);
+
+if ((Diffrence >= APPS Plausibility Threshold) or (AcceleratorPedal.ThrottleA.Absolute>4) or (AcceleratorPedal.ThrottleB.Absolute>4)){
+
+	AcceleratorPedalIL = 0;
+
+} else if ((Diffrence < APPS Plausibility Threshold) and (AcceleratorPedal.ThrottleA.Absolute<4) and (AcceleratorPedal.ThrottleB.Absolute<4)){
+
+	AcceleratorPedalIL = 1;
+
+}
+
+if((((LHSPercentage + RHSPercentage) / 2) >0.25) and (BrakePedal.Mapping.BrakePressed eq 1) and (APPSPlausibility eq 0)) {
+	APPSPlausibility=1;
+} else if( (((LHSPercentage + RHSPercentage) / 2) <0.05) and (APPSPlausibility eq 1)) {
+	APPSPlausibility=0;
+}
+
+if (APPSPlausibility eq 1) {
+	MappedThrottle=0;
+ } else {
+	MappedThrottle = (LHSPercentage + RHSPercentage) / 2;
+}
