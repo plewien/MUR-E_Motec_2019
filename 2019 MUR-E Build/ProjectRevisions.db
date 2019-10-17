@@ -2,6 +2,8 @@
 <Project Locale="English_Australia.1252" DefaultLocale="C">
  <Version Name="0.1" Major="1" Minor="0" HeadBuildNo="0">
   <Revision BuildNo="0" Locked="0">
+   <Tag Name="Can you see this?"/>
+   <Tag Name="New Tag"/>
    <ModifiedBy UserName="plewi"/>
    <ModifiedBy UserName="Chef"/>
    <ModifiedBy UserName="Ibrahim"/>
