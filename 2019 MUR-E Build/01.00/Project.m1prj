@@ -172,7 +172,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSA.Mode.Value">
-     <Props Value="250kbps"/>
+     <Props Value="500kbps"/>
     </Component>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSA.Startup"/>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSA.Update"/>
