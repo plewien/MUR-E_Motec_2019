@@ -1,0 +1,12 @@
+
+if(PdocTest>=0) {
+	PDOC.SetState(true);
+} else {
+	PDOC.SetState(false);
+}
+
+if(IMDTest>=0) {
+	IMD.SetState(true);
+} else {
+	IMD.SetState(false);
+}

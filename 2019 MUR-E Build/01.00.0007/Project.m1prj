@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <MoTeCM1BuildSession Locale="English_Australia.1252" DefaultLocale="C" ProductName="M1Build" ProductVersion="1.4.0.185">
- <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="0" BuildNumber="13" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="" MinimumDataLogging="None">
-  <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0072" SelectedRelease="0" SelectedBuild="0072"/>
+ <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="0" BuildNumber="7" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="" MinimumDataLogging="Data Logging Level 3">
+  <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0072" SelectedRelease="0"/>
   <SelectedModuleSets>
    <File Name="MoTeC Types" VersionMajor="1" VersionMinor="6" VersionBuild="0"/>
    <File Name="MoTeC Comms" VersionMajor="1" VersionMinor="10" VersionBuild="2"/>
@@ -60,11 +60,6 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.Comms">
-     <Props>
-      <List.UserTags>
-       <Entry Value="Engine"/>
-      </List.UserTags>
-     </Props>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -77,9 +72,11 @@
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSC.Diagnostic"/>
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSC.Bus">
-     <Props Value="CAN Bus 3"/>
+     <Props Value="Not in Use"/>
     </Component>
-    <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSC.Mode"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSC.Mode">
+     <Props TargetCreation="AutoConst"/>
+    </Component>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSC.Startup"/>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSC.Update"/>
     <Component Classname="MoTeC Comms.CAN Bus" Name="Root.Comms.CANBUSB">
@@ -90,9 +87,11 @@
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSB.Diagnostic"/>
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSB.Bus">
-     <Props Value="CAN Bus 2"/>
+     <Props Value="Not in Use"/>
     </Component>
-    <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSB.Mode"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSB.Mode">
+     <Props TargetCreation="AutoConst"/>
+    </Component>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSB.Startup"/>
     <Component Classname="BuiltIn.MethodUser" Name="Root.Comms.CANBUSB.Update"/>
     <Component Classname="BuiltIn.FuncUser" Filename="InverterControlRHS.ReadRHS.m1scr" Name="Root.InverterControlRHS.ReadRHS">
@@ -179,6 +178,9 @@
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSA.Diagnostic"/>
     <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSA.Mode"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSB.Mode.Value">
+     <Props Value="250kbps"/>
+    </Component>
     <Component Classname="MoTeC Comms.CAN Bus" Name="Root.Comms.CANBUSA">
      <Props OldName="Miscellaneous"/>
      <Comment>
@@ -223,6 +225,9 @@
      <Comment>
 <![CDATA[]]>
      </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSC.Mode.Value">
+     <Props Value="250kbps"/>
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.InverterControlRHS.TIgbtReceived">
      <Props DiagnosticLogRate="20MS">
@@ -298,15 +303,154 @@
      </Signature>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSA.Mode.Value"/>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSB.Mode.Value"/>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSC.Mode.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz">
+      <List.UserTags>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Reserve"/>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.AcceleratorPedal.APPS5V.Resource.Value">
+     <Props NameValue="AV1"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Resource">
+     <Props NameCreation="AutoConst" NameTarget="This.Value">
+      <List.UserTags>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.AcceleratorPedal.Mapping.APPS5VPercentageRaw">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.AcceleratorPedal.APPS5V.Filter.Value">
+     <Props Value="5.00000000000000030e-002"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Filter">
+     <Props TargetCreation="AutoConst" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Absolute">
+     <Props DiagnosticLogRate="100MS" Validation="MinMax" ValClampMin="true" ValMin="5.00000000000000000e-001" ValClampMax="true" ValMax="4.50000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Diagnostic"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Normalised Filtered">
+     <Props Validation="MinMax" ValClampMin="true" ValMin="5.00000000000000000e-001" ValClampMax="true" ValMax="4.50000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default DPS="2" Min="0.00000000000000000e+000" Max="5.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.AcceleratorPedal.APPS5V">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Engine"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.AcceleratorPedal.Mapping">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Reference">
+     <Props TargetCreation="AutoConst" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="AcceleratorPedal.Mapping.APPSMain.m1scr" Name="Root.AcceleratorPedal.Mapping.APPSMain">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 10Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="AcceleratorPedal.Mapping.APPSMapping.m1scr" Name="Root.AcceleratorPedal.Mapping.APPSMapping">
+     <Signature Name="" ReturnType="">
+      <Params/>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.APPS5V.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.AcceleratorPedal.APPS5V.Reference.Value">
+     <Props Value="SEN_5V0_A"/>
+    </Component>
    </List>
    <Organisation>
     <Component Name="Root">
      <Component Name="Initialisation">
       <Component Name="ReadyToDrive"/>
      </Component>
-     <Component Name="AcceleratorPedal"/>
+     <Component Name="AcceleratorPedal">
+      <Component Name="APPS5V">
+       <Component Name="Normalised Filtered"/>
+       <Component Name="Absolute"/>
+       <Component Name="Filter">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Reference">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Resource">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Reserve"/>
+       <Component Name="Release"/>
+       <Component Name="Initialise"/>
+       <Component Name="Update"/>
+       <Component Name="Input Impedance"/>
+       <Component Name="Input Source"/>
+       <Component Name="Input Bandwidth"/>
+       <Component Name="Input Minimum"/>
+       <Component Name="Input Maximum"/>
+       <Component Name="Input Resolution"/>
+      </Component>
+      <Component Name="Mapping">
+       <Component Name="APPS5VPercentageRaw"/>
+       <Component Name="APPSMapping"/>
+       <Component Name="APPSMain"/>
+      </Component>
+     </Component>
      <Component Name="BrakePedal"/>
      <Component Name="InverterControlLHS"/>
      <Component Name="InverterControlRHS">
