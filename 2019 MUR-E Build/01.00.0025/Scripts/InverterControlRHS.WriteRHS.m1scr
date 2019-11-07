@@ -2,7 +2,6 @@
 //--------------------------- required handles ------------------------------------------------------------
 local DLC = 3;
 
-
 // RHS status map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
 local RHSStatMapHandle = CanComms.TxOpen(false);
 

@@ -1,12 +1,11 @@
-//local bus = 2;
-//local bitsToMatch = 2; //0x2;
-//local bitsToIgnore = 0; //0x0;
-//local bigendian = false;
-
+local bus = 2;
+local bitsToMatch = 0x2;
+local bitsToIgnore = 0x0;
+local bigendian = false;
 
 // CAN receive handle
-//local receiveHandle = CanComms.RxOpenStandard(bus, bitsToMatch, bitsToIgnore, bigendian);
-local receiveHandle = CanComms.RxOpenStandard(2, 0x2, 0x0, false); // bitsToMatch, bitsToIgnore, bigendian);
+local receiveHandle = CanComms.RxOpenStandard(bus, bitsToMatch, bitsToIgnore, bigendian);
+
 // Receive CAN message.
 local bitOffset = 64;
 local bitLength = 0;
@@ -22,47 +21,40 @@ if (CanComms.RxMessage(receiveHandle)){
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		RHSStatMapReceived = CanComms.GetInteger(receiveHandle,40,16);
-	} 
-	if (RegID eq 0x8f) {
+	} else if (RegID eq 0x8f) {
 		// Error-warning map
 		bitLength = 32;
 		bitOffset = bitOffset - bitLength;
 		RHSEWMapReceived = CanComms.GetInteger(receiveHandle,24,32) ;
-	} 
-	if (RegID eq 0x90) {
+	} else if (RegID eq 0x90) {
 		// Torque
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		RHSTorqueReceived = CanComms.GetInteger(receiveHandle,40,16) ;
-	} 
-	if (RegID eq 0x30) {
+	} else if (RegID eq 0x30) {
 		// RPM 
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		RPMReceived = - CanComms.GetInteger(receiveHandle,40,16) * 6000 / 32768;
 		WheelSpeed = 3.6 * RPMReceived * (2.0*3.1416/60.0) * (11.0/38.0) * 0.231;
-	} 
-	if (RegID eq 0x20){
+	} else if (RegID eq 0x20){
 		// Actual Current (formula from CAN manual)
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		local readValue = CanComms.GetInteger(receiveHandle,40,16);
 		// InverterCurrent = -2/10 * 2000 * readValue / 1070;
 		InverterCurrent = -readValue * 0.3738;
-	} 
-	if (RegID eq 0x27) {
+	} else if (RegID eq 0x27) {
 		// Iq_actual
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		IqReceived = CanComms.GetInteger(receiveHandle,40,16);
-	} 
-	if (RegID eq 0x49) {
+	} else if (RegID eq 0x49) {
 		// T_Motor (Motor temperature)
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;
 		TMotorReceived = CanComms.GetInteger(receiveHandle,40,16);
-	} 
-	if (RegID eq 0x4a) {
+	} else if (RegID eq 0x4a) {
 		// T_IGBT (Output stage temperature)
 		bitLength = 16;
 		bitOffset = bitOffset - bitLength;

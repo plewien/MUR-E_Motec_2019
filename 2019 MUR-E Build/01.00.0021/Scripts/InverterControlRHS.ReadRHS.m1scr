@@ -1,12 +1,11 @@
-//local bus = 2;
-//local bitsToMatch = 2; //0x2;
-//local bitsToIgnore = 0; //0x0;
-//local bigendian = false;
-
+local bus = 2;
+local bitsToMatch = 0x2;
+local bitsToIgnore = 0x0;
+local bigendian = false;
 
 // CAN receive handle
-//local receiveHandle = CanComms.RxOpenStandard(bus, bitsToMatch, bitsToIgnore, bigendian);
-local receiveHandle = CanComms.RxOpenStandard(2, 0x2, 0x0, false); // bitsToMatch, bitsToIgnore, bigendian);
+local receiveHandle = CanComms.RxOpenStandard(bus, bitsToMatch, bitsToIgnore, bigendian);
+
 // Receive CAN message.
 local bitOffset = 64;
 local bitLength = 0;

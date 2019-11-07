@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <MoTeCM1BuildSession Locale="English_Australia.1252" DefaultLocale="C" ProductName="M1Build" ProductVersion="1.4.0.185">
- <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="0" BuildNumber="33" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="" MinimumDataLogging="None">
+ <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="0" BuildNumber="17" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="" MinimumDataLogging="None">
   <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0041" SelectedRelease="0" SelectedBuild="0041"/>
   <SelectedModuleSets>
    <File Name="MoTeC Types" VersionMajor="1" VersionMinor="6" VersionBuild="0"/>
@@ -80,9 +80,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSC.Diagnostic">
-     <Props DiagnosticLogRate="1MS"/>
-    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSC.Diagnostic"/>
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSC.Bus">
      <Props Value="CAN Bus 3"/>
     </Component>
@@ -95,9 +93,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSB.Diagnostic">
-     <Props DiagnosticLogRate="1MS"/>
-    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSB.Diagnostic"/>
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSB.Bus">
      <Props Value="CAN Bus 2"/>
     </Component>
@@ -177,9 +173,7 @@
     <Component Classname="BuiltIn.Constant" Name="Root.Comms.CANBUSA.Bus">
      <Props Value="CAN Bus 1"/>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSA.Diagnostic">
-     <Props DiagnosticLogRate="1MS"/>
-    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Comms.CANBUSA.Diagnostic"/>
     <Component Classname="BuiltIn.Reference" Name="Root.Comms.CANBUSA.Mode"/>
     <Component Classname="MoTeC Comms.CAN Bus" Name="Root.Comms.CANBUSA">
      <Props OldName="Miscellaneous"/>
@@ -297,6 +291,16 @@
     <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSA.Mode.Value"/>
     <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSB.Mode.Value"/>
     <Component Classname="BuiltIn.Parameter" Name="Root.Comms.CANBUSC.Mode.Value"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.InverterControlRHS.ActualSpeedMsgSent">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.InverterControlRHS.TMotorMsgSent">
      <Props>
       <List.UserTags>
@@ -367,117 +371,8 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.InverterControlRHS.ActualSpeedMsgSent">
-     <Props>
-      <List.UserTags>
-       <Entry Value="Normal"/>
-      </List.UserTags>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
     <Component Classname="BuiltIn.FuncUser" Filename="InverterControlRHS.WriteRHS.m1scr" Name="Root.InverterControlRHS.WriteRHS">
-     <Props SelectedTrigger="Parent.Parent.Events.On 100Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On 1Hz">
-     <Props EventResource="res.knl.1S"/>
-    </Component>
-    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On 100Hz">
-     <Props EventResource="res.knl.10MS"/>
-    </Component>
-    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On Shutdown">
-     <Props EventResource="res.knl.exit"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Bandwidth">
-     <Props Qty="Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Reserve"/>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.AcceleratorPedal.Throttle B.Resource.Value">
-     <Props NameValue="AV15"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Resource">
-     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Normalised Filtered"/>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Absolute"/>
-    <Component Classname="BuiltIn.Parameter" Name="Root.AcceleratorPedal.Throttle B.Reference.Value"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Reference">
-     <Props TargetCreation="AutoParam" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.AcceleratorPedal.Throttle B.Filter.Value"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Filter">
-     <Props TargetCreation="AutoParam" Target="This.Value"/>
-    </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.AcceleratorPedal.Throttle B">
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Resolution">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Maximum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Minimum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Bandwidth">
-     <Props Qty="Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Source">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Input Impedance">
-     <Props Qty="ohm"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Reserve"/>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Resource">
-     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.AcceleratorPedal.Throttle A.Resource.Value">
-     <Props NameValue="AV16"/>
-    </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.AcceleratorPedal.Throttle A.Reference.Value"/>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Resolution">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.AcceleratorPedal.Throttle A.Filter.Value"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Filter">
-     <Props TargetCreation="AutoParam" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Absolute"/>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Normalised Filtered"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle A.Reference">
-     <Props TargetCreation="AutoParam" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Maximum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Minimum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Source">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.AcceleratorPedal.Throttle B.Input Impedance">
-     <Props Qty="ohm"/>
-    </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.AcceleratorPedal.Throttle A">
-     <Comment>
-<![CDATA[]]>
-     </Comment>
+     <Props SelectedTrigger="Parent.Parent.Events.On 10Hz"/>
     </Component>
    </List>
    <Organisation>
@@ -485,54 +380,7 @@
      <Component Name="Initialisation">
       <Component Name="ReadyToDrive"/>
      </Component>
-     <Component Name="AcceleratorPedal">
-      <Component Name="Throttle A">
-       <Component Name="Normalised Filtered"/>
-       <Component Name="Absolute"/>
-       <Component Name="Filter">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Reference">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Resource">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Reserve"/>
-       <Component Name="Release"/>
-       <Component Name="Initialise"/>
-       <Component Name="Update"/>
-       <Component Name="Input Impedance"/>
-       <Component Name="Input Source"/>
-       <Component Name="Input Bandwidth"/>
-       <Component Name="Input Minimum"/>
-       <Component Name="Input Maximum"/>
-       <Component Name="Input Resolution"/>
-      </Component>
-      <Component Name="Throttle B">
-       <Component Name="Filter">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Reference">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Absolute"/>
-       <Component Name="Normalised Filtered"/>
-       <Component Name="Resource">
-        <Component Name="Value"/>
-       </Component>
-       <Component Name="Reserve"/>
-       <Component Name="Release"/>
-       <Component Name="Initialise"/>
-       <Component Name="Update"/>
-       <Component Name="Input Impedance"/>
-       <Component Name="Input Source"/>
-       <Component Name="Input Bandwidth"/>
-       <Component Name="Input Minimum"/>
-       <Component Name="Input Maximum"/>
-       <Component Name="Input Resolution"/>
-      </Component>
-     </Component>
+     <Component Name="AcceleratorPedal"/>
      <Component Name="BrakePedal"/>
      <Component Name="InverterControlLHS"/>
      <Component Name="InverterControlRHS">
@@ -597,9 +445,6 @@
        <Component Name="Default"/>
        <Component Name="Idle"/>
       </Component>
-      <Component Name="On 1Hz"/>
-      <Component Name="On 100Hz"/>
-      <Component Name="On Shutdown"/>
      </Component>
     </Component>
    </Organisation>
