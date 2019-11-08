@@ -1,0 +1,61 @@
+// CAN receive handle
+local receiveHandle = CanComms.RxOpenStandard(1, CAN.BitsToMatch, CAN.BitsToIgnore, false);
+Received.WheelSpeed = receiveHandle;
+
+// Receive CAN message
+if (CanComms.RxMessage(receiveHandle)) {
+	local bitLength = 0;
+	local bitOffset = 56;  //  64 - 8 = 56
+	
+	// Get Register ID
+	RegID = CanComms.GetUnsignedInteger(receiveHandle, bitOffset, RegID.BitLength);
+	
+	if (RegID eq Received.StatusMap.Register){
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.StatusMap = CanComms.GetInteger(receiveHandle,40,16);
+	}
+	if (RegID eq Received.EWMap.Register) {
+		bitLength = 32;
+		bitOffset = bitOffset - bitLength;
+		Received.EWMap = CanComms.GetInteger(receiveHandle,24,32) ;
+	} 
+	if (RegID eq 0x90) {
+		// Torque
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.Torque = CanComms.GetInteger(receiveHandle,40,16) ;
+	} 
+	if (RegID eq 0x30) {
+		// RPM 
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.RPM = - CanComms.GetInteger(receiveHandle,40,16) * 6000 / 32768;
+		//Received.WheelSpeed = 3.6 * Received.RPM * (2.0*3.1416/60.0) * (11.0/38.0) * 0.231;
+	} 
+	if (RegID eq 0x20){
+		// Actual Current (formula from CAN manual)
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		local readValue = CanComms.GetInteger(receiveHandle,40,16);
+		// Received.InverterCurrent = -2/10 * 2000 * readValue / 1070;
+		Received.InverterCurrent = -readValue * 0.3738;
+	} 
+	if (RegID eq 0x27) {
+		// Iq_actual
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.Iq = CanComms.GetInteger(receiveHandle,40,16);
+	} 
+	if (RegID eq 0x49) {
+		// T_Motor (Motor temperature)
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.TempMotor = CanComms.GetInteger(receiveHandle,40,16);
+	} 
+	if (RegID eq Received.TempIGBT.Register) {
+		bitLength = Received.TempIGBT.BitLength;
+		bitOffset = bitOffset - Received.TempIGBT.BitLength;
+		Received.TempIGBT = CanComms.GetInteger(receiveHandle,40,16);
+	}		
+}

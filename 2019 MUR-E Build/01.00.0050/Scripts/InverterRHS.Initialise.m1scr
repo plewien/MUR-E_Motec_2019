@@ -1,0 +1,6 @@
+local DLC = 3;
+local initialisationHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(initialisationHandle, DLC);
+CanComms.SetUnsignedInteger(initialisationHandle, 56, 8, 0x3D); // Request
+CanComms.SetUnsignedInteger(initialisationHandle, 56, 8, 0x40); // Register
+CanComms.SetUnsignedInteger(initialisationHandle, 56, 8, 0xF0); // Timing

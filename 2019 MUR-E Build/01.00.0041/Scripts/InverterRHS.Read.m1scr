@@ -1,0 +1,64 @@
+// CAN receive handle
+local receiveHandle = CanComms.RxOpenStandard(CAN.Bus, CAN.BitsToMatch, CAN.BitsToIgnore, false);
+Received.WheelSpeed = receiveHandle;
+
+// Receive CAN message
+if (CanComms.RxMessage(receiveHandle)) {
+	local bitLength = 8;
+	local bitOffset = 56;
+	
+	// Get Register ID
+	RegID = CanComms.GetUnsignedInteger(receiveHandle, bitOffset, bitLength);
+	
+	if (RegID eq Received.StatusMap.Register){
+		// Status map
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.StatusMap = CanComms.GetInteger(receiveHandle,40,16);
+	}
+	if (RegID eq Received.EWMap.Register) {
+		// Error-warning map
+		bitLength = 32;
+		bitOffset = bitOffset - bitLength;
+		Received.EWMap = CanComms.GetInteger(receiveHandle,24,32) ;
+	} 
+	if (RegID eq 0x90) {
+		// Torque
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.RHSTorqueReceived = CanComms.GetInteger(receiveHandle,40,16) ;
+	} 
+	if (RegID eq 0x30) {
+		// RPM 
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.RPMReceived = - CanComms.GetInteger(receiveHandle,40,16) * 6000 / 32768;
+		//Received.WheelSpeed = 3.6 * Received.RPMReceived * (2.0*3.1416/60.0) * (11.0/38.0) * 0.231;
+	} 
+	if (RegID eq 0x20){
+		// Actual Current (formula from CAN manual)
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		local readValue = CanComms.GetInteger(receiveHandle,40,16);
+		// Received.InverterCurrent = -2/10 * 2000 * readValue / 1070;
+		Received.InverterCurrent = -readValue * 0.3738;
+	} 
+	if (RegID eq 0x27) {
+		// Iq_actual
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.IqReceived = CanComms.GetInteger(receiveHandle,40,16);
+	} 
+	if (RegID eq 0x49) {
+		// T_Motor (Motor temperature)
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.TMotorReceived = CanComms.GetInteger(receiveHandle,40,16);
+	} 
+	if (RegID eq 0x4a) {
+		// T_IGBT (Output stage temperature)
+		bitLength = 16;
+		bitOffset = bitOffset - bitLength;
+		Received.TIgbtReceived = CanComms.GetInteger(receiveHandle,40,16);
+	}		
+}
