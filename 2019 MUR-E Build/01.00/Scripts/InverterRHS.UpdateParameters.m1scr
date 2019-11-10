@@ -1,0 +1,10 @@
+/*******************************************************************
+*  UpdateParameters
+*
+* 
+*
+*******************************************************************/
+
+//if Change.Either(Parameters.PercentageCurrentPk) {
+Parameters.PercentageCurrentPk.TxStatus = CAN.Command(Parameters.PercentageCurrentPk.Register, Convert.ToUnsignedInteger(Parameters.PercentageCurrentPk));
+//}

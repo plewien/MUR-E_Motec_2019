@@ -1,0 +1,66 @@
+/*******************************************************************
+*  Initialise
+*
+* According to the CAN-Complete_English manual in the NDrive folder,
+* up to **8** time-triggered reply requests can be activated. This 
+* is good as it means that some of the important registers can be 
+* requested only once during initialisation and then regular updates
+* will be provided, freeing up CAN for data.
+* 
+* The format to request a time-triggered response is:
+* - Byte1: Read 0x3D
+* - Byte2: RegID
+* - Byte3: Time 0xNN, which gives an interval in 1-254ms
+*
+* Example: 0x0a repeats every 10ms.
+* Warning: Only **8** registers allowed to be setup in this way.
+*
+*******************************************************************/
+
+local <Unsigned Integer> Timing = 0x0a;
+Data.StatusMap.TxStatus = CAN.Transmit(Data.StatusMap.Register, Timing);
+Data.EWMap.TxStatus = CAN.Transmit(Data.EWMap.Register, Timing);
+Data.RPM.TxStatus = CAN.Transmit(Data.RPM.Register, Timing);
+Data.InverterCurrent.TxStatus = CAN.Transmit(Data.InverterCurrent.Register, Timing);
+Data.TempMotor.TxStatus = CAN.Transmit(Data.TempMotor.Register, Timing);
+Data.TempIGBT.TxStatus = CAN.Transmit(Data.TempIGBT.Register, Timing);
+
+/*
+// RHS Error-Warning map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local RHSEWMapHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(RHSEWMapHandle,DLC);
+CanComms.SetUnsignedInteger(RHSEWMapHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(RHSEWMapHandle, (8-DLC)*8, 16, 0x0a32); //8f:REG for actual speed, 0a:repeat every 10ms
+Data.EWMap.TxStatus = CanComms.TxStandard(RHSEWMapHandle, CAN.Bus, CAN.InverterRxID) ? 0: -1;
+
+// Actual speed handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local ActualSpeedHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(ActualSpeedHandle,DLC);
+CanComms.SetUnsignedInteger(ActualSpeedHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(ActualSpeedHandle, (8-DLC)*8, 16, 0x0a30); //30:REG for actual speed, 0a:repeat every 10ms
+Data.RPM.TxStatus = CanComms.TxStandard(CanHandle, CAN.Bus, CAN.InverterRxID) ? 0: -1;
+
+
+// I Actual handle. format: dlc = 3, byte0-REGID read, byte1-REGID for I Actual, byte2-time interval 
+local IActualHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(IActualHandle,DLC);
+CanComms.SetUnsignedInteger(IActualHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(IActualHandle, (8-DLC)*8, 16, 0x0a20); //20:REG for I Actual, 0a:repeat every 10ms
+Data.InverterCurrent.TxStatus = CanComms.TxStandard(CanHandle, CAN.Bus, CAN.InverterRxID) ? 0: -1;
+
+
+// Motor Temperature handle. format: dlc = 3, byte0-REGID read, byte1-REGID for T Motor value, byte2-time interval 
+local TMotorHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(TMotorHandle,DLC);
+CanComms.SetUnsignedInteger(TMotorHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(TMotorHandle, (8-DLC)*8, 16, 0x6449); //49:REG for Motor Temperature, 0a:repeat every 10ms
+Data.TempMotor.TxStatus = CanComms.TxStandard(CanHandle, CAN.Bus, CAN.InverterRxID) ? 0: -1;
+
+
+// Igbt Temperature handle. format: dlc = 3, byte0-REGID read, byte1-REGID for T Motor value, byte2-time interval 
+local TIgbtHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(TIgbtHandle, DLC);
+CanComms.SetUnsignedInteger(TIgbtHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(TIgbtHandle, (8-DLC)*8, 16, 0x644a); //4a:REG for Igbt Temperature, 0a:repeat every 10ms
+Data.TempIGBT.TxStatus = CanComms.TxStandard(TIgbtHandle, CAN.Bus, CAN.InverterRxID) ? 0: -1;
+*/

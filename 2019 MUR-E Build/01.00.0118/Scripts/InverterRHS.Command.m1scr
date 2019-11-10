@@ -1,0 +1,1 @@
+Data.TorqueCmd.TxStatus = CAN.Command(Data.TorqueCmd.Register, Convert.ToUnsignedInteger(TorqueCmd*Enable));

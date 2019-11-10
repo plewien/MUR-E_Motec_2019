@@ -1,0 +1,10 @@
+local DLC = 3;
+local byte = 8;
+
+// RHS status map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local CanHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 7*byte, byte, Read); //3D means READ
+CanComms.SetUnsignedInteger(CanHandle, 6*byte, byte, In.Register);
+CanComms.SetUnsignedInteger(CanHandle, 5*byte, byte, In.Timing);
+Out = CanComms.TxStandard(CanHandle, Bus, InverterRxID) ? 1 : 0;

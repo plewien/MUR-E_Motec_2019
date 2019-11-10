@@ -1,0 +1,20 @@
+local DLC = 3;
+
+
+// RHS status map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local CanHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(CanHandle, (8-DLC)*8, 16, 0x320a); //48:REG for actual speed, 0a:repeat every 10ms
+if (CanComms.TxStandard(CanHandle, CAN.Bus, CAN.InverterRxID)) {
+	MsgSent.StatusMap += 1;
+}
+
+// Igbt Temperature handle. format: dlc = 3, byte0-REGID read, byte1-REGID for T Motor value, byte2-time interval 
+local TIgbtHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(TIgbtHandle, DLC);
+CanComms.SetUnsignedInteger(TIgbtHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(TIgbtHandle, (8-DLC)*8, 16, 0x4a0a); //4a:REG for Igbt Temperature, 0a:repeat every 10ms
+if (CanComms.TxStandard(TIgbtHandle, CAN.Bus, CAN.InverterRxID)) {
+	MsgSent.TempIGBT += 1;
+}

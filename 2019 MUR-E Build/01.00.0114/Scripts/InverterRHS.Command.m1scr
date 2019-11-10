@@ -1,0 +1,25 @@
+// in this project we are logging RPM, Motor Temp, Inverter Temp and Iq
+//--------------------------- required handles ------------------------------------------------------------
+local DLC = 3;
+local <Unsigned Integer> Timing = 0x00;
+
+// RHS TorqueCmd. format: dlc = 3, byte0-REGID read, byte1-REGID for I Actual, byte2-time interval 
+local RHSTorqueCmdHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(RHSTorqueCmdHandle, DLC);
+CanComms.SetUnsignedInteger(RHSTorqueCmdHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(RHSTorqueCmdHandle, (8-DLC)*8, 16, 0x0090); //90:REG for Tcmd, 0a:repeat every 10ms
+Data.TorqueCommand.TxStatus = CanComms.TxStandard(RHSTorqueCmdHandle, CAN.Bus, CAN.InverterRxID) ? 1: 0;
+
+
+// Actual Iq handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual Iq value, byte2-time interval 
+/*local ActualIqHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(ActualIqHandle, DLC);
+CanComms.SetUnsignedInteger(ActualIqHandle, 56, 8, 0x3D); //3D means READ
+CanComms.SetUnsignedInteger(ActualIqHandle, (8-DLC)*8, 16, 0x0027); //27:REG for actual Iq, 0a:repeat every 10ms
+if (CanComms.TxStandard(ActualIqHandle, CAN.Bus, CAN.InverterRxID))	{
+	Data.IqActual.TxStatus = 1;
+} else {
+	Data.IqActual.TxStatus = 0;
+}*/
+
+Data.IqActual.TxStatus = CAN.Transmit(Data.IqActual.Register, Timing);

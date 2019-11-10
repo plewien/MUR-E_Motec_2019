@@ -1,0 +1,6 @@
+// in this project we are logging RPM, Motor Temp, Inverter Temp and Iq
+//--------------------------- required handles ------------------------------------------------------------
+
+local <Unsigned Integer> Timing = 0x00;
+Data.TorqueCmd.TxStatus = CAN.Transmit(Data.TorqueCmd.Register, Timing);
+Data.IqActual.TxStatus = CAN.Transmit(Data.IqActual.Register, Timing);

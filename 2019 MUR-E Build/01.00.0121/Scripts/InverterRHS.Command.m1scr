@@ -1,0 +1,10 @@
+/*******************************************************************
+*  Command
+*
+* 
+*
+*******************************************************************/
+
+Data.TorqueCmd.TxStatus = CAN.Command(Data.TorqueCmd.Register, Convert.ToUnsignedInteger(TorqueCmd*Enable));
+
+Data.PercentageCurrentPk.TxStatus = CAN.Command(Data.PercentageCurrentPk.Register, Convert.ToUnsignedInteger(Data.PercentageCurrentPk.Value));

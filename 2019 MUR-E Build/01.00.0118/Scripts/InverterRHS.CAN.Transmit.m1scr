@@ -1,0 +1,13 @@
+local DLC = 3;
+local byte = 8;
+
+local CanHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 7*byte, byte, Read); 
+CanComms.SetUnsignedInteger(CanHandle, 6*byte, byte, In.Register);
+CanComms.SetUnsignedInteger(CanHandle, 5*byte, byte, In.Timing);
+if (CanComms.TxStandard(CanHandle, Bus, InverterRxID)) {
+	Out = Tx Status.Working;
+} else {
+	Out = Tx Status.Faulty;
+}

@@ -1,0 +1,10 @@
+/*******************************************************************
+*  Command
+*
+* 
+*
+*******************************************************************/
+
+if (Enable eq Enabled.True) {
+	Data.TorqueCmd.TxStatus = CAN.Command(Data.TorqueCmd.Register, Convert.ToUnsignedInteger(In.TorqueCmd));
+}
