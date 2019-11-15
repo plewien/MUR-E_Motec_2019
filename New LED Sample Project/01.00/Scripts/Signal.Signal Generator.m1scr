@@ -1,0 +1,30 @@
+when (Type)
+{
+	is (Sawtooth)
+	{
+		Value = Counter / 360.0 ;
+	}
+	is (Square)
+	{
+		if (Counter > 180)
+		{
+			Value = 1.0;
+		}
+		else
+		{
+			Value = 0.0;
+		}
+	}
+	is (Sine)
+	{
+		Value = ((Calculate.FastSin(Counter) + 1.0) * 0.5);
+	}
+	is (Lookup Table)
+	{
+		Value = Profile;
+	}
+	is (Input Request)
+	{
+		Value = Request;
+	}
+}

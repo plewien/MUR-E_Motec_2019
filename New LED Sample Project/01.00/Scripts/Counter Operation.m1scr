@@ -1,0 +1,8 @@
+if (Counter < 360)
+{
+	Counter = Counter +1;
+}
+else
+{
+	Counter = 0;
+}

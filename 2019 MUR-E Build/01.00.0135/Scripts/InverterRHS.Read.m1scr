@@ -1,0 +1,68 @@
+// CAN receive handle
+local receiveHandle = CanComms.RxOpenStandard(CAN.Bus, CAN.InverterTxID, CAN.BitsToIgnore, false);
+
+
+// Receive CAN message
+if (CanComms.RxMessage(receiveHandle)) {
+	local bitLength = 0;
+	local bitOffset = 56;  //  64 - 8 = 56
+	
+	CAN.RxStatus = 1;
+	
+	// Get Register ID
+	RegID = CanComms.GetUnsignedInteger(receiveHandle, bitOffset, RegID.BitLength);
+	
+	// Compare RegID with known registers
+	if (RegID eq Data.StatusMap.Register) {
+		bitLength = Data.StatusMap.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.StatusMap.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
+	}
+	
+	else if (RegID eq Data.EWMap.Register) {
+		bitLength = Data.EWMap.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.EWMap.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
+	} 
+	
+	else if (RegID eq Data.TorqueCmd.Register) {
+		bitLength = Data.TorqueCmd.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.TorqueCmd.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
+	}
+	
+	else if (RegID eq Data.RPM.Register) {
+		bitLength = Data.RPM.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.RPM.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
+		Data.RPM.Update();
+	} 
+	
+	else if (RegID eq Data.InverterCurrent.Register){
+		bitLength = Data.InverterCurrent.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.InverterCurrent.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
+		// Data.InverterCurrent.Raw = -2/10 * 2000 * readValue / 1070; (formula from CAN manual)
+		Data.InverterCurrent.Actual = -Data.InverterCurrent.Raw * 0.3738;
+	} 
+	
+	else if (RegID eq Data.IqActual.Register) {
+		bitLength = Data.IqActual.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.IqActual.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
+	} 
+	
+	else if (RegID eq Data.TempMotor.Register) {
+		bitLength = Data.TempMotor.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.TempMotor.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
+	} 
+	
+	else if (RegID eq Data.TempIGBT.Register) {
+		bitLength = Data.TempIGBT.BitLength;
+		bitOffset = bitOffset - bitLength;
+		Data.TempIGBT.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
+	}		
+} else {
+	CAN.RxStatus = 0;
+}	

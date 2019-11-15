@@ -1,0 +1,1 @@
+Value = Limit.Range(Input / 5.0, 0.0, 1.0);

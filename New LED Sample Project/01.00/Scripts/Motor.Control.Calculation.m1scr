@@ -1,0 +1,15 @@
+Error = Motor.Aim - Motor.Position;
+
+This.Proportional = Gain.Proportional * Error;
+
+This.Integral = Library.Integral.Normal(
+	Error * Gain.Integral,
+	-1.0,
+	1.0,
+	Gain.Integral <= 0.0,
+	0.0
+);
+
+This.Derivative = Gain.Derivative * Library.Derivative.Filtered(Error);
+
+Motor.Output.Duty Cycle = This.Proportional + This.Integral + This.Derivative + This.Feed Forward;  

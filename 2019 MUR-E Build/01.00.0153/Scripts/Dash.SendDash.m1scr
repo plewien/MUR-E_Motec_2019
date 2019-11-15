@@ -1,0 +1,83 @@
+// in this project we are logging RPM, Motor Temp, Inverter Temp and Iq
+//--------------------------- required handles ------------------------------------------------------------
+
+local DLC = 2;
+
+// LHS status map handle. format: dlc = 3, byte0-REGID read, byte1-REGID for actual speed value, byte2-time interval 
+local PackVoltageDash= CanComms.TxOpen(true);
+
+CanComms.TxInitialise(PackVoltageDash,DLC);
+CanComms.SetUnsignedInteger(PackVoltageDash, 0, 16, Convert.ToUnsignedInteger(DashTest));
+
+local  SpeedDash = CanComms.TxOpen(true);
+
+CanComms.TxInitialise(SpeedDash,DLC);
+CanComms.SetUnsignedInteger(SpeedDash, 0, 16, Convert.ToUnsignedInteger(DashTest));
+
+local  SoCDash = CanComms.TxOpen(true);
+
+CanComms.TxInitialise(SoCDash,DLC);
+CanComms.SetUnsignedInteger(SoCDash, 0, 16, Convert.ToUnsignedInteger(DashTest));
+
+local  PackCurrentDash = CanComms.TxOpen(true);
+
+CanComms.TxInitialise(PackCurrentDash,DLC);
+CanComms.SetUnsignedInteger(PackCurrentDash, 0, 16, Convert.ToUnsignedInteger(DashTest));
+
+local  PackTempDash = CanComms.TxOpen(true);
+
+CanComms.TxInitialise(PackTempDash,DLC);
+CanComms.SetUnsignedInteger(PackTempDash, 0, 16, Convert.ToUnsignedInteger(DashTest));
+
+
+
+
+//digital values
+
+local DigitalMesssage1= CanComms.TxOpen(true);
+// 
+
+local <Unsigned Integer> DigitalMessage1Mask=0;
+//bit masks
+local <Unsigned Integer> InterlockFaultBit = 1;
+local <Unsigned Integer> ReadyToDriveBit = (1<<1);
+local <Unsigned Integer> TorqueVectoringOnBit = (1<<2);
+
+if (DashTest eq 1) {
+	DigitalMessage1Mask=DigitalMessage1Mask|InterlockFaultBit;
+}
+
+if (DashTest eq 2) {
+	DigitalMessage1Mask=DigitalMessage1Mask|ReadyToDriveBit;
+}
+
+if (DashTest eq 3) {
+	DigitalMessage1Mask=DigitalMessage1Mask|TorqueVectoringOnBit;
+}
+
+CanComms.TxInitialise(DigitalMesssage1,DLC);
+CanComms.SetUnsignedInteger(DigitalMesssage1, 0, 16, DigitalMessage1Mask);
+
+
+
+// sent STAT MAP handle
+if (CanComms.TxStandard(DigitalMesssage1,0,0x100)){
+}
+
+if (CanComms.TxStandard(PackCurrentDash,0,0x99)){
+}
+
+if (CanComms.TxStandard(PackVoltageDash,0,0x98)){
+}
+
+if (CanComms.TxStandard(SoCDash,0,0x97)){
+}
+
+if (CanComms.TxStandard(SpeedDash,0,0x96)){
+}
+
+if (CanComms.TxStandard(PackTempDash,0,0x95)){
+}
+
+
+//--------------------------- End sending handles ---------------------------------------------------------

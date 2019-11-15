@@ -1,10 +1,24 @@
 /*******************************************************************
 *  Command
 *
-* 
+* Sends a torque command to the inverter. 
 *
 *******************************************************************/
 
+local TCmd = 0.0;
 if (Enable eq Enabled.True) {
-	Data.TorqueCmd.TxStatus = CAN.Command(Data.TorqueCmd.Register, Convert.ToUnsignedInteger(In.TorqueCmd));
+	// Convert torque to a register value (See BAMOCAR FAQ)
+	TorqueCmd.IDesRMS = In.TorqueCmd / TorqueCmd.TorquePerMotorCurrent;
+	TorqueCmd.Sent = TorqueCmd.MaxValueRegister*TorqueCmd.IDesRMS/Data.IMaxPk.Raw;
+	
+	if (In.TorqueCmd > 1000) {
+		TCmd = 1000;
+	} else if (In.TorqueCmd < -1000) {
+		TCmd = -1000;
+	} else {
+		TCmd = In.TorqueCmd;
+	}
+	
+	// Send torque as a current
+	TorqueCmd.TxStatus = CAN.Transmit(TorqueCmd.Register, Convert.ToUnsignedInteger(TCmd));
 }

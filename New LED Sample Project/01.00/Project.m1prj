@@ -1,0 +1,801 @@
+<?xml version="1.0"?>
+<MoTeCM1BuildSession Locale="English_Australia.1252" DefaultLocale="C" ProductName="M1Build" ProductVersion="1.4.0.239">
+ <Project FileFormat="10103" Name="New LED Sample Project" VersionMajor="1" VersionMinor="0" BuildNumber="0" Author="Example Man" Company="sefdfs" ContactNo="+61 3 9761 5050" Address="121 merrindale Drive, Croydon South, VIC 3136, Australia" Email="sdfsu" SupportURL="sdfs" Copyright="fc" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="">
+  <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0075" SelectedRelease="0"/>
+  <DataTypes>
+   <Type Name="Waveform Type" Storage="enum" Default="Sawtooth">
+    <Enum Name="Sawtooth" ContainerOrder="0">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Square" ContainerOrder="1">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Sine" ContainerOrder="2">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Lookup Table" ContainerOrder="3">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Input Request" ContainerOrder="4">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+   </Type>
+  </DataTypes>
+  <PkgUpgrades>
+   <Project Name="LED Example" Version="Stage 1" Major="1" Minor="1" Build="0"/>
+   <Project Name="LED Sample" Version="" Major="1" Minor="6" Build="0"/>
+  </PkgUpgrades>
+  <Build PackageSignKey="University of Melbourne.M1.Package.Development 01.04.00"/>
+  <ComponentStream>
+   <List>
+    <Component Classname="BuiltIn.GroupLeaf" Name="Root">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Counter">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Min="0.00000000000000000e+000" Max="3.60000000000000000e+002"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Counter Operation.m1scr" Name="Root.Counter Operation">
+     <Props SelectedTrigger="Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Events">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On 100Hz">
+     <Props EventResource="res.knl.10MS"/>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Signal.Type">
+     <Props Type="::This.Waveform Type">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Signal.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Min="-1.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Signal.Signal Generator.m1scr" Name="Root.Signal.Signal Generator">
+     <Props SelectedTrigger="Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On Startup">
+     <Props EventResource="res.knl.init"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Signal">
+     <Props UseDefValue="true" DefValue="This.Value"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Signal.Profile">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+      <Axis>
+       <X Source="Parent.Parent.Counter" MaxSites="21"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[A user defined waveform profile]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Signal.Profile.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <Locale>
+       <Default Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Signal.Profile.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Signal.Profile.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Request">
+     <Props UseDefValue="true" DefValue="This.Value"/>
+     <Comment>
+<![CDATA[Measurements and calculation related to a voltage input.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Request.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Default for Request. Equals the input voltage, adjusted to the signal range.]]>
+     </Comment>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.Request.Input">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[Knob voltage input to generate the request value.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Request.Input.Normalised Filtered">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Advanced"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Request.Input.Absolute">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Pin"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Request.Input.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Request.Input.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Request.Input.Reference">
+     <Props TargetCreation="AutoConst" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Request.Input.Reference.Value">
+     <Props Value="ABSOLUTE"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Request.Input.Resource">
+     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Request.Input.Resource.Value">
+     <Props NameValue="AV2"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Request.Input.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Request.Input.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Request.Input.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Request.Input.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Request.Input.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Request.Scaling.m1scr" Name="Root.Request.Scaling">
+     <Props SelectedTrigger="Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="_IOMethod.pwm" Name="Root.LED">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.LED.Frequency">
+     <Props TargetCreation="AutoParam" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.LED.Frequency.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.LED.Duty Cycle">
+     <Props ValMin="0.00000000000000000e+000" Target="Parent.Parent.Signal">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.LED.Resource">
+     <Props NameCreation="AutoParam" NameTarget="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+       <Entry Value="Output"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceParameter" Name="Root.LED.Resource.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.LED.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.LED.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.LED.Update">
+     <Props SelectedTrigger="Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On 1000Hz">
+     <Props EventResource="res.knl.1MS"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Motor">
+     <Comment>
+<![CDATA[Servo motor control]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Motor.Position">
+     <Props UseDefValue="true" DefValue="This.Value">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[<P>The current position of the motor, which is determined using a voltage input.</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Position.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[<P>Default for Position. Calculated from the voltage input.</P>
+<P>Value = (Input - Offset) * Scale</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.Motor.Position.Input">
+     <Comment>
+<![CDATA[The input voltage of the position information.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Motor.Position.Input.Normalised Filtered">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Motor.Position.Input.Absolute">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Pin"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Motor.Position.Input.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Position.Input.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Motor.Position.Input.Reference">
+     <Props TargetCreation="AutoParam" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Position.Input.Reference.Value"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Motor.Position.Input.Resource">
+     <Props NameCreation="AutoParam" NameTarget="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceParameter" Name="Root.Motor.Position.Input.Resource.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Position.Input.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Position.Input.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Position.Input.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Position.Input.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Motor.Position.Input.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Position.Offset">
+     <Props Qty="V" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="5.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default DPS="3"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[<P>The offset of the position calcuation.</P>
+<P>Position = (Input - Offset) * Scale</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.CalFuncUser" Filename="Motor.Position.Offset.Set Offset.m1scr" Name="Root.Motor.Position.Offset.Set Offset"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Position.Scale">
+     <Props Qty="ratio/V" Validation="MinMax" ValMin="-1.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%/V"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[<P>The scale of the position calcuation.</P>
+<P>Position = (Input - Offset) * Scale</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.CalFuncUser" Filename="Motor.Position.Scale.Set Scale.m1scr" Name="Root.Motor.Position.Scale.Set Scale"/>
+    <Component Classname="BuiltIn.FuncUser" Filename="Motor.Position.Calculation.m1scr" Name="Root.Motor.Position.Calculation">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Motor.Aim">
+     <Props UseDefValue="true" DefValue="This.Value">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[The aim for the motor position, derived from Signal using a first order filter and a scaling into the range of 0.15 to 0.85.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Aim.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Default for Aim]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Aim.Time Constant">
+     <Props Qty="s" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000010e-001">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="ms"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[The time constant for the first order filter on the aim value.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Motor.Aim.Calculation.m1scr" Name="Root.Motor.Aim.Calculation">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Motor.Control">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[<P>Calculations for the motor control.</P>
+<P>The motor control uses a feedforward component and a PID control.</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Control.Error">
+     <Props Qty="ratio">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="-1.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[The control error (difference between Aim and Position).]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Control.Proportional">
+     <Props Qty="ratio">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="-1.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Proportional part of the control.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Control.Integral">
+     <Props Qty="ratio">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="-1.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Integral part of the control.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Control.Derivative">
+     <Props Qty="ratio">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%" Min="-1.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Derivative part of the control.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Motor.Control.Gain">
+     <Comment>
+<![CDATA[Gains of the PID controller.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Control.Gain.Proportional">
+     <Props Qty="ratio/ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValClampMax="false">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%/%" DPS="2"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Proportional gain applied on the control error.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Control.Gain.Integral">
+     <Props Qty="ratio/(ratio.s)" Validation="MinMax" ValMin="0.00000000000000000e+000" ValClampMax="false">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%/(%.s)" DPS="2"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Integral gain applied on the control error.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Control.Gain.Derivative">
+     <Props Qty="ratio/(ratio/s)" Validation="MinMax" ValMin="0.00000000000000000e+000" ValClampMax="false">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+      <Locale>
+       <Default Unit="%/(%/s)" DPS="2"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[Derivative gain applied on the control error.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Motor.Control.Calculation.m1scr" Name="Root.Motor.Control.Calculation">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Motor.Control.Feed Forward">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+      <Axis>
+       <X Source="Parent.Parent.Aim" MaxSites="21"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[Feed forward component for the PID control.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Motor.Control.Feed Forward.Value">
+     <Props Qty="ratio" Validation="MinMax" ValMin="-5.00000000000000000e-001" ValMax="5.00000000000000000e-001">
+      <Locale>
+       <Default Unit="%" Min="-5.00000000000000000e-001" Max="5.00000000000000000e-001"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Motor.Control.Feed Forward.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Motor.Control.Feed Forward.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="_IOMethod.bridge" Name="Root.Motor.Output">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[The output onto the motor as calculated by the PID control.]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Motor.Output.Frequency">
+     <Props TargetCreation="AutoParam" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Motor.Output.Frequency.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Motor.Output.Duty Cycle">
+     <Props ValMin="0.00000000000000000e+000" TargetCreation="AutoChannel" Target="This.Value">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Motor.Output.Duty Cycle.Value"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Motor.Output.Resource">
+     <Props NameCreation="AutoParam" NameTarget="This.Value">
+      <List.UserTags>
+       <Entry Value="Setup"/>
+       <Entry Value="Output"/>
+      </List.UserTags>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceParameter" Name="Root.Motor.Output.Resource.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Output.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Output.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Motor.Output.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+   </List>
+   <Organisation>
+    <Component Name="Root">
+     <Component Name="Counter"/>
+     <Component Name="Counter Operation"/>
+     <Component Name="Events">
+      <Component Name="On 100Hz"/>
+      <Component Name="On Startup"/>
+      <Component Name="On 1000Hz"/>
+     </Component>
+     <Component Name="Signal">
+      <Component Name="Value"/>
+      <Component Name="Signal Generator"/>
+      <Component Name="Type"/>
+      <Component Name="Profile">
+       <Component Name="Value"/>
+       <Component Name="Init"/>
+       <Component Name="Update"/>
+      </Component>
+     </Component>
+     <Component Name="Request">
+      <Component Name="Value"/>
+      <Component Name="Input">
+       <Component Name="Normalised Filtered"/>
+       <Component Name="Absolute"/>
+       <Component Name="Filter">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Reference">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Resource">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Reserve"/>
+       <Component Name="Release"/>
+       <Component Name="Initialise"/>
+       <Component Name="Update"/>
+       <Component Name="Input Impedance"/>
+       <Component Name="Input Source"/>
+       <Component Name="Input Bandwidth"/>
+       <Component Name="Input Minimum"/>
+       <Component Name="Input Maximum"/>
+       <Component Name="Input Resolution"/>
+      </Component>
+      <Component Name="Scaling"/>
+     </Component>
+     <Component Name="LED">
+      <Component Name="Frequency">
+       <Component Name="Value"/>
+      </Component>
+      <Component Name="Duty Cycle"/>
+      <Component Name="Resource">
+       <Component Name="Value"/>
+      </Component>
+      <Component Name="Reserve"/>
+      <Component Name="Release"/>
+      <Component Name="Update"/>
+     </Component>
+     <Component Name="Motor">
+      <Component Name="Position">
+       <Component Name="Value"/>
+       <Component Name="Input">
+        <Component Name="Normalised Filtered"/>
+        <Component Name="Absolute"/>
+        <Component Name="Filter">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Reference">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Resource">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Reserve"/>
+        <Component Name="Release"/>
+        <Component Name="Initialise"/>
+        <Component Name="Update"/>
+        <Component Name="Input Impedance"/>
+        <Component Name="Input Source"/>
+        <Component Name="Input Bandwidth"/>
+        <Component Name="Input Minimum"/>
+        <Component Name="Input Maximum"/>
+        <Component Name="Input Resolution"/>
+       </Component>
+       <Component Name="Offset">
+        <Component Name="Set Offset"/>
+       </Component>
+       <Component Name="Scale">
+        <Component Name="Set Scale"/>
+       </Component>
+       <Component Name="Calculation"/>
+      </Component>
+      <Component Name="Aim">
+       <Component Name="Value"/>
+       <Component Name="Time Constant"/>
+       <Component Name="Calculation"/>
+      </Component>
+      <Component Name="Control">
+       <Component Name="Error"/>
+       <Component Name="Proportional"/>
+       <Component Name="Integral"/>
+       <Component Name="Derivative"/>
+       <Component Name="Gain">
+        <Component Name="Proportional"/>
+        <Component Name="Integral"/>
+        <Component Name="Derivative"/>
+       </Component>
+       <Component Name="Calculation"/>
+       <Component Name="Feed Forward">
+        <Component Name="Value"/>
+        <Component Name="Init"/>
+        <Component Name="Update"/>
+       </Component>
+      </Component>
+      <Component Name="Output">
+       <Component Name="Frequency">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Duty Cycle">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Resource">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Reserve"/>
+       <Component Name="Release"/>
+       <Component Name="Update"/>
+      </Component>
+     </Component>
+    </Component>
+   </Organisation>
+  </ComponentStream>
+  <SecurityMgr>
+   <SecurityRoles>
+    <SecurityRole Name="Default Security Group"/>
+   </SecurityRoles>
+  </SecurityMgr>
+  <Users>
+   <User Id="MoTeC.M1.Firmware.Default">
+    <Permissions>
+     <LogData>
+      <Permission Flags="17" Index="0"/>
+      <Permission Flags="17" Index="1"/>
+      <Permission Flags="17" Index="2"/>
+      <Permission Flags="17" Index="3"/>
+      <Permission Flags="17" Index="4"/>
+      <Permission Flags="17" Index="5"/>
+      <Permission Flags="17" Index="6"/>
+      <Permission Flags="17" Index="7"/>
+     </LogData>
+     <ManageUsers Flags="4"/>
+     <Kernel Flags="4"/>
+     <Firmware Flags="68"/>
+     <Enables Flags="4"/>
+     <Login Flags="8"/>
+     <Clone Flags="8"/>
+     <EditPassword Flags="12"/>
+     <EditWorkbooks Flags="2"/>
+     <EditECUName Flags="6"/>
+     <LogErase>
+      <Permission Flags="12" Index="0"/>
+      <Permission Flags="12" Index="1"/>
+      <Permission Flags="12" Index="2"/>
+      <Permission Flags="12" Index="3"/>
+      <Permission Flags="12" Index="4"/>
+      <Permission Flags="12" Index="5"/>
+      <Permission Flags="12" Index="6"/>
+      <Permission Flags="12" Index="7"/>
+     </LogErase>
+     <LogSetup>
+      <Permission Flags="15" Index="0"/>
+      <Permission Flags="15" Index="1"/>
+      <Permission Flags="15" Index="2"/>
+      <Permission Flags="15" Index="3"/>
+      <Permission Flags="15" Index="4"/>
+      <Permission Flags="15" Index="5"/>
+      <Permission Flags="15" Index="6"/>
+      <Permission Flags="15" Index="7"/>
+     </LogSetup>
+    </Permissions>
+    <UserRoles>
+     <UserRole Name="Default Security Group" AccessType="2"/>
+    </UserRoles>
+    <AuthAnonymous Id="MoTeC.M1.Firmware.Default"/>
+   </User>
+  </Users>
+ </Project>
+</MoTeCM1BuildSession>

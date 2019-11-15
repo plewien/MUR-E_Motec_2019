@@ -1,0 +1,1011 @@
+<?xml version="1.0"?>
+<Configuration Locale="English_Australia.1252" DefaultLocale="C">
+ <Group Name="">
+  <Table Name="AcceleratorPedal.MappedThrottle">
+   <X>
+    <Cells Type="f32" Unit="V">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[2.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[3.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[4.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </X>
+   <Y>
+    <Cells Type="f32" Unit="V">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,1,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,2,0">
+<![CDATA[2.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,3,0">
+<![CDATA[3.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,4,0">
+<![CDATA[4.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,5,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,6,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,7,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,8,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,9,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,10,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Y>
+   <Body>
+    <Cells Type="f32" Unit="ratio">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,1,0">
+<![CDATA[3.99999991059303280e-002]]>
+     </Cell>
+     <Cell Site="2,1,0">
+<![CDATA[7.99999982118606570e-002]]>
+     </Cell>
+     <Cell Site="3,1,0">
+<![CDATA[1.19999997317790990e-001]]>
+     </Cell>
+     <Cell Site="4,1,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="5,1,0">
+<![CDATA[2.00000002980232240e-001]]>
+     </Cell>
+     <Cell Site="6,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,2,0">
+<![CDATA[7.99999982118606570e-002]]>
+     </Cell>
+     <Cell Site="2,2,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="3,2,0">
+<![CDATA[2.39999994635581970e-001]]>
+     </Cell>
+     <Cell Site="4,2,0">
+<![CDATA[3.19999992847442630e-001]]>
+     </Cell>
+     <Cell Site="5,2,0">
+<![CDATA[4.00000005960464480e-001]]>
+     </Cell>
+     <Cell Site="6,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,3,0">
+<![CDATA[1.19999997317790990e-001]]>
+     </Cell>
+     <Cell Site="2,3,0">
+<![CDATA[2.39999994635581970e-001]]>
+     </Cell>
+     <Cell Site="3,3,0">
+<![CDATA[3.60000014305114750e-001]]>
+     </Cell>
+     <Cell Site="4,3,0">
+<![CDATA[4.79999989271163940e-001]]>
+     </Cell>
+     <Cell Site="5,3,0">
+<![CDATA[6.00000023841857910e-001]]>
+     </Cell>
+     <Cell Site="6,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,4,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="2,4,0">
+<![CDATA[3.19999992847442630e-001]]>
+     </Cell>
+     <Cell Site="3,4,0">
+<![CDATA[4.79999989271163940e-001]]>
+     </Cell>
+     <Cell Site="4,4,0">
+<![CDATA[6.39999985694885250e-001]]>
+     </Cell>
+     <Cell Site="5,4,0">
+<![CDATA[8.00000011920928960e-001]]>
+     </Cell>
+     <Cell Site="6,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,5,0">
+<![CDATA[2.00000002980232240e-001]]>
+     </Cell>
+     <Cell Site="2,5,0">
+<![CDATA[4.00000005960464480e-001]]>
+     </Cell>
+     <Cell Site="3,5,0">
+<![CDATA[6.00000023841857910e-001]]>
+     </Cell>
+     <Cell Site="4,5,0">
+<![CDATA[8.00000011920928960e-001]]>
+     </Cell>
+     <Cell Site="5,5,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Body>
+  </Table>
+  <Table Name="AcceleratorPedal.MappedThrottle">
+   <X>
+    <Cells Type="f32" Unit="V">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[2.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[3.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[4.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </X>
+   <Y>
+    <Cells Type="f32" Unit="V">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,1,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,2,0">
+<![CDATA[2.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,3,0">
+<![CDATA[3.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,4,0">
+<![CDATA[4.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,5,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,6,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,7,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,8,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,9,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,10,0">
+<![CDATA[5.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Y>
+   <Body>
+    <Cells Type="f32" Unit="ratio">
+     <Cell Site="0,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,1,0">
+<![CDATA[3.99999991059303280e-002]]>
+     </Cell>
+     <Cell Site="2,1,0">
+<![CDATA[7.99999982118606570e-002]]>
+     </Cell>
+     <Cell Site="3,1,0">
+<![CDATA[1.19999997317790990e-001]]>
+     </Cell>
+     <Cell Site="4,1,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="5,1,0">
+<![CDATA[2.00000002980232240e-001]]>
+     </Cell>
+     <Cell Site="6,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,1,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,2,0">
+<![CDATA[7.99999982118606570e-002]]>
+     </Cell>
+     <Cell Site="2,2,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="3,2,0">
+<![CDATA[2.39999994635581970e-001]]>
+     </Cell>
+     <Cell Site="4,2,0">
+<![CDATA[3.19999992847442630e-001]]>
+     </Cell>
+     <Cell Site="5,2,0">
+<![CDATA[4.00000005960464480e-001]]>
+     </Cell>
+     <Cell Site="6,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,2,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,3,0">
+<![CDATA[1.19999997317790990e-001]]>
+     </Cell>
+     <Cell Site="2,3,0">
+<![CDATA[2.39999994635581970e-001]]>
+     </Cell>
+     <Cell Site="3,3,0">
+<![CDATA[3.60000014305114750e-001]]>
+     </Cell>
+     <Cell Site="4,3,0">
+<![CDATA[4.79999989271163940e-001]]>
+     </Cell>
+     <Cell Site="5,3,0">
+<![CDATA[6.00000023841857910e-001]]>
+     </Cell>
+     <Cell Site="6,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,3,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,4,0">
+<![CDATA[1.59999996423721310e-001]]>
+     </Cell>
+     <Cell Site="2,4,0">
+<![CDATA[3.19999992847442630e-001]]>
+     </Cell>
+     <Cell Site="3,4,0">
+<![CDATA[4.79999989271163940e-001]]>
+     </Cell>
+     <Cell Site="4,4,0">
+<![CDATA[6.39999985694885250e-001]]>
+     </Cell>
+     <Cell Site="5,4,0">
+<![CDATA[8.00000011920928960e-001]]>
+     </Cell>
+     <Cell Site="6,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,4,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,5,0">
+<![CDATA[2.00000002980232240e-001]]>
+     </Cell>
+     <Cell Site="2,5,0">
+<![CDATA[4.00000005960464480e-001]]>
+     </Cell>
+     <Cell Site="3,5,0">
+<![CDATA[6.00000023841857910e-001]]>
+     </Cell>
+     <Cell Site="4,5,0">
+<![CDATA[8.00000011920928960e-001]]>
+     </Cell>
+     <Cell Site="5,5,0">
+<![CDATA[1.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,5,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,6,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,7,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,8,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,9,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="0,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="1,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="3,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="4,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="5,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="6,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,10,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Body>
+  </Table>
+  <Parameter Name="AcceleratorPedal.Plausibility.Threshold">
+   <Cell Type="f32" Unit="V">
+<![CDATA[5.00000000000000000e-001]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.Plausibility.Timeout">
+   <Cell Type="f32" Unit="s">
+<![CDATA[1.00000001490116120e-001]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleA.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleA.Reference.Value">
+   <Cell Type="enum">
+<![CDATA[Absolute]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleA.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Voltage Input 16]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleB.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleB.Reference.Value">
+   <Cell Type="enum">
+<![CDATA[Absolute]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="AcceleratorPedal.ThrottleB.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Voltage Input 15]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp1.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp1.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 1]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp2.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp2.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 2]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp3.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp3.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 3]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp4.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp4.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 4]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp5.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp5.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 5]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp6.Filter.Value">
+   <Cell Type="f32" Unit="s">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="BMS.Temp6.Resource.Value">
+   <Cell Type="enum">
+<![CDATA[Analogue Temperature Input 6]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="InverterRHS.Enable">
+   <Cell Type="enum">
+<![CDATA[False]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="InverterRHS.Parameters.PercentageCurrentPk.Value">
+   <Cell Type="f32" Unit="ratio">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="InverterRHS.TorqueCmd.TorquePerMotorCurrent">
+   <Cell Type="f32" Unit="N.m/deg">
+<![CDATA[0.00000000000000000e+000]]>
+   </Cell>
+  </Parameter>
+  <Parameter Name="Vehicle.ReadyToDrive">
+   <Cell Type="enum">
+<![CDATA[False]]>
+   </Cell>
+  </Parameter>
+ </Group>
+</Configuration>
