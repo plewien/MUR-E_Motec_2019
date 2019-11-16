@@ -1,0 +1,25 @@
+when (State) {
+
+	is (Ready To Drive.Not Ready) {
+		
+		if (false) { //brake on, safety okay, rtd pressed) {
+			State = Ready To Drive.Initialising;
+		}
+	}
+	
+	is (Ready To Drive.Initialising) {
+		BuzzerTimer.Start(0.5);
+		Buzzer.SetState(true);
+		InverterLHS.Initialise();
+		InverterRHS.Initialise();
+		State = Ready To Drive.Ready;
+	}
+	
+	is (Ready To Drive.Ready) {
+	
+		// Car is ready to drive
+		if (BuzzerTimer.Remaining() <= 0.0) {
+			Buzzer.SetState(false);	
+		}	
+	}	
+}

@@ -69,6 +69,23 @@
      </Help>
     </Enum>
    </Type>
+   <Type Name="Ready To Drive" Storage="enum" Default="Not Ready">
+    <Enum Name="Not Ready" ContainerOrder="0">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Initialising" ContainerOrder="1">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Ready" ContainerOrder="2">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+   </Type>
   </DataTypes>
   <Build PackageSignKey="University of Melbourne.M1.Package.Development 01.04.00"/>
   <ComponentStream>
@@ -84,6 +101,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.Initialisation.ReadyToDrive">
+     <Props UseDefValue="true" DefValue="This.State"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -716,9 +734,6 @@
      <Comment>
 <![CDATA[]]>
      </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="InverterRHS.Initialise.m1scr" Name="Root.InverterRHS.Initialise">
-     <Props SelectedTrigger="Parent.Parent.Events.On 10Hz"/>
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.InverterRHS.Data.InverterCurrent.Actual">
      <Props Qty="A"/>
@@ -1870,10 +1885,10 @@
       </List.UserTags>
      </Props>
     </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="Initialisation.SetupLogging.m1scr" Name="Root.Initialisation.SetupLogging">
-     <Props SelectedTrigger="Parent.Parent.Events.On Startup"/>
+    <Component Classname="BuiltIn.FuncUser" Filename="Initialisation.Log.Setup.m1scr" Name="Root.Initialisation.Log.Setup">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On Startup"/>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Initialisation.LogFlag">
+    <Component Classname="BuiltIn.Channel" Name="Root.Initialisation.Log.Flag">
      <Props Type="::Builtin.Logging Mode"/>
      <Comment>
 <![CDATA[]]>
@@ -1985,9 +2000,6 @@
      <Comment>
 <![CDATA[]]>
      </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="InverterLHS.Initialise.m1scr" Name="Root.InverterLHS.Initialise">
-     <Props SelectedTrigger="Parent.Parent.Events.On 10Hz"/>
     </Component>
     <Component Classname="BuiltIn.FuncUserParam" Filename="InverterLHS.Command.m1scr" Name="Root.InverterLHS.Command">
      <Signature Name="" ReturnType="">
@@ -2605,6 +2617,141 @@
     <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.MoTeC.LateralG.Input Resolution">
      <Props Qty="V"/>
     </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Resolution"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Maximum"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Minimum"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Bandwidth"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Source"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Impedance"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Initialise"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Drive"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Reserve"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Filter"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Absolute"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Absolute Filtered"/>
+    <Component Classname="_IOMethod.abs" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 10Hz"/>
+    </Component>
+    <Component Classname="MoTeC Output.Switched Output" Name="Root.Initialisation.ReadyToDrive.Buzzer">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Name="Root.Initialisation.ReadyToDrive.Buzzer.Resource">
+     <Props NameCreation="AutoConst"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Resource.Value"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.Initialisation.ReadyToDrive.Buzzer.State"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Release"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.Initialisation.ReadyToDrive.Buzzer.Drive">
+     <Props TargetCreation="AutoConst"/>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Drive.Value">
+     <Props Value="High Side"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Name="Root.Initialisation.ReadyToDrive.Buzzer.Test"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Initialisation.ReadyToDrive.Buzzer.Test.Value"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.Initialisation.ReadyToDrive.Buzzer.Polarity"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Initialisation.ReadyToDrive.Buzzer.Polarity.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Reserve"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.Initialisation.ReadyToDrive.Buzzer.Open Current"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.Initialisation.ReadyToDrive.State">
+     <Props Type="::This.Enabled"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="_IOMethod.pwm" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Frequency"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Frequency.Value"/>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="InverterRHS.Initialise.m1scr" Name="Root.InverterRHS.Initialise">
+     <Signature Name="" ReturnType="">
+      <Params/>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="InverterLHS.Initialise.m1scr" Name="Root.InverterLHS.Initialise">
+     <Signature Name="" ReturnType="">
+      <Params/>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Initialisation.Log">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Initialisation.ReadyToDrive.Check.m1scr" Name="Root.Initialisation.ReadyToDrive.Check"/>
+    <Component Classname="BuiltIn.FuncGenerated.Timer.Set" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.BuzzerTimer.Start">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="Timeout" Type="f32" Attrs="0"/>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.Timer" Name="Root.Initialisation.ReadyToDrive.BuzzerTimer"/>
+    <Component Classname="BuiltIn.MethodUserParam" Name="Root.Initialisation.ReadyToDrive.Buzzer.SetState"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Update"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Release"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Resource"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Hold Current"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Peak Current.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Peak Current"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Resource"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Resource"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Duty Cycle.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Duty Cycle"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Reserve"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Initialisation.ReadyToDrive.Buzzer.Open Current.Value"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Output.Release"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Drive.Value"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin.Diagnostic"/>
+    <Component Classname="_IOMethod.INJ_PH_IO" Name="Root.Initialisation.ReadyToDrive.Buzzer.Pin"/>
+    <Component Classname="BuiltIn.FuncGenerated.Timer.Remaining" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.BuzzerTimer.Remaining">
+     <Signature Name="" ReturnType="f32">
+      <Params/>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
    </List>
    <Organisation>
     <Component Name="Root">
@@ -2613,9 +2760,82 @@
       <Component Name="SendDash"/>
      </Component>
      <Component Name="Initialisation">
-      <Component Name="ReadyToDrive"/>
-      <Component Name="SetupLogging"/>
-      <Component Name="LogFlag"/>
+      <Component Name="ReadyToDrive">
+       <Component Name="Check"/>
+       <Component Name="State"/>
+       <Component Name="Buzzer">
+        <Component Name="Resource">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="State"/>
+        <Component Name="Drive">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Test">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Polarity">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Open Current">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Output">
+         <Component Name="Frequency">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Duty Cycle">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Resource"/>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Update"/>
+        </Component>
+        <Component Name="Voltage">
+         <Component Name="Absolute Filtered"/>
+         <Component Name="Absolute"/>
+         <Component Name="Filter">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Resource"/>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Initialise"/>
+         <Component Name="Update"/>
+         <Component Name="Input Impedance"/>
+         <Component Name="Input Source"/>
+         <Component Name="Input Bandwidth"/>
+         <Component Name="Input Minimum"/>
+         <Component Name="Input Maximum"/>
+         <Component Name="Input Resolution"/>
+        </Component>
+        <Component Name="Pin">
+         <Component Name="Diagnostic"/>
+         <Component Name="Drive">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Peak Current">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Hold Current"/>
+         <Component Name="Resource"/>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Initialise"/>
+         <Component Name="Update"/>
+        </Component>
+        <Component Name="SetState"/>
+       </Component>
+       <Component Name="BuzzerTimer">
+        <Component Name="Start"/>
+        <Component Name="Remaining"/>
+       </Component>
+      </Component>
+      <Component Name="Log">
+       <Component Name="Setup"/>
+       <Component Name="Flag"/>
+      </Component>
      </Component>
      <Component Name="Comms">
       <Component Name="CANBUSA">

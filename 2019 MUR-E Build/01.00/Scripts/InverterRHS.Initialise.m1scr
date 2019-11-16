@@ -16,5 +16,5 @@
 *
 *******************************************************************/
 
-
-FRG.SetState(false);
+// Should poll RFE to check that it's working correctly
+FRG.SetState(true);
