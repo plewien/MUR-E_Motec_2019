@@ -1,0 +1,29 @@
+/*******************************************************************
+*  Initialise
+*
+* This scheduled function initialises the inverter into an enabled
+* state. It also sets up some of the necessary inverter registers to 
+* be polled at a regular interval.
+* 
+* According to the CAN-Complete_English manual in the NDrive folder,
+* up to **8** time-triggered reply requests can be activated. This 
+* is good as it means that some of the important registers can be 
+* requested only once during initialisation and then regular updates
+* will be provided, freeing up CAN for data.
+*
+* Example: 0x0a repeats every 10ms.
+* Warning: Only **8** registers allowed to be setup in this way.
+*
+*******************************************************************/
+
+local <Unsigned Integer> Timing = 0x0a;
+
+Data.StatusMap.TxStatus = CAN.Request(Data.StatusMap.Register, Timing);
+Data.EWMap.TxStatus = CAN.Request(Data.EWMap.Register, Timing);
+Data.RPM.TxStatus = CAN.Request(Data.RPM.Register, Timing);
+Data.InverterCurrent.TxStatus = CAN.Request(Data.InverterCurrent.Register, Timing);
+Data.TempMotor.TxStatus = CAN.Request(Data.TempMotor.Register, Timing);
+Data.TempIGBT.TxStatus = CAN.Request(Data.TempIGBT.Register, Timing);
+Data.IqActual.TxStatus = CAN.Request(Data.IqActual.Register, Timing);
+
+FRG.SetState(false);
