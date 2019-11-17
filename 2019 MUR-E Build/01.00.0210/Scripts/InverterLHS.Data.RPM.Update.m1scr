@@ -1,0 +1,4 @@
+// Updates the RPM from this inverter
+
+This = -This.Raw * 6000 / 32768;
+Parent.WheelSpeed = -3.6 * This.Raw * (2.0*Calculate.PI()/60.0) * (11.0/38.0) * 0.231; // formula from CAN manual

@@ -1,0 +1,21 @@
+/*******************************************************************
+*  Poll
+*
+* Requests less-important data from the inverters. Should be with
+* a frequency of 1-2 Hz.
+*
+*******************************************************************/
+
+local <Unsigned Integer> pollTiming = 0x00;
+local <Unsigned Integer> Timing = 0x00;
+
+Data.IMaxPk.TxStatus = CAN.Request(Data.StatusMap.Register, pollTiming);
+TorqueCmd.TxStatus Poll = CAN.Request(TorqueCmd.Register, pollTiming);
+
+Data.StatusMap.TxStatus = CAN.Request(Data.StatusMap.Register, Timing);
+Data.EWMap.TxStatus = CAN.Request(Data.EWMap.Register, Timing);
+Data.RPM.TxStatus = CAN.Request(Data.RPM.Register, Timing);
+Data.InverterCurrent.TxStatus = CAN.Request(Data.InverterCurrent.Register, Timing);
+Data.TempMotor.TxStatus = CAN.Request(Data.TempMotor.Register, Timing);
+Data.TempIGBT.TxStatus = CAN.Request(Data.TempIGBT.Register, Timing);
+Data.IqActual.TxStatus = CAN.Request(Data.IqActual.Register, Timing);

@@ -1,0 +1,14 @@
+/*******************************************************************
+*  Vehicle.Throttle
+* 
+* 
+* 
+*******************************************************************/
+
+//if (ReadyToDrive eq Enabled.True) {
+	InverterLHS.Command(10000*AcceleratorPedal.MappedThrottle);
+	InverterRHS.Command(10000*AcceleratorPedal.MappedThrottle);
+//} else {
+//	InverterLHS.Command(0.0);
+//	InverterRHS.Command(0.0);
+//}

@@ -1,0 +1,24 @@
+when (State) {
+	
+	is (Not Ready) {
+		if (Enable eq Enabled.True) { //brake on, safety okay, rtd pressed) {
+			State = Ready To Drive.Initialising;
+		}
+	}
+	
+	is (Initialising) {
+		BuzzerTimer.Start(2.0);
+		Buzzer.SetState(true);
+		SafetyFault.MOTEC Out.SetState(true);
+		State = Ready To Drive.Ready;
+	}
+	
+	is (Ready) {
+		// Car is ready to drive
+		if (BuzzerTimer.Remaining() <= 0.0) {
+			Buzzer.SetState(false);
+			InverterLHS.Initialise();
+			InverterRHS.Initialise();
+		}	
+	}	
+}

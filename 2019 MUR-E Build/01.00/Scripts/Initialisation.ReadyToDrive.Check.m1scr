@@ -1,25 +1,40 @@
 when (State) {
-
-	is (Ready To Drive.Not Ready) {
-		
-		if (false) { //brake on, safety okay, rtd pressed) {
+	
+	is (Not Ready) { // Waiting for the car to be safe
+		SafetyFault.MOTECout.SetState(true);
+		if (SafetyFault eq Safety Fault.Safe 
+				and Button eq Button.On
+				and BrakePedal.Mapping.BrakePressed eq 1) { 
 			State = Ready To Drive.Initialising;
+		}
+		
+		if (BuzzerTimer.Remaining() <= 0.0) { 
+			Buzzer.SetState(false);
 		}
 	}
 	
-	is (Ready To Drive.Initialising) {
-		BuzzerTimer.Start(0.5);
+	is (Initialising) {
 		Buzzer.SetState(true);
+		SafetyFault.MOTECout.SetState(true);
 		InverterLHS.Initialise();
 		InverterRHS.Initialise();
 		State = Ready To Drive.Ready;
 	}
 	
-	is (Ready To Drive.Ready) {
-	
-		// Car is ready to drive
+	is (Ready) { // Car is ready to drive
 		if (BuzzerTimer.Remaining() <= 0.0) {
-			Buzzer.SetState(false);	
-		}	
-	}	
+			Buzzer.SetState(false);
+		}
+		
+		if (SafetyFault eq Safety Fault.Fault or Button eq Button.On) {
+			State = Ready To Drive.Shutdown;
+		}
+	}
+	
+	is (Shutdown) {
+		InverterLHS.Disable();
+		InverterRHS.Disable();
+		State = Ready To Drive.Not Ready;
+	}
 }
+

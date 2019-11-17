@@ -1,0 +1,3 @@
+// Updates the RPM from this inverter
+
+This = 3.6 * Parent.WheelRPM / (Calculate.PI() * WheelDiameter); // formula from CAN manual

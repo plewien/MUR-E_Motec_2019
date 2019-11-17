@@ -1,0 +1,12 @@
+/*******************************************************************
+*  UpdateParameters
+*
+* 
+*
+*******************************************************************/
+
+//if (Change.Either(Parameters.PercentageCurrentPk)) {
+	Parameters.PercentageCurrentPk.Value = Convert.ToUnsignedInteger(100*Parameters.PercentageCurrentPk);
+	Parameters.PercentageCurrentPk.TxStatus = Tx Status.Faulty;
+//CAN.Transmit(Parameters.PercentageCurrentPk.Register, Parameters.PercentageCurrentPk.Value);
+//}

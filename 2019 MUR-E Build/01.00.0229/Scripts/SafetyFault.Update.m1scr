@@ -1,0 +1,9 @@
+if (IMD eq IMD.On and 
+	PDOC eq PDOC.On and 
+	This.BMS eq ThiS.BMS.On and
+	BSPD eq BSPD.On) 
+	{
+		Value = Safety Fault.Safe;
+} else {
+		Value = Safety Fault.Fault;
+}
