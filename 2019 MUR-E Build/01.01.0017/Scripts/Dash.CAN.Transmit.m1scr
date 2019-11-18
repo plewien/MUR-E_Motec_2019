@@ -1,0 +1,13 @@
+/*******************************************************************
+*  CAN.Transmit
+*
+*
+*******************************************************************/
+
+local DLC = 2;
+local byte = 8;
+
+local CanHandle = CanComms.TxOpen(true);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 0, 2*byte, Convert.ToUnsignedInteger(In.Command));
+out = (CanComms.TxStandard(CanHandle, Bus, In.Register));

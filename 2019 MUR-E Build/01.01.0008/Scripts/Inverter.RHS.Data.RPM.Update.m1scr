@@ -1,0 +1,5 @@
+// Updates the RPM from this inverter
+
+This = This.Raw * 6000 / 32768;
+Parent.WheelRPM.Update();
+Parent.GroundSpeed.Update();

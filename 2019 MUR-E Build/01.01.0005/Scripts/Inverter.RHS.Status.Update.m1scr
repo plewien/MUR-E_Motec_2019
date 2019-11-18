@@ -1,0 +1,3 @@
+
+DeviceTemp = GetBit(In.receiveHandle, DeviceTemp.ErrorBit, DeviceTemp.WarningBit);
+MotorTemp = GetBit(In.receiveHandle, MotorTemp.ErrorBit, MotorTemp.WarningBit);

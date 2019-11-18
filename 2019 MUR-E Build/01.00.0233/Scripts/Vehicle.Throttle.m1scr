@@ -1,0 +1,12 @@
+/*******************************************************************
+*  Vehicle.Throttle
+* 
+* 
+* 
+*******************************************************************/
+
+local multiplier = 1000;
+InverterLHS.Command(multiplier*AcceleratorPedal.MappedThrottle);
+InverterRHS.Command(multiplier*AcceleratorPedal.MappedThrottle);
+
+Speed = Calculate.Average(InverterLHS.Data.GroundSpeed, InverterRHS.Data.GroundSpeed);

@@ -1,0 +1,18 @@
+/*******************************************************************
+*  CAN.Transmit
+*
+*
+*******************************************************************/
+
+local DLC = 3;
+local byte = 8;
+
+local CanHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 7*byte, byte, In.Register); 
+CanComms.SetUnsignedInteger(CanHandle, (byte-DLC)*byte, 2*byte, In.Command);
+if (CanComms.TxStandard(CanHandle, Bus, InverterRxID)) {
+	Out = Tx Status.Ok;
+} else {
+	Out = Tx Status.Faulty;
+}

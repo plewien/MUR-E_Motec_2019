@@ -1,0 +1,23 @@
+/*******************************************************************
+*  Initialise
+*
+* This scheduled function initialises the inverter into an enabled
+* state. It also sets up some of the necessary inverter registers to 
+* be polled at a regular interval.
+* 
+* According to the CAN-Complete_English manual in the NDrive folder,
+* up to **8** time-triggered reply requests can be activated. This 
+* is good as it means that some of the important registers can be 
+* requested only once during initialisation and then regular updates
+* will be provided, freeing up CAN for data.
+*
+* Example: 0x0a repeats every 10ms.
+* Warning: Only **8** registers allowed to be setup in this way.
+*
+*******************************************************************/
+
+// Should poll RFE to check that it's working correctly
+
+if (Enable eq Enabled.True) {
+	FRG.SetState(true);
+}

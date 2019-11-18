@@ -1,0 +1,9 @@
+if (CanComms.GetBit(In.receiveHandle, DeviceTemp.ErrorBit)) {
+	DeviceTemp.Value = Inverter Fault.Error;
+} else {
+	if (CanComms.GetBit(In.receiveHandle, DeviceTemp.WarningBit)) {
+		DeviceTemp.Value = Inverter Fault.Warning;
+	} else {
+		DeviceTemp.Value = Inverter Fault.Ok;
+	}
+}

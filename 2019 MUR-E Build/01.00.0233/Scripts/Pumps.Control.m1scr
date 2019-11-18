@@ -1,0 +1,8 @@
+if(Enable eq Enabled.True){
+	LHS.SetState(true);
+	RHS.SetState(true);
+}else{
+	LHS.SetState(false);
+	RHS.SetState(false);	
+}
+

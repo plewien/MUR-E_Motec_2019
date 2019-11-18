@@ -1,0 +1,46 @@
+local BMSmsg = CanComms.RxOpenStandard(0, 0x010, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackVoltage = 0.1 * CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x020, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackCurrent = 0.1 * CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x030, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.SoC = CanComms.GetUnsignedInteger(BMSmsg,0,16) / 2.0;
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x040, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.DischargeCurrentLimit = CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(0, 0x050, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.MaxCellTemp = CanComms.GetUnsignedInteger(BMSmsg,0,16);
+}
+
+
+//	data.PackVoltage2 = CanComms.GetUnsignedInteger(BMSmsg,16,16);
+//	data.PackVoltageFLoat = CanComms.GetUnsignedInteger(BMSmsg,32,8);
+//	data.CellTempLow = CanComms.GetUnsignedInteger(BMSmsg,40,8);
+//}
+
+//BMSmsg = CanComms.RxOpenStandard(0, 0x020, 0x0, true);
+
+//if (CanComms.RxMessage(BMSmsg)){
+//	data.DCL = CanComms.GetUnsignedInteger(BMSmsg,0,16);
+//	data.CCL = CanComms.GetUnsignedInteger(BMSmsg,16,16);
+//	data.SoC = CanComms.GetUnsignedInteger(BMSmsg,32,16) / 2.0;
+//	data.HeatSinkTemp = CanComms.GetUnsignedInteger(BMSmsg,48,16);
+//}
+
+//BMSmsg = CanComms.RxOpenStandard(0, 0x030, 0x0, true);
+
+//if (CanComms.RxMessage(BMSmsg)){
+//	data.CellVoltageHigh = CanComms.GetUnsignedInteger(BMSmsg,0,16) * 0.0001;
+//	data.CellVoltageLow = CanComms.GetUnsignedInteger(BMSmsg,16,16) * 0.0001;
+//}

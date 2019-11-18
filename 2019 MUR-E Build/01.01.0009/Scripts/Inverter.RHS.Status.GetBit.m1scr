@@ -1,0 +1,11 @@
+local bitOffset = 56 - Parent.Data.EWMap.BitLength;
+
+if (CanComms.GetBit(In.receiveHandle, bitOffset+In.ErrorBit)) {  // +1 as CanComms uses "bits to skip"
+	Out = Inverter Fault.Error;
+} else {
+	if (CanComms.GetBit(In.receiveHandle, bitOffset+In.WarningBit)) {  // +1 as CanComms uses "bits to skip"
+		Out = Inverter Fault.Warning;
+	} else {
+		Out = Inverter Fault.Ok;
+	}
+}
