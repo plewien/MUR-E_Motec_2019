@@ -1,0 +1,61 @@
+/*******************************************************************
+*  ReadyToDrive.Check
+*
+* Scheduled function to control the ReadyToDrive state machine. The 
+* states of the machine are:
+* 1. Not ready
+* 2. Initialising  (single pass)
+* 3. Ready
+* 4. Shutdown  (single pass)
+* 
+* The car enters each of these states sequentially, and returns to 
+* Not ready in the event of shutdown.
+*
+*******************************************************************/
+
+
+when (State) { // MoTeC uses "when" instead of "switch"
+	
+	is (Not Ready) { // Waiting for the car to be safe
+		
+		if (SafetyFault eq Safety Fault.Safe 
+				and Button eq Button.On
+				and Interlocks eq Interlocks.On
+				and BrakePedal.Mapping.BrakePressed eq 1) { 
+			State = Ready To Drive.Initialising;
+		}
+		
+		// There is a chance that the buzzer could still be making noise
+		if (BuzzerTimer.Remaining() <= 0.0) { 
+			Buzzer.SetState(false);
+		}
+		
+		// Temporary, ideally this will be set false if MoTeC has any errors
+		SafetyFault.MOTEC Out.SetState(true); 
+	}
+	
+	is (Initialising) { // Single pass to initialise everything once ready to drive
+		Buzzer.SetState(true);
+		Inverter.LHS.Initialise();
+		Inverter.RHS.Initialise();
+		State = Ready To Drive.Ready;
+	}
+	
+	is (Ready) { // Car is ready to drive
+		if (BuzzerTimer.Remaining() <= 0.0) {
+			Buzzer.SetState(false);
+		}
+		
+		// Check if there is a fault, shutdown the car if so
+		if (SafetyFault eq Safety Fault.Fault or Interlocks eq Interlocks.Off) {
+			State = Ready To Drive.Shutdown;
+		}
+	}
+	
+	is (Shutdown) {  // Single pass to disable everything in case of fault
+		Inverter.LHS.Disable();
+		Inverter.RHS.Disable();
+		State = Ready To Drive.Not Ready;
+	}
+}
+

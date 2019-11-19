@@ -1,0 +1,12 @@
+local <Integer> bitOffset = 0;  // +1 as CanComms uses "bits to skip"
+// TODO: This seems wrong still?
+
+if (This.GetBit(In.receiveHandle, bitOffset + In.ErrorBit)) {  
+	Out = Inverter Fault.Error;
+} else {
+	if (GetBit(In.receiveHandle, bitOffset + In.WarningBit)) { 
+		Out = Inverter Fault.Warning;
+	} else {
+		Out = Inverter Fault.Ok;
+	}
+}

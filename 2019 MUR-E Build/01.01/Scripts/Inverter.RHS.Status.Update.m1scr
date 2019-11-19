@@ -7,11 +7,18 @@
 *
 *******************************************************************/
 
-//local <Integer> NoBit = 20;  // Use if the signal has no associated warning/error
+local <Integer> NoBit = 20;  // Use if the signal has no associated warning/error
 
-DeviceTemp = GetBit(In.EWMap, DeviceTemp.ErrorBit, DeviceTemp.WarningBit);
-MotorTemp = GetBit(In.EWMap, MotorTemp.ErrorBit, MotorTemp.WarningBit);
-OverVoltage = GetBit(In.EWMap, OverVoltage.ErrorBit, OverVoltage.WarningBit);
-PowerVoltage = GetBit(In.EWMap, PowerVoltage.ErrorBit, PowerVoltage.WarningBit);
-OverCurrent = GetBit(In.EWMap, OverCurrent.ErrorBit, OverCurrent.WarningBit);
-Overload = GetBit(In.EWMap, Overload.ErrorBit, Overload.WarningBit);
+POWER FAULT = CheckFault(In.EWMap, POWER FAULT.ErrorBit, POWER FAULT.WarningBit);
+RFE FAULT = CheckFault(In.EWMap, RFE FAULT.ErrorBit, RFE FAULT.WarningBit);
+BUS TIMEOUT = CheckFault(In.EWMap, BUS TIMEOUT.ErrorBit, NoBit);
+FEEDBACK = CheckFault(In.EWMap, FEEDBACK.ErrorBit, NoBit);
+POWERVOLTAGE = CheckFault(In.EWMap, POWERVOLTAGE.ErrorBit, POWERVOLTAGE.WarningBit);
+MOTOR TEMP = CheckFault(In.EWMap, MOTOR TEMP.ErrorBit, MOTOR TEMP.WarningBit);
+DEVICE TEMP = CheckFault(In.EWMap, DEVICE TEMP.ErrorBit, DEVICE TEMP.WarningBit);
+OVERVOLTAGE = CheckFault(In.EWMap, OVERVOLTAGE.ErrorBit, OVERVOLTAGE.WarningBit);
+OVERCURRENT = CheckFault(In.EWMap, OVERCURRENT.ErrorBit, OVERCURRENT.WarningBit);
+RACEAWAY = CheckFault(In.EWMap, RACEAWAY.ErrorBit, NoBit);
+OVERLOAD = CheckFault(In.EWMap, OVERLOAD.ErrorBit, OVERLOAD.WarningBit);
+
+Status = 0;

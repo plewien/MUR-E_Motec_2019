@@ -1,0 +1,24 @@
+local BMSmsg = CanComms.RxOpenStandard(CAN.Bus, Data.PackVoltage.ID, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackVoltage = 0.1 * CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x020, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackCurrent = 0.1 * CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x030, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.SoC = CanComms.GetUnsignedInteger(BMSmsg,0,16) / 2.0;
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x040, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.DischargeCurrentLimit = CanComms.GetInteger(BMSmsg,0,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x050, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.TempCellMax = CanComms.GetUnsignedInteger(BMSmsg,0,16);
+}
