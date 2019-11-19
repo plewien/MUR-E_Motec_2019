@@ -15,15 +15,14 @@ if (CanComms.RxMessage(receiveHandle)) {
 	if (RegID eq Data.StatusMap.Register) {
 		bitLength = Data.StatusMap.BitLength;
 		bitOffset = bitOffset - bitLength;
-		Data.StatusMap = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
-		Status.UpdateStatus(Data.StatusMap);
+		Data.StatusMap.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
 	}
 	
 	else if (RegID eq Data.EWMap.Register) {
 		bitLength = Data.EWMap.BitLength;
 		bitOffset = bitOffset - bitLength;
 		Data.EWMap = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
-		Status.UpdateEW(Data.EWMap);
+		Status.Update(Data.EWMap);
 	} 
 	
 	else if (RegID eq TorqueCmd.Register) {

@@ -6,24 +6,24 @@ local receiveHandle = CanComms.RxOpenStandard(CAN.Bus, CAN.InverterTxID, CAN.Bit
 if (CanComms.RxMessage(receiveHandle)) {
 	local bitLength = 0;
 	local bitOffset = 56;  //  64 - 8 = 56
+	
+	CAN.RxStatus = Rx Status.Ok;
 
 	// Get Register ID
 	RegID = CanComms.GetUnsignedInteger(receiveHandle, bitOffset, RegID.BitLength);
-	CAN.RxStatus = Rx Status.Ok;
 	
 	// Compare RegID with known registers
 	if (RegID eq Data.StatusMap.Register) {
 		bitLength = Data.StatusMap.BitLength;
 		bitOffset = bitOffset - bitLength;
-		Data.StatusMap = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
-		Status.UpdateStatus(Data.StatusMap);
+		Data.StatusMap.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
 	}
 	
 	else if (RegID eq Data.EWMap.Register) {
 		bitLength = Data.EWMap.BitLength;
 		bitOffset = bitOffset - bitLength;
-		Data.EWMap = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
-		Status.UpdateEW(Data.EWMap);
+		Data.EWMap.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength);
+		Status.Update(receiveHandle);
 	} 
 	
 	else if (RegID eq TorqueCmd.Register) {
@@ -70,12 +70,6 @@ if (CanComms.RxMessage(receiveHandle)) {
 		bitLength = Data.IMaxPk.BitLength;
 		bitOffset = bitOffset - bitLength;
 		Data.IMaxPk.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
-	}
-	
-	else if (RegID eq Data.Voltage.Register) {
-		bitLength = Data.Voltage.BitLength;
-		bitOffset = bitOffset - bitLength;
-		Data.Voltage.Raw = CanComms.GetInteger(receiveHandle, bitOffset, bitLength); 
 	}
 	
 } else {

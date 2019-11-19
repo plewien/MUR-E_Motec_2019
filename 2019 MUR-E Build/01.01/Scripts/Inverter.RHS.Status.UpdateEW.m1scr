@@ -1,0 +1,22 @@
+/*******************************************************************
+*  Status.UpdateEW
+*
+* Uses the EW Map to update the errors and warnings coming in from
+* the inverter. For more information, see pg 113-114 in the NDrive
+* manual.
+*
+*******************************************************************/
+
+local <Integer> NoBit = 20;  // Use if the signal has no associated warning/error
+
+POWER FAULT = CheckFault(In.EWMap, POWER FAULT.ErrorBit, POWER FAULT.WarningBit);
+RFE FAULT = CheckFault(In.EWMap, RFE FAULT.ErrorBit, RFE FAULT.WarningBit);
+BUS TIMEOUT = CheckFault(In.EWMap, BUS TIMEOUT.ErrorBit, NoBit);
+FEEDBACK = CheckFault(In.EWMap, FEEDBACK.ErrorBit, NoBit);
+POWERVOLTAGE = CheckFault(In.EWMap, POWERVOLTAGE.ErrorBit, POWERVOLTAGE.WarningBit);
+MOTOR TEMP = CheckFault(In.EWMap, MOTOR TEMP.ErrorBit, MOTOR TEMP.WarningBit);
+DEVICE TEMP = CheckFault(In.EWMap, DEVICE TEMP.ErrorBit, DEVICE TEMP.WarningBit);
+OVERVOLTAGE = CheckFault(In.EWMap, OVERVOLTAGE.ErrorBit, OVERVOLTAGE.WarningBit);
+OVERCURRENT = CheckFault(In.EWMap, OVERCURRENT.ErrorBit, OVERCURRENT.WarningBit);
+RACEAWAY = CheckFault(In.EWMap, RACEAWAY.ErrorBit, NoBit);
+OVERLOAD = CheckFault(In.EWMap, OVERLOAD.ErrorBit, OVERLOAD.WarningBit);
