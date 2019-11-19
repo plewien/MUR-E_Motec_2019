@@ -1,0 +1,5 @@
+local tempmsg = CanComms.RxOpenStandard(0, 0x001, 0x0, true);
+
+if (CanComms.RxMessage(tempmsg)){
+	temp = CanComms.GetUnsignedInteger(tempmsg,0,16);
+}

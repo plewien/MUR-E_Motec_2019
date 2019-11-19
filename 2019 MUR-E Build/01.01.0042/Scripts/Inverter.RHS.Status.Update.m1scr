@@ -1,0 +1,17 @@
+/*******************************************************************
+*  Status.Update
+*
+* Uses the EW Map to update the errors and warnings coming in from
+* the inverter. For more information, see pg 113-114 in the NDrive
+* manual.
+*
+*******************************************************************/
+
+//local <Integer> NoBit = 20;  // Use if the signal has no associated warning/error
+
+DeviceTemp = GetBit(In.EWMap, DeviceTemp.ErrorBit, DeviceTemp.WarningBit);
+MotorTemp = GetBit(In.EWMap, MotorTemp.ErrorBit, MotorTemp.WarningBit);
+OverVoltage = GetBit(In.EWMap, OverVoltage.ErrorBit, OverVoltage.WarningBit);
+PowerVoltage = GetBit(In.EWMap, PowerVoltage.ErrorBit, PowerVoltage.WarningBit);
+OverCurrent = GetBit(In.EWMap, OverCurrent.ErrorBit, OverCurrent.WarningBit);
+Overload = GetBit(In.EWMap, Overload.ErrorBit, Overload.WarningBit);

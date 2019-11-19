@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<Configuration Locale="English_Australia.1252" DefaultLocale="C">
+ <Group Name="">
+  <Table Name="Inverter.RHS.Data.TempIGBT.Actual">
+   <X>
+    <Cells Type="f32" Unit="">
+     <Cell Site="0,0,0">
+<![CDATA[1.63870000000000000e+004]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[1.71510000000000000e+004]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[1.87970000000000000e+004]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[2.13570000000000000e+004]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[2.42320000000000000e+004]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="11,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="12,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="13,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="14,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="15,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="16,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="17,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="18,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="19,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="20,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="21,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="22,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="23,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="24,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="25,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="26,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+     <Cell Site="27,0,0">
+<![CDATA[2.67020000000000000e+004]]>
+     </Cell>
+    </Cells>
+   </X>
+   <Body>
+    <Cells Type="f32" Unit="C">
+     <Cell Site="0,0,0">
+<![CDATA[-2.50000000000000000e+001]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[2.50000000000000000e+001]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[5.00000000000000000e+001]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[7.50000000000000000e+001]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[1.00000000000000000e+002]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="10,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="11,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="12,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="13,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="14,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="15,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="16,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="17,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="18,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="19,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="20,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="21,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="22,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="23,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="24,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="25,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="26,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="27,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Body>
+  </Table>
+ </Group>
+</Configuration>

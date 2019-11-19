@@ -1,0 +1,35 @@
+/*******************************************************************
+*  CAN.Request
+*
+* According to the CAN-Complete_English manual in the NDrive folder,
+* up to **8** time-triggered reply requests can be activated. This 
+* is good as it means that some of the important registers can be 
+* requested only once during initialisation and then regular updates
+* will be provided, freeing up CAN for data.
+* 
+* The format to request a time-triggered response is:
+* - Byte1: Read 0x3D
+* - Byte2: RegID
+* - Byte3: Time 0xNN, which gives an interval in 1-254ms
+*
+* Example: 0x0a repeats every 10ms.
+* 
+* Warning: Only **8** registers allowed to be setup in this way. Any
+* further registers will need to send 0x00 from Motec each time the
+* register needs to be read.
+*
+*******************************************************************/
+
+local DLC = 3;
+local byte = 8;
+
+local CanHandle = CanComms.TxOpen(false);
+CanComms.TxInitialise(CanHandle, DLC);
+CanComms.SetUnsignedInteger(CanHandle, 7*byte, byte, Read); 
+CanComms.SetUnsignedInteger(CanHandle, 6*byte, byte, In.Register);
+CanComms.SetUnsignedInteger(CanHandle, 5*byte, byte, In.Timing);
+if (CanComms.TxStandard(CanHandle, Bus, InverterRxID)) {
+	Out = Tx Status.Ok;
+} else {
+	Out = Tx Status.Faulty;
+}
