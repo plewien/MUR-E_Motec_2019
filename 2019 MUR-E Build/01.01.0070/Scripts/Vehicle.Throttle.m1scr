@@ -1,0 +1,11 @@
+/*******************************************************************
+*  Vehicle.Throttle
+* 
+* 
+* 
+*******************************************************************/
+
+Inverter.LHS.Command(TorqueCmd);
+Inverter.RHS.Command(TorqueCmd);
+
+Speed = Calculate.Average(Inverter.LHS.Data.GroundSpeed, Inverter.RHS.Data.GroundSpeed);

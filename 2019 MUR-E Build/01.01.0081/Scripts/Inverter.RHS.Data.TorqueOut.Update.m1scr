@@ -1,0 +1,4 @@
+// From BAMOCAR FAQ Manual (pg 4)
+
+local IactRMS = Raw*Parent.IMaxPk.Raw/32767;
+Actual = IactRMS*Parent.Parent.TorqueCmd.TorquePerMotorCurrent;

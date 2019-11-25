@@ -1,0 +1,11 @@
+local maxTempIGBT = Calculate.Max(Inverter.LHS.Data.TempIGBT, Inverter.RHS.Data.TempIGBT);
+
+if(Enable eq Enabled.True or
+	 maxTempIGBT > TempIGBT Threshold){
+	LHS.SetState(true);
+	RHS.SetState(true);
+}else{
+	LHS.SetState(false);
+	RHS.SetState(false);	
+}
+

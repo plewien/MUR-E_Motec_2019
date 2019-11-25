@@ -1,0 +1,20 @@
+/*******************************************************************
+*  Status.CheckFault
+*
+* This function checks if there is an error or warning in a 
+* particular bit of the EWMap. If there is both an error and a 
+* warning, then only the error will be displayed.
+*
+*******************************************************************/
+
+local <Integer> bitOffset = 1;  // +1 as CanComms uses "bits to skip"
+
+if (This.GetBit(In.receiveHandle, bitOffset + In.ErrorBit)) {  
+	Out = Inverter Fault.Error;
+} else {
+	if (GetBit(In.receiveHandle, bitOffset + In.WarningBit)) { 
+		Out = Inverter Fault.Warning;
+	} else {
+		Out = Inverter Fault.Ok;
+	}
+}

@@ -1,0 +1,16 @@
+/*******************************************************************
+*  CAN.Transmit
+*
+*
+*******************************************************************/
+
+if (CAN.Transmit(Register.PackCurrent, BMS.Data.PackCurrent) and
+		CAN.Transmit(Register.PackVoltage, BMS.Data.PackVoltage) and
+		CAN.Transmit(Register.PackTemp, BMS.Data.TempCellMax) and
+		CAN.Transmit(Register.SoC, BMS.Data.SoC) and
+		CAN.Transmit(Register.Speed, Vehicle.Speed)) 
+{
+	CAN.TxStatus = Tx Status.Ok;
+} else {
+	CAN.TxStatus = Tx Status.Faulty;
+}

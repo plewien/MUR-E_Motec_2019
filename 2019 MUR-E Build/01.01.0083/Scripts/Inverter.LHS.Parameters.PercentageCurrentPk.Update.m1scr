@@ -1,0 +1,2 @@
+Value = Convert.ToUnsignedInteger(16383*100*Percentage);  // Bamocar expects a number between 0-100
+TxStatus = Parent.Parent.CAN.Transmit(Register, Value);

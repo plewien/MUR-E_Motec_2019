@@ -1,0 +1,11 @@
+TempIGBTmax = Calculate.Max(Inverter.LHS.Data.TempIGBT, Inverter.RHS.Data.TempIGBT);
+
+if(Enable eq Enabled.True or
+	(TempIGBTmax > Threshold On and LHS.State eq Switched Output State Enumeration.Off) or
+	(TempIGBTmax > Threshold Off and LHS.State eq Switched Output State Enumeration.On)){
+	LHS.SetState(true);
+	RHS.SetState(true);
+}else{
+	LHS.SetState(false);
+	RHS.SetState(false);	
+}

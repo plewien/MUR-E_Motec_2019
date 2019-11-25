@@ -1,0 +1,16 @@
+/*******************************************************************
+*  UpdateParameters
+*
+* 
+*
+*******************************************************************/
+
+
+local isChange1 = Change.By(PercentageCurrentPk, 0.001);
+local isChange2 = Change.By(PercentageCurrentEff, 0.001);
+
+ // Don't change parameters if car might drive
+if (Initialisation.ReadyToDrive neq Ready To Drive.Ready) {
+	if (isChange1) { PercentageCurrentPk.Update(); }
+	if (isChange2) { PercentageCurrentEff.Update(); }
+}
