@@ -1,0 +1,16 @@
+/*******************************************************************
+*  Status.UpdateStatus
+*
+* Uses the Status Map to indicate the different modes of the 
+* inverter. 
+*
+*******************************************************************/
+
+local temp = -1;
+expand (i = 0 to 31) {
+	if (GetBit(In.StatusMap, $(i))) {
+		temp = $(i);
+	}
+}
+
+This.Status.Set(temp);

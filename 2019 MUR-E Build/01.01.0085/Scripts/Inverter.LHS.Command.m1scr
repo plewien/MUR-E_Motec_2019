@@ -5,17 +5,18 @@
 *
 *******************************************************************/
 
+local TCmd = 0.0;
 if (Enable eq Enabled.True and Initialisation.ReadyToDrive eq Ready To Drive.Ready) {
 	
 	// Convert torque to a register value (See BAMOCAR FAQ)
 	// TODO Fix IMaxPk to read an actual value
 	TorqueCmd.IDesRMS = In.TorqueCmd / TorqueCmd.TorquePerMotorCurrent;
-	//TorqueCmd.Sent = Convert.ToUnsignedInteger(TorqueCmd.MaxValueRegister*TorqueCmd.IDesRMS/Data.IMaxPk.Raw);
+	TorqueCmd.Sent = Convert.ToUnsignedInteger(TorqueCmd.MaxValueRegister*TorqueCmd.IDesRMS/Data.IMaxPk.Raw);
 	
 	if (Data.RPM > Parameters.MaxRPM) {
-		TorqueCmd = 0;  // Don't want to spin out yet
+		TCmd = 0;  // Don't want to spin out yet
 	} else {
-		TorqueCmd = In.TorqueCmd*(Parameters.MaxRPM-Data.RPM)/Parameters.MaxRPM;
+		TCmd = In.TorqueCmd*(Parameters.MaxRPM-Data.RPM)/Parameters.MaxRPM;
 	}
 	
 	// Send torque as a current

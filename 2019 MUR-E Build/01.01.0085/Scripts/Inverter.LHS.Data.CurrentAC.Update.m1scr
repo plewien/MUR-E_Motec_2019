@@ -3,4 +3,4 @@
 
 local bitOffset = 56 - BitLength;
 Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 
-Actual = Raw/31.454;
+Actual = -Raw * 400 / 1070;   // formula from BAMOCAR FAQ manual

@@ -1,0 +1,4 @@
+// From BAMOCAR FAQ Manual (pg 14)
+// May need to be calibrated - see NDrive
+
+Actual = Raw/31.5848; 

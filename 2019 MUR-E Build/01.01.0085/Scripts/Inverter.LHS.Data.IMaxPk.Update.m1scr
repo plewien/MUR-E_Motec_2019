@@ -1,6 +1,3 @@
-// From BAMOCAR FAQ Manual (pg 14)
-// May need to be calibrated - see NDrive
-
 local bitOffset = 56 - BitLength;
 Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 
-Actual = Raw/31.454;
+Actual = 1.0*Raw/8355;

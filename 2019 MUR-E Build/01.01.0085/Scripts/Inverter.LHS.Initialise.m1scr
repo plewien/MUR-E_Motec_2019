@@ -8,4 +8,6 @@
 
 *******************************************************************/
 
-FRG.SetState(true);
+if (Enable eq Enabled.True) {
+	FRG.SetState(true);
+}
