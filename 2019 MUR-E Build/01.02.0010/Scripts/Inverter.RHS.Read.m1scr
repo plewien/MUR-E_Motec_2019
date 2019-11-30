@@ -1,0 +1,28 @@
+// CAN receive handle
+local receiveHandle = CanComms.RxOpenStandard(CAN.Bus, CAN.InverterTxID, CAN.BitsToIgnore, false);
+
+// Receive CAN message
+if (CanComms.RxMessage(receiveHandle)) {
+	
+	// Get Register ID
+	CAN.RxStatus = Rx Status.Ok;
+	local bitOffset = 64 - RegID.BitLength;
+	RegID = CanComms.GetUnsignedInteger(receiveHandle, bitOffset, RegID.BitLength);
+	
+	// Compare RegID with known registers
+	if (RegID eq Status.StatusMap.Register) { Status.UpdateStatus(receiveHandle); }
+	else if (RegID eq Status.EWMap.Register) { Status.UpdateEW(receiveHandle); }
+	else if (RegID eq TorqueCmd.Register) { TorqueCmd.Update(receiveHandle); }	
+	else if (RegID eq Data.RPM.Register) { Data.RPM.Update(receiveHandle); } 
+	else if (RegID eq Data.CurrentAC.Register){ Data.CurrentAC.Update(receiveHandle); }
+	else if (RegID eq Data.CurrentDC.Register){ Data.CurrentDC.Update(receiveHandle); } 
+	else if (RegID eq Data.IqActual.Register) { Data.IqActual.Update(receiveHandle); }
+	else if (RegID eq Data.TempIGBT.Register) { Data.TempIGBT.Update(receiveHandle); }
+	else if (RegID eq Data.TempMotor.Register) { Data.TempMotor.Update(receiveHandle); }
+	else if (RegID eq Data.VoltageAC.Register) { Data.VoltageAC.Update(receiveHandle); }
+	else if (RegID eq Data.VoltageDC.Register) { Data.VoltageDC.Update(receiveHandle); }
+	else if (RegID eq Data.IMaxPk.Register) { Data.IMaxPk.Update(receiveHandle); }
+	
+} else {
+	CAN.RxStatus = Rx Status.Waiting;
+}	

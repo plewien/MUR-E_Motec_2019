@@ -1,0 +1,11 @@
+if(Always On eq Enabled.True or
+	(Vehicle.Data.TempIGBT > Threshold On and LHS.State eq Switched Output State Enumeration.Off) or
+	(Vehicle.Data.TempIGBT > Threshold Off and LHS.State eq Switched Output State Enumeration.On)){
+		LHS.SetState(true);
+		RHS.SetState(true);
+		State = Pump State.On;
+}else{
+		LHS.SetState(false);
+		RHS.SetState(false);
+		State = Pump State.Off;
+}

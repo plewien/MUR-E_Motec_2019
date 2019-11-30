@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <MoTeCM1BuildSession Locale="English_Australia.1252" DefaultLocale="C" ProductName="M1Build" ProductVersion="1.4.0.239">
- <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="1" BuildNumber="87" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="Initialisation.Log.Flag" MinimumDataLogging="Data Logging Level 2">
+ <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="1" BuildNumber="89" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="Initialisation.Log.Flag" MinimumDataLogging="Data Logging Level 2">
   <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0075" SelectedRelease="0" SelectedBuild="0075"/>
   <SelectedModuleSets>
    <File Name="MoTeC Types" VersionMajor="1" VersionMinor="6" VersionBuild="0"/>
@@ -2188,7 +2188,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.FuncUser" Filename="Dash.SendDash.m1scr" Name="Root.Dash.SendDash">
-     <Props SelectedTrigger="Parent.Parent.Events.On Shutdown">
+     <Props SelectedTrigger="Parent.Parent.Events.On 50Hz">
       <List.UserTags>
        <Entry Value="Engine"/>
       </List.UserTags>
@@ -2357,7 +2357,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.TorqueCmd.Sent">
-     <Props DefaultLogRate="10MS" DiagnosticLog="true" DiagnosticLogRate="20MS" Type="u32"/>
+     <Props DefaultLogRate="10MS" DiagnosticLog="true" DiagnosticLogRate="20MS"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -4028,61 +4028,6 @@
 <P>CANBUSC = 2</P>]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Dash.Register">
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Dash.Register.PackCurrent">
-     <Props Type="u32" Value="153">
-      <Locale>
-       <Default Format="Hex"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Dash.Register.PackVoltage">
-     <Props Type="u32" Value="152">
-      <Locale>
-       <Default Format="Hex"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Dash.Register.PackTemp">
-     <Props Type="u32" Value="149">
-      <Locale>
-       <Default Format="Hex"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Dash.Register.SoC">
-     <Props Type="u32" Value="151">
-      <Locale>
-       <Default Format="Hex"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Dash.Register.Speed">
-     <Props Type="u32" Value="150">
-      <Locale>
-       <Default Format="Hex"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
     <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.SafetyFault.PDOC.Pin.Update"/>
     <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.SafetyFault.PDOC.Pin.UpdateDiagnostic"/>
     <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.SafetyFault.PDOC.Pin.Initialise"/>
@@ -5284,12 +5229,63 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.CurrentDC.Register">
-     <Props Type="u32" Value="95">
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.TxStatus">
+     <Props Type="::This.Tx Status">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.Raw">
+     <Props DiagnosticLogRate="10MS" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="6.55350000000000000e+004">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
       <Locale>
-       <Default Format="Hex"/>
+       <Default DPS="2"/>
       </Locale>
      </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.Actual">
+     <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Qty="V"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.VoltageAC">
+     <Props UseDefValue="true" DefValue="This.Actual"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.CurrentDC.Update.m1scr" Name="Root.Inverter.LHS.Data.CurrentDC.Update">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="receiveHandle" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.CurrentDC.BitLength">
+     <Props Type="s32" Value="16"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -5304,11 +5300,6 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.Data">
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.CurrentDC.Raw">
      <Props DiagnosticLogRate="10MS" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="6.55350000000000000e+004">
       <List.UserTags>
@@ -5318,6 +5309,37 @@
        <Default DPS="2"/>
       </Locale>
      </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.CurrentDC">
+     <Props DefValue="This.Actual"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.CurrentAC.Update.m1scr" Name="Root.Inverter.LHS.Data.CurrentAC.Update">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="receiveHandle" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.Data">
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -5354,10 +5376,9 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Pumps.State">
-     <Props DiagnosticLog="true" DiagnosticLogRate="100MS" Type="::This.Pump State">
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.TxStatus">
+     <Props Type="::This.Tx Status">
       <List.UserTags>
-       <Entry Value="Engine"/>
        <Entry Value="Normal"/>
       </List.UserTags>
      </Props>
@@ -5365,17 +5386,104 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.IqActual.Actual">
-     <Props DiagnosticLog="true" DiagnosticLogRate="50MS" Qty="A">
-      <Locale>
-       <Default DPS="2"/>
-      </Locale>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff">
+     <Props UseDefValue="true" DefValue="This.Percentage"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Parameters.PercentageCurrentPk.Update.m1scr" Name="Root.Inverter.LHS.Parameters.PercentageCurrentPk.Update">
+     <Signature Name="" ReturnType="">
+      <Params/>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.TempMotor.Update.m1scr" Name="Root.Inverter.LHS.Data.TempMotor.Update">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="receiveHandle" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Parent.Events.On 10Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Init"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Value">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance">
+     <Props>
+      <Axis>
+       <X Source="Parent.Raw" MaxSites="10" Extrapolate="Both" MandatoryTune="true"/>
+      </Axis>
      </Props>
      <Comment>
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.IqActual.Update.m1scr" Name="Root.Inverter.LHS.Data.IqActual.Update">
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.TempIGBT.Update.m1scr" Name="Root.Inverter.LHS.Data.TempIGBT.Update">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="receiveHandle" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.TorqueCmd.Update.m1scr" Name="Root.Inverter.LHS.TorqueCmd.Update">
+     <Signature Name="" ReturnType="">
+      <Params>
+       <Param Name="receiveHandle" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.IMaxPk.Update.m1scr" Name="Root.Inverter.LHS.Data.IMaxPk.Update">
      <Signature Name="" ReturnType="">
       <Params>
        <Param Name="receiveHandle" Type="u32" Attrs="0">
@@ -5405,7 +5513,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.IMaxPk.Update.m1scr" Name="Root.Inverter.LHS.Data.IMaxPk.Update">
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.IqActual.Update.m1scr" Name="Root.Inverter.LHS.Data.IqActual.Update">
      <Signature Name="" ReturnType="">
       <Params>
        <Param Name="receiveHandle" Type="u32" Attrs="0">
@@ -5425,7 +5533,16 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Pumps.RHS.Test.Value"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.IqActual.Actual">
+     <Props DiagnosticLog="true" DiagnosticLogRate="50MS" Qty="A">
+      <Locale>
+       <Default DPS="2"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
     <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.VoltageDC.Update.m1scr" Name="Root.Inverter.LHS.Data.VoltageDC.Update">
      <Signature Name="" ReturnType="">
       <Params>
@@ -5445,6 +5562,13 @@
 <![CDATA[]]>
       </ReturnDescription>
      </Signature>
+    </Component>
+    <Component Classname="BuiltIn.FuncUser" Filename="Vehicle.Update.m1scr" Name="Root.Vehicle.Update">
+     <Props SelectedTrigger="Parent.Parent.Events.On 50Hz">
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
     </Component>
     <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageDC.BitLength">
      <Props Type="s32" Value="16"/>
@@ -5491,77 +5615,8 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.VoltageDC">
-     <Props UseDefValue="true" DefValue="This.Actual"/>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.VoltageAC.Update.m1scr" Name="Root.Inverter.LHS.Data.VoltageAC.Update">
-     <Signature Name="" ReturnType="">
-      <Params>
-       <Param Name="receiveHandle" Type="u32" Attrs="0">
-        <Description>
-<![CDATA[]]>
-        </Description>
-       </Param>
-      </Params>
-      <Description>
-<![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
-    </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.TempIGBT.Update.m1scr" Name="Root.Inverter.LHS.Data.TempIGBT.Update">
-     <Signature Name="" ReturnType="">
-      <Params>
-       <Param Name="receiveHandle" Type="u32" Attrs="0">
-        <Description>
-<![CDATA[]]>
-        </Description>
-       </Param>
-      </Params>
-      <Description>
-<![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageAC.BitLength">
-     <Props Type="s32" Value="16"/>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.LHS.Parameters.MaxRPM">
-     <Props Qty="rad/s" Validation="Positive">
-      <Locale>
-       <Default Unit="rpm"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="Vehicle.Update.m1scr" Name="Root.Vehicle.Update">
-     <Props SelectedTrigger="Parent.Parent.Events.On 50Hz">
-      <List.UserTags>
-       <Entry Value="Vehicle"/>
-      </List.UserTags>
-     </Props>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageAC.Register">
-     <Props Type="u32" Value="138">
+    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.CurrentDC.Register">
+     <Props Type="u32" Value="95">
       <Locale>
        <Default Format="Hex"/>
       </Locale>
@@ -5570,104 +5625,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.CurrentDC">
-     <Props DefValue="This.Actual"/>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.CurrentAC.Update.m1scr" Name="Root.Inverter.LHS.Data.CurrentAC.Update">
-     <Signature Name="" ReturnType="">
-      <Params>
-       <Param Name="receiveHandle" Type="u32" Attrs="0">
-        <Description>
-<![CDATA[]]>
-        </Description>
-       </Param>
-      </Params>
-      <Description>
-<![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.TCmd">
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.TorqueCmd.Update.m1scr" Name="Root.Inverter.LHS.TorqueCmd.Update">
-     <Signature Name="" ReturnType="">
-      <Params>
-       <Param Name="receiveHandle" Type="u32" Attrs="0">
-        <Description>
-<![CDATA[]]>
-        </Description>
-       </Param>
-      </Params>
-      <Description>
-<![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
-    </Component>
-    <Component Classname="BuiltIn.Table" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance">
-     <Props>
-      <Axis>
-       <X Source="Parent.Raw" MaxSites="10" Extrapolate="Both" MandatoryTune="true"/>
-      </Axis>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Value">
-     <Props Qty="ohm"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Init"/>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Inverter.LHS.Data.TempMotor.AsResistance.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Parent.Events.On 10Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.TxStatus">
-     <Props Type="::This.Tx Status">
-      <List.UserTags>
-       <Entry Value="Normal"/>
-      </List.UserTags>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.Raw">
-     <Props DiagnosticLogRate="10MS" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="6.55350000000000000e+004">
-      <List.UserTags>
-       <Entry Value="Normal"/>
-      </List.UserTags>
-      <Locale>
-       <Default DPS="2"/>
-      </Locale>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Data.VoltageAC.Actual">
-     <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Qty="V"/>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.VoltageAC">
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Data.VoltageDC">
      <Props UseDefValue="true" DefValue="This.Actual"/>
      <Comment>
 <![CDATA[]]>
@@ -5701,7 +5659,7 @@
     <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Normalised Filtered">
      <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Validation="MinMax" ValClampMin="true" ValMin="9.00000000000000020e-001" ValClampMax="true" ValMax="1.39999999999999990e+000"/>
     </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.CurrentDC.Update.m1scr" Name="Root.Inverter.LHS.Data.CurrentDC.Update">
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.VoltageAC.Update.m1scr" Name="Root.Inverter.LHS.Data.VoltageAC.Update">
      <Signature Name="" ReturnType="">
       <Params>
        <Param Name="receiveHandle" Type="u32" Attrs="0">
@@ -5789,34 +5747,36 @@
     <Component Classname="BuiltIn.FuncUser" Filename="Sensors.SteeringAngle.Update.m1scr" Name="Root.Sensors.SteeringAngle.Update">
      <Props SelectedTrigger="Parent.Parent.Parent.Events.On 50Hz"/>
     </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.CurrentDC.BitLength">
+    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageAC.BitLength">
      <Props Type="s32" Value="16"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.TempMotor.Update.m1scr" Name="Root.Inverter.LHS.Data.TempMotor.Update">
-     <Signature Name="" ReturnType="">
-      <Params>
-       <Param Name="receiveHandle" Type="u32" Attrs="0">
-        <Description>
+    <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageAC.Register">
+     <Props Type="u32" Value="138">
+      <Locale>
+       <Default Format="Hex"/>
+      </Locale>
+     </Props>
+     <Comment>
 <![CDATA[]]>
-        </Description>
-       </Param>
-      </Params>
-      <Description>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Pumps.State">
+     <Props DiagnosticLog="true" DiagnosticLogRate="100MS" Type="::This.Pump State">
+      <List.UserTags>
+       <Entry Value="Engine"/>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
 <![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
+     </Comment>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.Pumps.LHS.Test.Value"/>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Parameters.PercentageCurrentPk.Update.m1scr" Name="Root.Inverter.LHS.Parameters.PercentageCurrentPk.Update">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Pumps.RHS.Test.Value"/>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Parameters.PercentageCurrentEff.Update.m1scr" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Update">
      <Signature Name="" ReturnType="">
       <Params/>
       <Description>
@@ -5830,26 +5790,10 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff">
-     <Props UseDefValue="true" DefValue="This.Percentage"/>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.TxStatus">
-     <Props Type="::This.Tx Status">
-      <List.UserTags>
-       <Entry Value="Normal"/>
-      </List.UserTags>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Raw">
-     <Props Type="u32" Validation="MinMax" ValMin="0" ValMax="100">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Percentage">
+     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
       <Locale>
-       <Default Min="0" Max="100"/>
+       <Default Unit="%"/>
       </Locale>
      </Props>
      <Comment>
@@ -5866,29 +5810,15 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Percentage">
-     <Props Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Raw">
+     <Props Type="u32" Validation="MinMax" ValMin="0" ValMax="100">
       <Locale>
-       <Default Unit="%"/>
+       <Default Min="0" Max="100"/>
       </Locale>
      </Props>
      <Comment>
 <![CDATA[]]>
      </Comment>
-    </Component>
-    <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Parameters.PercentageCurrentEff.Update.m1scr" Name="Root.Inverter.LHS.Parameters.PercentageCurrentEff.Update">
-     <Signature Name="" ReturnType="">
-      <Params/>
-      <Description>
-<![CDATA[]]>
-      </Description>
-      <DescriptionFull>
-<![CDATA[]]>
-      </DescriptionFull>
-      <ReturnDescription>
-<![CDATA[]]>
-      </ReturnDescription>
-     </Signature>
     </Component>
     <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Absolute">
      <Props DiagnosticLog="true" DiagnosticLogRate="10MS"/>
@@ -6537,7 +6467,6 @@
         <Component Name="MaxValueRegister"/>
         <Component Name="TorquePerMotorCurrent"/>
        </Component>
-       <Component Name="TCmd"/>
        <Component Name="Data">
         <Component Name="CurrentAC">
          <Component Name="Raw"/>
@@ -6650,7 +6579,6 @@
          <Component Name="Update"/>
         </Component>
         <Component Name="UpdateParameters"/>
-        <Component Name="MaxRPM"/>
        </Component>
        <Component Name="CAN">
         <Component Name="RxStatus"/>
@@ -7436,13 +7364,6 @@
        <Component Name="TxStatus"/>
        <Component Name="Transmit"/>
        <Component Name="Bus"/>
-      </Component>
-      <Component Name="Register">
-       <Component Name="PackCurrent"/>
-       <Component Name="PackVoltage"/>
-       <Component Name="PackTemp"/>
-       <Component Name="SoC"/>
-       <Component Name="Speed"/>
       </Component>
      </Component>
      <Component Name="Sensors">

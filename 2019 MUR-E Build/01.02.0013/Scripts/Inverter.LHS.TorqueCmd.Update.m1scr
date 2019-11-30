@@ -1,0 +1,4 @@
+// Receives the torque command currently being given to the motors
+local bitOffset = 56 - BitLength;
+Received = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength);
+RxStatus = Rx Status.Ok;

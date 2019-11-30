@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<Configuration Locale="English_Australia.1252" DefaultLocale="C">
+ <Group Name="">
+  <Table Name="Inverter.RHS.Data.TempMotor.AsResistance">
+   <X>
+    <Cells Type="f32" Unit="">
+     <Cell Site="0,0,0">
+<![CDATA[2.46700000000000000e+003]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[8.35400000000000000e+003]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[9.82800000000000000e+003]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[1.21020000000000000e+004]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[1.40420000000000000e+004]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[1.52510000000000000e+004]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[1.52510000000000000e+004]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[1.52510000000000000e+004]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[1.52510000000000000e+004]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[1.52510000000000000e+004]]>
+     </Cell>
+    </Cells>
+   </X>
+   <Body>
+    <Cells Type="f32" Unit="ohm">
+     <Cell Site="0,0,0">
+<![CDATA[5.10000000000000000e+002]]>
+     </Cell>
+     <Cell Site="1,0,0">
+<![CDATA[1.34100000000000000e+003]]>
+     </Cell>
+     <Cell Site="2,0,0">
+<![CDATA[1.68500000000000000e+003]]>
+     </Cell>
+     <Cell Site="3,0,0">
+<![CDATA[2.30500000000000000e+003]]>
+     </Cell>
+     <Cell Site="4,0,0">
+<![CDATA[2.95300000000000000e+003]]>
+     </Cell>
+     <Cell Site="5,0,0">
+<![CDATA[3.42900000000000000e+003]]>
+     </Cell>
+     <Cell Site="6,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="7,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="8,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+     <Cell Site="9,0,0">
+<![CDATA[0.00000000000000000e+000]]>
+     </Cell>
+    </Cells>
+   </Body>
+  </Table>
+ </Group>
+</Configuration>

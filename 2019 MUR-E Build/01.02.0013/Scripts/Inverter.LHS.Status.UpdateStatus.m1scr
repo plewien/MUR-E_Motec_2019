@@ -1,0 +1,19 @@
+/*******************************************************************
+*  Status.UpdateStatus
+*
+* Uses the Status Map to indicate the different modes of the 
+* inverter. 
+*
+*******************************************************************/
+
+local bitOffset = 56 - StatusMap.BitLength;
+StatusMap = CanComms.GetInteger(In.receiveHandle, bitOffset, StatusMap.BitLength); 
+
+local temp = -1;
+expand (i = 0 to 31) {
+	if (GetBit(StatusMap, $(i))) {
+		temp = $(i);
+	}
+}
+
+This.Status.Set(temp);
