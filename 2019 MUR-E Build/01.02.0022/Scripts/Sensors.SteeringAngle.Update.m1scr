@@ -1,0 +1,10 @@
+Filtered = Filter.FirstOrder(Mapping, 0.01);
+
+
+if (Mapping > 0) {
+	Direction = Directions.Left;
+} else if (Mapping < 0) {
+	Direction = Directions.Right;
+} else {
+	Direction = Directions.Neither;
+}

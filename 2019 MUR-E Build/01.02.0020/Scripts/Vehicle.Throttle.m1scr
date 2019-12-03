@@ -1,0 +1,28 @@
+/*******************************************************************
+*  Vehicle.Throttle
+* 
+* 
+* 
+*******************************************************************/
+
+local TrqCmd = MaxTorqueCmd*AcceleratorPedal.MappedThrottle;
+
+/*if (TorqueVectoring.Enable eq Enabled.True) {
+
+	TorqueVectoring.Value = TorqueVectoring.K * Sensors.SteeringAngle;
+	
+	if (Sensors.SteeringAngle.Direction eq Direction.Left) {
+		Inverter.LHS.Command(TrqCmd);
+		Inverter.RHS.Command(Calculate.Max(0, TrqCmd - TorqueVectoring.Value));
+	} else if (Sensors.SteeringAngle.Direction eq Direction.Right) {
+		Inverter.LHS.Command(Calculate.Max(0, TrqCmd - TorqueVectoring.Value));
+		Inverter.RHS.Command(TrqCmd);
+	} else {
+		Inverter.LHS.Command(TrqCmd);
+		Inverter.RHS.Command(TrqCmd);
+	}
+	
+} else {*/
+	Inverter.LHS.Command(TrqCmd);
+	Inverter.RHS.Command(TrqCmd);
+//}

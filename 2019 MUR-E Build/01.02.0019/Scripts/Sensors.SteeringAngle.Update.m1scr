@@ -1,0 +1,13 @@
+if (MappedLeft > 0) {
+	Direction = Directions.Left;
+} else if (MappedLeft < 0) {
+	Direction = Directions.Right;
+} else {
+	Direction = Directions.Neither;
+}
+
+if (Raw < 1) {
+	Mapped = MappedLeft;
+} else {
+	Mapped = MappedRight;
+}

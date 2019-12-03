@@ -1,0 +1,19 @@
+/*******************************************************************
+*  Status.CheckFault
+*
+* This function checks if there is an error or warning in a 
+* particular bit of the EWMap. If there is both an error and a 
+* warning, then only the error will be displayed.
+*
+*******************************************************************/
+
+
+if (This.GetBit(In.receiveHandle, In.ErrorBit)) {  
+	Out = Inverter Fault.Error;
+} else {
+	if (GetBit(In.receiveHandle, In.WarningBit)) { 
+		Out = Inverter Fault.Warning;
+	} else {
+		Out = Inverter Fault.Ok;
+	}
+}

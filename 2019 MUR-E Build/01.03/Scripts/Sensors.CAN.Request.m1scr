@@ -1,0 +1,14 @@
+/*******************************************************************
+*  CAN.Request
+*
+*
+*******************************************************************/
+
+// CAN receive handle
+local receiveHandle = CanComms.RxOpenStandard(Bus, In.ID, 0, true);
+
+// Receive CAN message
+if (CanComms.RxMessage(receiveHandle)) {
+	local bitOffset = 0;
+	Out = CanComms.GetInteger(receiveHandle, bitOffset, 32);
+}

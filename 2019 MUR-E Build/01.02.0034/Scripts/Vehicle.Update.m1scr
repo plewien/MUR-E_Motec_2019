@@ -1,0 +1,12 @@
+/*******************************************************************
+*  Vehicle.Update
+* 
+* Generates the data for the car. Useful for displaying on dash.
+* 
+*******************************************************************/
+
+
+Data.Speed = Calculate.Average(Inverter.LHS.Data.GroundSpeed, Inverter.RHS.Data.GroundSpeed);
+Data.TempIGBT = Calculate.Max(Inverter.LHS.Data.TempIGBT, Inverter.RHS.Data.TempIGBT);
+Data.TempMotor = Calculate.Max(Inverter.LHS.Data.TempMotor, Inverter.RHS.Data.TempMotor);
+Data.TempAccumulator = BMS.Temps.Temp1;  // TODO: Update to give a more accurate depiction of the car

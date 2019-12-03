@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <MoTeCM1BuildSession Locale="English_Australia.1252" DefaultLocale="C" ProductName="M1Build" ProductVersion="1.4.0.239">
- <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="2" BuildNumber="15" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="Initialisation.Log.Flag" MinimumDataLogging="Data Logging Level 2">
+ <Project FileFormat="10103" Name="2019 MUR-E Build" VersionMajor="1" VersionMinor="2" BuildNumber="41" Author="Patrick Lewien" Company="Melbourne University Racing" ContactNo="0422 191 470" Address="Melbourne University, Parkville VIC 3010" Email="plewien@student.unimelb.edu.au" SupportURL="https://murmotorsports.eng.unimelb.edu.au/" Copyright="The University of Melbourne" TargetHardware="ecu120" SecurityLevel="Off" DiagnosticLoggingCondition="Initialisation.Log.Flag" MinimumDataLogging="Data Logging Level 2">
   <System VersionMajor="1" VersionMinor="4" VersionRelease="0" VersionBuild="0075" SelectedRelease="0" SelectedBuild="0075"/>
   <SelectedModuleSets>
    <File Name="MoTeC Types" VersionMajor="1" VersionMinor="6" VersionBuild="0"/>
@@ -9,7 +9,6 @@
    <File Name="MoTeC Input" VersionMajor="1" VersionMinor="10" VersionBuild="23"/>
    <File Name="MoTeC Ignition" VersionMajor="1" VersionMinor="11" VersionBuild="7"/>
    <File Name="MoTeC LTC" VersionMajor="1" VersionMinor="9" VersionBuild="2"/>
-   <File Name="MoTeC Warning" VersionMajor="1" VersionMinor="4" VersionBuild="12"/>
   </SelectedModuleSets>
   <DataTypes>
    <Type Name="Tx Status" Storage="enum" Default="Ok">
@@ -24,8 +23,8 @@
      </Help>
     </Enum>
    </Type>
-   <Type Name="Accelerator Pedal Plausibility" Storage="enum" Default="Ok">
-    <Enum Name="Timeout" ContainerOrder="0" Tags="Fault">
+   <Type Name="Pedal Plausibility" Storage="enum" Default="Ok">
+    <Enum Name="Implausible" ContainerOrder="0" Tags="Fault">
      <Help>
 <![CDATA[]]>
      </Help>
@@ -89,6 +88,11 @@
      </Help>
     </Enum>
     <Enum Name="Shutdown" ContainerOrder="0">
+     <Help>
+<![CDATA[]]>
+     </Help>
+    </Enum>
+    <Enum Name="Implausibility" ContainerOrder="4">
      <Help>
 <![CDATA[]]>
      </Help>
@@ -337,6 +341,9 @@
     </Enum>
    </Type>
   </DataTypes>
+  <PkgUpgrades>
+   <Project Name="2019 MUR-E Build" Version="0.4" Major="1" Minor="3" Build="0"/>
+  </PkgUpgrades>
   <Build PackageSignKey="University of Melbourne.M1.Package.Development 01.04.00"/>
   <ComponentStream>
    <List>
@@ -361,7 +368,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.AcceleratorPedal">
-     <Props>
+     <Props UseDefValue="true" DefValue="This.Value">
       <List.UserTags>
        <Entry Value="Driver"/>
       </List.UserTags>
@@ -371,7 +378,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.BrakePedal">
-     <Props>
+     <Props DefValue="This.Mapping.BrakePressed">
       <List.UserTags>
        <Entry Value="Driver"/>
       </List.UserTags>
@@ -386,6 +393,11 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.Pumps">
+     <Props UseDefValue="true" DefValue="This.State">
+      <List.UserTags>
+       <Entry Value="Engine"/>
+      </List.UserTags>
+     </Props>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -783,6 +795,11 @@
      <Props Value="500kbps"/>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Vehicle"/>
+      </List.UserTags>
+     </Props>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -836,7 +853,7 @@
      </Signature>
     </Component>
     <Component Classname="BuiltIn.Channel" Name="Root.AcceleratorPedal.Plausibility.Value">
-     <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Type="::This.Accelerator Pedal Plausibility"/>
+     <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Type="::This.Pedal Plausibility"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -855,27 +872,30 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottle.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleA.Init"/>
     <Component Classname="BuiltIn.Channel" Name="Root.AcceleratorPedal.Plausibility.AbsoluteDifference">
-     <Props Qty="V"/>
+     <Props Qty="ratio"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="AcceleratorPedal.Plausibility.Update.m1scr" Name="Root.AcceleratorPedal.Plausibility.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    <Component Classname="BuiltIn.FuncUser" Filename="AcceleratorPedal.Update.m1scr" Name="Root.AcceleratorPedal.Update">
+     <Props SelectedTrigger="Parent.Parent.Events.On 1000Hz"/>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.AcceleratorPedal.Plausibility.Threshold">
-     <Props Qty="V" Validation="Positive">
+     <Props Qty="ratio" Validation="Positive">
       <List.UserTags>
        <Entry Value="Setup"/>
       </List.UserTags>
+      <Locale>
+       <Default Unit="%"/>
+      </Locale>
      </Props>
      <Comment>
 <![CDATA[<p>By FSAE rules, implausibility (T.6.2.3) is defined as:<br>" ... a deviation of more than 10% pedal travel between the sensors or other failure as defined in this Section T.6.2"</p>]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottle.Update">
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleA.Update">
      <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.AcceleratorPedal.Plausibility">
@@ -901,21 +921,21 @@
 <![CDATA[<p>By FSAE rules:</p><p>&nbsp;" if an implausibility occurs between the values of the APPSs&nbsp;and persists for more than 100msec, [the motor controllers must&nbsp;shut down power to the motors]."</p>]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottle.Value">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleA.Value">
      <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
       <Locale>
        <Default Unit="%" DPS="2" Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
       </Locale>
      </Props>
     </Component>
-    <Component Classname="BuiltIn.Table" Name="Root.AcceleratorPedal.MappedThrottle">
-     <Props NumAxes="2">
+    <Component Classname="BuiltIn.Table" Name="Root.AcceleratorPedal.MappedThrottleA">
+     <Props>
       <List.UserTags>
        <Entry Value="Tune"/>
       </List.UserTags>
       <Axis>
        <X Source="Parent.ThrottleA" MaxSites="11" MandatoryTune="true"/>
-       <Y Source="Parent.ThrottleB" MaxSites="11" MandatoryTune="true"/>
+       <Y MaxSites="11"/>
       </Axis>
      </Props>
      <Comment>
@@ -1189,7 +1209,6 @@
     <Component Classname="BuiltIn.Channel" Name="Root.Vehicle.MoTeC.Temperature.Value">
      <Props DiagnosticLog="true" DiagnosticLogRate="100MS">
       <List.UserTags>
-       <Entry Value="Vehicle"/>
        <Entry Value="Normal"/>
       </List.UserTags>
       <Locale>
@@ -1523,7 +1542,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.LHS.Enable">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.LHS.Testing">
      <Props Type="::This.Enabled"/>
      <Comment>
 <![CDATA[]]>
@@ -1726,10 +1745,9 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.LateralG">
+    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.LateralG.Voltage">
      <Props>
       <List.UserTags>
-       <Entry Value="Vehicle"/>
        <Entry Value="Input"/>
       </List.UserTags>
      </Props>
@@ -1737,47 +1755,44 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Normalised Filtered">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Normalised Filtered">
      <Props DiagnosticLog="true" DiagnosticLogRate="20MS"/>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Absolute"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Filter">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Absolute"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Reference">
      <Props TargetCreation="AutoConst" Target="This.Value"/>
     </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LateralG.Filter.Value">
-     <Props Value="1.00000000000000010e-001"/>
-    </Component>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Reference">
-     <Props TargetCreation="AutoConst" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LateralG.Reference.Value">
+    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Reference.Value">
      <Props Value="INT_3V3"/>
     </Component>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Resource">
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Resource">
      <Props NameCreation="AutoConst" NameTarget="This.Value"/>
     </Component>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.LateralG.Resource.Value">
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Resource.Value">
      <Props NameValue="INT_G_X"/>
     </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Reserve"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 100Hz"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Impedance">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Impedance">
      <Props Qty="ohm"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Source">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Source">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Bandwidth">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Bandwidth">
      <Props Qty="Hz"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Minimum">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Minimum">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Maximum">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Maximum">
      <Props Qty="V"/>
     </Component>
     <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Status.StatusMap.BitLength">
@@ -1785,120 +1800,6 @@
      <Comment>
 <![CDATA[]]>
      </Comment>
-    </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.LongitudinalG">
-     <Props>
-      <List.UserTags>
-       <Entry Value="Vehicle"/>
-       <Entry Value="Input"/>
-      </List.UserTags>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Normalised Filtered">
-     <Props DiagnosticLog="true" DiagnosticLogRate="20MS"/>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Absolute"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Filter">
-     <Props TargetCreation="AutoConst" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LongitudinalG.Filter.Value">
-     <Props Value="1.00000000000000010e-001"/>
-    </Component>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Reference">
-     <Props TargetCreation="AutoConst" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LongitudinalG.Reference.Value">
-     <Props Value="INT_3V3"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Resource">
-     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.LongitudinalG.Resource.Value">
-     <Props NameValue="INT_G_Y"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Reserve"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Impedance">
-     <Props Qty="ohm"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Source">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Bandwidth">
-     <Props Qty="Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Minimum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Maximum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongitudinalG.Input Resolution">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.AccelZ">
-     <Props>
-      <List.UserTags>
-       <Entry Value="Vehicle"/>
-       <Entry Value="Input"/>
-      </List.UserTags>
-     </Props>
-     <Comment>
-<![CDATA[]]>
-     </Comment>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Normalised Filtered">
-     <Props DiagnosticLog="true" DiagnosticLogRate="20MS"/>
-    </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Absolute"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Filter">
-     <Props TargetCreation="AutoConst" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.AccelZ.Filter.Value">
-     <Props Value="1.00000000000000010e-001"/>
-    </Component>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Reference">
-     <Props TargetCreation="AutoConst" Target="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.AccelZ.Reference.Value">
-     <Props Value="INT_3V3"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Resource">
-     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
-    </Component>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.AccelZ.Resource.Value">
-     <Props NameValue="INT_G_Z"/>
-    </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Reserve"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Update">
-     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Impedance">
-     <Props Qty="ohm"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Source">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Bandwidth">
-     <Props Qty="Hz"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Minimum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Maximum">
-     <Props Qty="V"/>
-    </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Input Resolution">
-     <Props Qty="V"/>
     </Component>
     <Component Classname="BuiltIn.GroupCompound" Name="Root.Inverter.LHS.Status.EWMap">
      <Props UseDefValue="true" DefValue="This.Raw"/>
@@ -2083,7 +1984,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Input Resolution">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Input Resolution">
      <Props Qty="V"/>
     </Component>
     <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Initialisation.ReadyToDrive.Buzzer.Voltage.Input Resolution"/>
@@ -2273,8 +2174,8 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.BrakePedal.Mapping.BSEIL">
-     <Props Type="s32"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.BrakePedal.Mapping.Plausibility">
+     <Props DiagnosticLog="true" DiagnosticLogRate="100MS" Type="::This.Pedal Plausibility"/>
      <Comment>
 <![CDATA[]]>
      </Comment>
@@ -2286,7 +2187,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.Mapping.FrontReleased">
-     <Props Qty="V" Validation="MinMax" ValMin="5.00000000000000000e-001" ValMax="4.84999999999999960e+000">
+     <Props Qty="V" Validation="MinMax" ValMin="4.00000000000000020e-001" ValMax="4.84999999999999960e+000">
       <Locale>
        <Default DPS="2"/>
       </Locale>
@@ -2296,7 +2197,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.Mapping.FrontPressed">
-     <Props Qty="V" Validation="MinMax" ValMin="5.00000000000000000e-001" ValMax="4.84999999999999960e+000">
+     <Props Qty="V" Validation="MinMax" ValMin="4.00000000000000020e-001" ValMax="4.84999999999999960e+000">
       <Locale>
        <Default DPS="2"/>
       </Locale>
@@ -2306,7 +2207,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.Mapping.RearReleased">
-     <Props Qty="V" Validation="MinMax" ValMin="5.00000000000000000e-001" ValMax="4.84999999999999960e+000">
+     <Props Qty="V" Validation="MinMax" ValMin="4.00000000000000020e-001" ValMax="4.84999999999999960e+000">
       <Locale>
        <Default DPS="2"/>
       </Locale>
@@ -2316,7 +2217,7 @@
      </Comment>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.Mapping.RearPressed">
-     <Props Qty="V" Validation="MinMax" ValMin="5.00000000000000000e-001" ValMax="4.84999999999999960e+000">
+     <Props Qty="V" Validation="MinMax" ValMin="4.00000000000000020e-001" ValMax="4.84999999999999960e+000">
       <Locale>
        <Default DPS="2"/>
       </Locale>
@@ -2519,11 +2420,7 @@
     <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Pumps.RHS.Pin.Update"/>
     <Component Classname="BuiltIn.MethodUserParam" Name="Root.Pumps.RHS.SetState"/>
     <Component Classname="BuiltIn.FuncUser" Filename="Pumps.Control.m1scr" Name="Root.Pumps.Control">
-     <Props SelectedTrigger="Parent.Parent.Events.On 10Hz">
-      <List.UserTags>
-       <Entry Value="Engine"/>
-      </List.UserTags>
-     </Props>
+     <Props SelectedTrigger="Parent.Parent.Events.On 10Hz"/>
     </Component>
     <Component Classname="BuiltIn.Parameter" Name="Root.Pumps.Always On">
      <Props Type="::This.Enabled"/>
@@ -2937,7 +2834,6 @@
     <Component Classname="BuiltIn.Channel" Name="Root.Vehicle.Data.Speed">
      <Props DiagnosticLog="true" DiagnosticLogRate="20MS" Qty="m/s">
       <List.UserTags>
-       <Entry Value="Vehicle"/>
        <Entry Value="Normal"/>
       </List.UserTags>
       <Locale>
@@ -4032,11 +3928,7 @@
      </Signature>
     </Component>
     <Component Classname="BuiltIn.FuncUser" Filename="Vehicle.Update.m1scr" Name="Root.Vehicle.Update">
-     <Props SelectedTrigger="Parent.Parent.Events.On 50Hz">
-      <List.UserTags>
-       <Entry Value="Vehicle"/>
-      </List.UserTags>
-     </Props>
+     <Props SelectedTrigger="Parent.Parent.Events.On 50Hz"/>
     </Component>
     <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageDC.BitLength">
      <Props Type="s32" Value="16"/>
@@ -4104,7 +3996,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.GroupCompound" Name="Root.Sensors.SteeringAngle">
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Sensors.Steering">
      <Props UseDefValue="true" DefValue="This.Mapped">
       <List.UserTags>
        <Entry Value="Driver"/>
@@ -4114,7 +4006,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="_IOMethod.ratio" Name="Root.Sensors.SteeringAngle.Raw">
+    <Component Classname="_IOMethod.ratio" Name="Root.Sensors.Steering.Raw">
      <Props>
       <List.UserTags>
        <Entry Value="Input"/>
@@ -4124,7 +4016,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Normalised Filtered">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Normalised Filtered">
      <Props DiagnosticLog="true" DiagnosticLogRate="10MS" ValMin="9.00000000000000020e-001" ValMax="1.39999999999999990e+000"/>
     </Component>
     <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.LHS.Data.VoltageAC.Update.m1scr" Name="Root.Inverter.LHS.Data.VoltageAC.Update">
@@ -4147,45 +4039,45 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Filter">
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Filter">
      <Props TargetCreation="AutoParam" Target="This.Value"/>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Sensors.SteeringAngle.Raw.Filter.Value"/>
-    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Reference">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Sensors.Steering.Raw.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Reference">
      <Props TargetCreation="AutoParam" Target="This.Value"/>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Sensors.SteeringAngle.Raw.Reference.Value"/>
-    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Resource">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Sensors.Steering.Raw.Reference.Value"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Resource">
      <Props NameCreation="AutoConst" NameTarget="This.Value"/>
     </Component>
-    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Sensors.SteeringAngle.Raw.Resource.Value">
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Sensors.Steering.Raw.Resource.Value">
      <Props NameValue="AV17"/>
     </Component>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Reserve"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Release"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Initialise"/>
-    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Update">
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Update">
      <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Impedance">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Impedance">
      <Props Qty="ohm"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Source">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Source">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Bandwidth">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Bandwidth">
      <Props Qty="Hz"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Minimum">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Minimum">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Maximum">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Maximum">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Input Resolution">
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Input Resolution">
      <Props Qty="V"/>
     </Component>
-    <Component Classname="BuiltIn.Table" Name="Root.Sensors.SteeringAngle.Mapped">
+    <Component Classname="BuiltIn.Table" Name="Root.Sensors.Steering.Mapped">
      <Props>
       <Axis>
        <X Source="Parent.Raw" MaxSites="5"/>
@@ -4195,14 +4087,14 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Mapped.Value">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.Steering.Mapped.Value">
      <Props Qty="rad" Validation="MinMax" ValMin="-1.00000000000000000e+002" ValMax="1.00000000000000000e+002"/>
     </Component>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Mapped.Init"/>
-    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Mapped.Update">
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Sensors.Steering.Mapped.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Sensors.Steering.Mapped.Update">
      <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 50Hz"/>
     </Component>
-    <Component Classname="BuiltIn.Channel" Name="Root.Sensors.SteeringAngle.Direction">
+    <Component Classname="BuiltIn.Channel" Name="Root.Sensors.Steering.Direction">
      <Props DefaultLogRate="20MS" DiagnosticLog="true" DiagnosticLogRate="200MS" Type="::This.Directions">
       <List.UserTags>
        <Entry Value="Normal"/>
@@ -4212,7 +4104,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.FuncUser" Filename="Sensors.SteeringAngle.Update.m1scr" Name="Root.Sensors.SteeringAngle.Update">
+    <Component Classname="BuiltIn.FuncUser" Filename="Sensors.Steering.Update.m1scr" Name="Root.Sensors.Steering.Update">
      <Props SelectedTrigger="Parent.Parent.Parent.Events.On 50Hz"/>
     </Component>
     <Component Classname="BuiltIn.Constant" Name="Root.Inverter.LHS.Data.VoltageAC.BitLength">
@@ -4234,7 +4126,6 @@
     <Component Classname="BuiltIn.Channel" Name="Root.Pumps.State">
      <Props DiagnosticLog="true" DiagnosticLogRate="100MS" Type="::This.Pump State">
       <List.UserTags>
-       <Entry Value="Engine"/>
        <Entry Value="Normal"/>
       </List.UserTags>
      </Props>
@@ -4288,7 +4179,7 @@
 <![CDATA[]]>
      </Comment>
     </Component>
-    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.SteeringAngle.Raw.Absolute">
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Sensors.Steering.Raw.Absolute">
      <Props DiagnosticLog="true" DiagnosticLogRate="10MS"/>
     </Component>
     <Component Classname="BuiltIn.FuncUserParam" Filename="Inverter.RHS.Data.TempMotor.Update.m1scr" Name="Root.Inverter.RHS.Data.TempMotor.Update">
@@ -5214,7 +5105,7 @@
       </ReturnDescription>
      </Signature>
     </Component>
-    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.RHS.Enable">
+    <Component Classname="BuiltIn.Parameter" Name="Root.Inverter.RHS.Testing">
      <Props Type="::This.Enabled"/>
      <Comment>
 <![CDATA[]]>
@@ -6154,6 +6045,500 @@
 <![CDATA[]]>
      </Comment>
     </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Mapped.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 50Hz"/>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Normalised Filtered">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS"/>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Absolute"/>
+    <Component Classname="BuiltIn.FuncUser" Filename="BMS.Current.Update.m1scr" Name="Root.BMS.Current.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Reference">
+     <Props TargetCreation="AutoConst" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Reference.Value">
+     <Props Value="INT_3V3"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Resource">
+     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Resource.Value">
+     <Props NameValue="INT_G_Y"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.MoTeC.AccelZ">
+     <Props UseDefValue="true" DefValue="This.Mapped"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Vehicle.MoTeC.AccelZ.Mapped">
+     <Props>
+      <Axis>
+       <X Source="Parent.Voltage" MaxSites="3" Extrapolate="Both"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Mapped.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS" Qty="m/s/s">
+      <Locale>
+       <Default Unit="G" DPS="2"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Mapped.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Mapped.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 50Hz"/>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.Vehicle.MoTeC.AccelZ.Voltage">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Input"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Normalised Filtered">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS"/>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Absolute"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Reference">
+     <Props TargetCreation="AutoConst" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Reference.Value">
+     <Props Value="INT_3V3"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Resource">
+     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Resource.Value">
+     <Props NameValue="INT_G_Z"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.AccelZ.Voltage.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.BMS.Current.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS">
+      <List.UserTags>
+       <Entry Value="Normal"/>
+      </List.UserTags>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="_IOMethod.ratio" Name="Root.BMS.Current.SensorVoltage">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Normalised Filtered">
+     <Props DiagnosticLog="true" DiagnosticLogRate="50MS"/>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Absolute"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.BMS.Current.SensorVoltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Reference">
+     <Props TargetCreation="AutoConst" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.BMS.Current.SensorVoltage.Reference.Value">
+     <Props Value="ABSOLUTE"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Resource">
+     <Props NameCreation="AutoConst" NameTarget="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.BMS.Current.SensorVoltage.Resource.Value">
+     <Props NameValue="AV5"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Reserve"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Impedance">
+     <Props Qty="ohm"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Source">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Bandwidth">
+     <Props Qty="Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Minimum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Maximum">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BMS.Current.SensorVoltage.Input Resolution">
+     <Props Qty="V"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Frequency"/>
+    <Component Classname="_IOMethod.pwm" Name="Root.BrakePedal.BrakeLight.Output"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.BrakeLight.Open Current.Value"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.BrakePedal.BrakeLight.Open Current"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.BrakeLight.Polarity.Value"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.BrakePedal.BrakeLight.Polarity"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.BrakePedal.BrakeLight.Test.Value"/>
+    <Component Classname="BuiltIn.Reference" Name="Root.BrakePedal.BrakeLight.Test"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.BrakePedal.BrakeLight.Drive.Value">
+     <Props Value="Low Side"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Name="Root.BrakePedal.BrakeLight.Drive">
+     <Props TargetCreation="AutoConst"/>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.AcceleratorPedal.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="100MS" Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <Locale>
+       <Default Unit="%"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.BrakePedal.BrakeLight.State"/>
+    <Component Classname="BuiltIn.IOResourceConstant" Name="Root.BrakePedal.BrakeLight.Resource.Value">
+     <Props NameValue="INJ_LS3"/>
+    </Component>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Voltage.Filter">
+     <Props TargetCreation="AutoParam" Target="This.Value"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Name="Root.BrakePedal.BrakeLight.Resource">
+     <Props NameCreation="AutoConst"/>
+    </Component>
+    <Component Classname="MoTeC Output.Switched Output" Name="Root.BrakePedal.BrakeLight">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleB.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Events.On 1000Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleB.Init"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.AcceleratorPedal.MappedThrottleB.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="10MS" Qty="ratio" Validation="MinMax" ValMin="0.00000000000000000e+000" ValMax="1.00000000000000000e+000">
+      <Locale>
+       <Default Unit="%" DPS="2" Min="0.00000000000000000e+000" Max="1.00000000000000000e+000"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.AcceleratorPedal.MappedThrottleB">
+     <Props>
+      <Axis>
+       <X Source="Parent.ThrottleB" MaxSites="11" MandatoryTune="true"/>
+       <Y MaxSites="11" MandatoryTune="true"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Inverter.LHS.ScaleRPM.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 50Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Inverter.LHS.ScaleRPM.Init"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Inverter.LHS.ScaleRPM.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="200MS" Qty="ratio">
+      <Locale>
+       <Default Unit="%"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Inverter.LHS.ScaleRPM">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+      <Axis>
+       <X Source="Parent.Data.RPM" MaxSites="5" MandatoryTune="true"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Inverter.LHS.Test">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.MethodUserParam" Name="Root.BrakePedal.BrakeLight.SetState"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Update"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Release"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Reserve"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Resource"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Hold Current"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.BrakePedal.BrakeLight.Pin.Peak Current.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Peak Current"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.BrakePedal.BrakeLight.Pin.Drive.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Drive"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Pin.Diagnostic"/>
+    <Component Classname="_IOMethod.INJ_PH_IO" Name="Root.BrakePedal.BrakeLight.Pin"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Resolution"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Maximum"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Minimum"/>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Sensors.IMU">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Bandwidth"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Source"/>
+    <Component Classname="BuiltIn.IOCharacteristic" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Input Impedance"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 100Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.TorqueVectoring">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Vehicle.TorqueVectoring.Value">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Vehicle.TorqueVectoring.K">
+     <Props Validation="Positive Gain"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Vehicle.TorqueVectoring.Enable">
+     <Props Type="::This.Enabled"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Initialise"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Reserve"/>
+    <Component Classname="BuiltIn.Table" Name="Root.Vehicle.MoTeC.LateralG.Mapped">
+     <Props>
+      <Axis>
+       <X Source="Parent.Voltage" MaxSites="3" Extrapolate="Both"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Mapped.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS" Qty="m/s/s">
+      <Locale>
+       <Default Unit="G" DPS="2"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Mapped.Init"/>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LateralG.Mapped.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Parent.Events.On 50Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Resource"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.BrakePedal.BrakeLight.Voltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Filter"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Absolute"/>
+    <Component Classname="BuiltIn.Parameter" Name="Root.Vehicle.MoTeC.LateralG.Voltage.Filter.Value"/>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Voltage.Absolute Filtered"/>
+    <Component Classname="_IOMethod.abs" Name="Root.BrakePedal.BrakeLight.Voltage"/>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 10Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Release"/>
+    <Component Classname="BuiltIn.Table" Name="Root.Inverter.RHS.ScaleRPM">
+     <Props>
+      <List.UserTags>
+       <Entry Value="Tune"/>
+      </List.UserTags>
+      <Axis>
+       <X Source="Parent.Data.RPM" MaxSites="5" MandatoryTune="true"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Inverter.RHS.ScaleRPM.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="200MS" Qty="ratio">
+      <Locale>
+       <Default Unit="%"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Inverter.RHS.ScaleRPM.Init"/>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Sensors.CAN">
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Name="Root.Sensors.CAN.RxStatus">
+     <Props Type="::This.Rx Status"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncUserParam" Filename="Sensors.CAN.Receive.m1scr" Name="Root.Sensors.CAN.Receive">
+     <Signature Name="" ReturnType="::This.Tx Status">
+      <Params>
+       <Param Name="Register" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+       <Param Name="Timing" Type="u32" Attrs="0">
+        <Description>
+<![CDATA[]]>
+        </Description>
+       </Param>
+      </Params>
+      <Description>
+<![CDATA[]]>
+      </Description>
+      <DescriptionFull>
+<![CDATA[]]>
+      </DescriptionFull>
+      <ReturnDescription>
+<![CDATA[]]>
+      </ReturnDescription>
+     </Signature>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Sensors.CAN.Bus">
+     <Props Type="s32" Value="2"/>
+     <Comment>
+<![CDATA[<P>This is 0-indexed!!!!!</P>
+<P>CANBUSA = 0</P>
+<P>CANBUSB = 1</P>
+<P>CANBUSC = 2</P>]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Constant" Name="Root.Sensors.CAN.InverterRxID">
+     <Props Type="u32" Value="1">
+      <Locale>
+       <Default Format="Hex"/>
+      </Locale>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Lookup" Caps="AutoCreated" Name="Root.Inverter.RHS.ScaleRPM.Update">
+     <Props SelectedTrigger="Parent.Parent.Parent.Parent.Events.On 50Hz"/>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.IOMethod" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Reserve"/>
+    <Component Classname="BuiltIn.IOResourceValueInput" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Resource"/>
+    <Component Classname="BuiltIn.Channel" Name="Root.BrakePedal.BrakeLight.Output.Duty Cycle.Value"/>
+    <Component Classname="BuiltIn.Reference" Caps="AutoCreated" Name="Root.BrakePedal.BrakeLight.Output.Duty Cycle"/>
+    <Component Classname="BuiltIn.Constant" Name="Root.BrakePedal.BrakeLight.Output.Frequency.Value"/>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.BMS.Current">
+     <Props UseDefValue="true" DefValue="This.Value"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.MoTeC.LongnitudinalG">
+     <Props UseDefValue="true" DefValue="This.Mapped"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.EventKernel" Name="Root.Events.On 20Hz">
+     <Props EventResource="res.knl.50MS"/>
+    </Component>
+    <Component Classname="BuiltIn.Table" Name="Root.Vehicle.MoTeC.LongnitudinalG.Mapped">
+     <Props>
+      <Axis>
+       <X Source="Parent.Voltage" MaxSites="3" Extrapolate="Both"/>
+      </Axis>
+     </Props>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
+    <Component Classname="BuiltIn.Channel" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Mapped.Value">
+     <Props DiagnosticLog="true" DiagnosticLogRate="20MS" Qty="m/s/s">
+      <Locale>
+       <Default Unit="G" DPS="2"/>
+      </Locale>
+     </Props>
+    </Component>
+    <Component Classname="BuiltIn.FuncGenerated.Table.Init" Caps="AutoCreated" Name="Root.Vehicle.MoTeC.LongnitudinalG.Mapped.Init"/>
+    <Component Classname="BuiltIn.GroupCompound" Name="Root.Vehicle.MoTeC.LateralG">
+     <Props UseDefValue="true" DefValue="This.Mapped"/>
+     <Comment>
+<![CDATA[]]>
+     </Comment>
+    </Component>
    </List>
    <Organisation>
     <Component Name="Root">
@@ -6585,6 +6970,7 @@
       </Component>
      </Component>
      <Component Name="AcceleratorPedal">
+      <Component Name="Value"/>
       <Component Name="ThrottleA">
        <Component Name="Normalised Filtered"/>
        <Component Name="Absolute"/>
@@ -6631,17 +7017,22 @@
        <Component Name="Input Maximum"/>
        <Component Name="Input Resolution"/>
       </Component>
-      <Component Name="MappedThrottle">
+      <Component Name="MappedThrottleA">
        <Component Name="Value"/>
        <Component Name="Init"/>
        <Component Name="Update"/>
       </Component>
+      <Component Name="MappedThrottleB">
+       <Component Name="Value"/>
+       <Component Name="Init"/>
+       <Component Name="Update"/>
+      </Component>
+      <Component Name="Update"/>
       <Component Name="Plausibility">
        <Component Name="Value"/>
        <Component Name="AbsoluteDifference"/>
        <Component Name="Threshold"/>
        <Component Name="Timeout"/>
-       <Component Name="Update"/>
        <Component Name="Timer">
         <Component Name="Start"/>
         <Component Name="Remaining"/>
@@ -6654,7 +7045,7 @@
        <Component Name="BSE Plausibility Threshold"/>
        <Component Name="FrontPercentage"/>
        <Component Name="RearPercentage"/>
-       <Component Name="BSEIL"/>
+       <Component Name="Plausibility"/>
        <Component Name="BrakePressed"/>
        <Component Name="MappedBrakePressure"/>
        <Component Name="BrakePressedThreshold"/>
@@ -6708,6 +7099,70 @@
        <Component Name="Input Minimum"/>
        <Component Name="Input Maximum"/>
        <Component Name="Input Resolution"/>
+      </Component>
+      <Component Name="BrakeLight">
+       <Component Name="Resource">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="State"/>
+       <Component Name="Drive">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Test">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Polarity">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Open Current">
+        <Component Name="Value"/>
+       </Component>
+       <Component Name="Output">
+        <Component Name="Frequency">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Duty Cycle">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Resource"/>
+        <Component Name="Reserve"/>
+        <Component Name="Release"/>
+        <Component Name="Update"/>
+       </Component>
+       <Component Name="Voltage">
+        <Component Name="Absolute Filtered"/>
+        <Component Name="Absolute"/>
+        <Component Name="Filter">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Resource"/>
+        <Component Name="Reserve"/>
+        <Component Name="Release"/>
+        <Component Name="Initialise"/>
+        <Component Name="Update"/>
+        <Component Name="Input Impedance"/>
+        <Component Name="Input Source"/>
+        <Component Name="Input Bandwidth"/>
+        <Component Name="Input Minimum"/>
+        <Component Name="Input Maximum"/>
+        <Component Name="Input Resolution"/>
+       </Component>
+       <Component Name="Pin">
+        <Component Name="Diagnostic"/>
+        <Component Name="Drive">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Peak Current">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Hold Current"/>
+        <Component Name="Resource"/>
+        <Component Name="Reserve"/>
+        <Component Name="Release"/>
+        <Component Name="Initialise"/>
+        <Component Name="Update"/>
+       </Component>
+       <Component Name="SetState"/>
       </Component>
      </Component>
      <Component Name="Inverter">
@@ -6779,12 +7234,18 @@
        <Component Name="RegID">
         <Component Name="BitLength"/>
        </Component>
-       <Component Name="Enable"/>
+       <Component Name="Testing"/>
        <Component Name="Initialise"/>
        <Component Name="Disable"/>
        <Component Name="Command"/>
        <Component Name="Poll"/>
        <Component Name="Read"/>
+       <Component Name="Test"/>
+       <Component Name="ScaleRPM">
+        <Component Name="Value"/>
+        <Component Name="Init"/>
+        <Component Name="Update"/>
+       </Component>
        <Component Name="TorqueCmd">
         <Component Name="Received"/>
         <Component Name="Sent"/>
@@ -7062,12 +7523,17 @@
        <Component Name="RegID">
         <Component Name="BitLength"/>
        </Component>
-       <Component Name="Enable"/>
+       <Component Name="Testing"/>
        <Component Name="Initialise"/>
        <Component Name="Disable"/>
        <Component Name="Command"/>
        <Component Name="Poll"/>
        <Component Name="Read"/>
+       <Component Name="ScaleRPM">
+        <Component Name="Value"/>
+        <Component Name="Init"/>
+        <Component Name="Update"/>
+       </Component>
        <Component Name="TorqueCmd">
         <Component Name="Received"/>
         <Component Name="Sent"/>
@@ -7415,6 +7881,33 @@
      </Component>
      <Component Name="BMS">
       <Component Name="DataProcessing"/>
+      <Component Name="Current">
+       <Component Name="Update"/>
+       <Component Name="Value"/>
+       <Component Name="SensorVoltage">
+        <Component Name="Normalised Filtered"/>
+        <Component Name="Absolute"/>
+        <Component Name="Filter">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Reference">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Resource">
+         <Component Name="Value"/>
+        </Component>
+        <Component Name="Reserve"/>
+        <Component Name="Release"/>
+        <Component Name="Initialise"/>
+        <Component Name="Update"/>
+        <Component Name="Input Impedance"/>
+        <Component Name="Input Source"/>
+        <Component Name="Input Bandwidth"/>
+        <Component Name="Input Minimum"/>
+        <Component Name="Input Maximum"/>
+        <Component Name="Input Resolution"/>
+       </Component>
+      </Component>
       <Component Name="Data">
        <Component Name="PackVoltage"/>
        <Component Name="PackOpenVoltage"/>
@@ -7587,75 +8080,101 @@
       </Component>
      </Component>
      <Component Name="Vehicle">
+      <Component Name="TorqueVectoring">
+       <Component Name="Value"/>
+       <Component Name="K"/>
+       <Component Name="Enable"/>
+      </Component>
       <Component Name="MoTeC">
        <Component Name="LateralG">
-        <Component Name="Normalised Filtered"/>
-        <Component Name="Absolute"/>
-        <Component Name="Filter">
+        <Component Name="Mapped">
          <Component Name="Value"/>
+         <Component Name="Init"/>
+         <Component Name="Update"/>
         </Component>
-        <Component Name="Reference">
-         <Component Name="Value"/>
+        <Component Name="Voltage">
+         <Component Name="Normalised Filtered"/>
+         <Component Name="Absolute"/>
+         <Component Name="Filter">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reference">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Resource">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Initialise"/>
+         <Component Name="Update"/>
+         <Component Name="Input Impedance"/>
+         <Component Name="Input Source"/>
+         <Component Name="Input Bandwidth"/>
+         <Component Name="Input Minimum"/>
+         <Component Name="Input Maximum"/>
+         <Component Name="Input Resolution"/>
         </Component>
-        <Component Name="Resource">
-         <Component Name="Value"/>
-        </Component>
-        <Component Name="Reserve"/>
-        <Component Name="Release"/>
-        <Component Name="Initialise"/>
-        <Component Name="Update"/>
-        <Component Name="Input Impedance"/>
-        <Component Name="Input Source"/>
-        <Component Name="Input Bandwidth"/>
-        <Component Name="Input Minimum"/>
-        <Component Name="Input Maximum"/>
-        <Component Name="Input Resolution"/>
        </Component>
-       <Component Name="LongitudinalG">
-        <Component Name="Normalised Filtered"/>
-        <Component Name="Absolute"/>
-        <Component Name="Filter">
+       <Component Name="LongnitudinalG">
+        <Component Name="Mapped">
          <Component Name="Value"/>
+         <Component Name="Init"/>
+         <Component Name="Update"/>
         </Component>
-        <Component Name="Reference">
-         <Component Name="Value"/>
+        <Component Name="Voltage">
+         <Component Name="Normalised Filtered"/>
+         <Component Name="Absolute"/>
+         <Component Name="Filter">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reference">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Resource">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Initialise"/>
+         <Component Name="Update"/>
+         <Component Name="Input Impedance"/>
+         <Component Name="Input Source"/>
+         <Component Name="Input Bandwidth"/>
+         <Component Name="Input Minimum"/>
+         <Component Name="Input Maximum"/>
+         <Component Name="Input Resolution"/>
         </Component>
-        <Component Name="Resource">
-         <Component Name="Value"/>
-        </Component>
-        <Component Name="Reserve"/>
-        <Component Name="Release"/>
-        <Component Name="Initialise"/>
-        <Component Name="Update"/>
-        <Component Name="Input Impedance"/>
-        <Component Name="Input Source"/>
-        <Component Name="Input Bandwidth"/>
-        <Component Name="Input Minimum"/>
-        <Component Name="Input Maximum"/>
-        <Component Name="Input Resolution"/>
        </Component>
        <Component Name="AccelZ">
-        <Component Name="Normalised Filtered"/>
-        <Component Name="Absolute"/>
-        <Component Name="Filter">
+        <Component Name="Mapped">
          <Component Name="Value"/>
+         <Component Name="Init"/>
+         <Component Name="Update"/>
         </Component>
-        <Component Name="Reference">
-         <Component Name="Value"/>
+        <Component Name="Voltage">
+         <Component Name="Normalised Filtered"/>
+         <Component Name="Absolute"/>
+         <Component Name="Filter">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reference">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Resource">
+          <Component Name="Value"/>
+         </Component>
+         <Component Name="Reserve"/>
+         <Component Name="Release"/>
+         <Component Name="Initialise"/>
+         <Component Name="Update"/>
+         <Component Name="Input Impedance"/>
+         <Component Name="Input Source"/>
+         <Component Name="Input Bandwidth"/>
+         <Component Name="Input Minimum"/>
+         <Component Name="Input Maximum"/>
+         <Component Name="Input Resolution"/>
         </Component>
-        <Component Name="Resource">
-         <Component Name="Value"/>
-        </Component>
-        <Component Name="Reserve"/>
-        <Component Name="Release"/>
-        <Component Name="Initialise"/>
-        <Component Name="Update"/>
-        <Component Name="Input Impedance"/>
-        <Component Name="Input Source"/>
-        <Component Name="Input Bandwidth"/>
-        <Component Name="Input Minimum"/>
-        <Component Name="Input Maximum"/>
-        <Component Name="Input Resolution"/>
        </Component>
        <Component Name="Temperature">
         <Component Name="Value"/>
@@ -7735,7 +8254,8 @@
       </Component>
      </Component>
      <Component Name="Sensors">
-      <Component Name="SteeringAngle">
+      <Component Name="IMU"/>
+      <Component Name="Steering">
        <Component Name="Raw">
         <Component Name="Normalised Filtered"/>
         <Component Name="Absolute"/>
@@ -7767,6 +8287,12 @@
        <Component Name="Direction"/>
        <Component Name="Update"/>
       </Component>
+      <Component Name="CAN">
+       <Component Name="RxStatus"/>
+       <Component Name="Receive"/>
+       <Component Name="Bus"/>
+       <Component Name="InverterRxID"/>
+      </Component>
      </Component>
      <Component Name="Events">
       <Component Name="On 1000Hz"/>
@@ -7777,6 +8303,7 @@
        <Component Name="Idle"/>
       </Component>
       <Component Name="On 50Hz"/>
+      <Component Name="On 20Hz"/>
       <Component Name="On 1Hz"/>
       <Component Name="On 100Hz"/>
       <Component Name="On Shutdown"/>

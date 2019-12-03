@@ -1,0 +1,13 @@
+/*******************************************************************
+*  BMS.Current.Update
+* 
+* Refer to:
+* https://www.lem.com/sites/default/files/products_datasheets/dhab_s_134.pdf
+* 
+*******************************************************************/
+
+local Uc = 5.0;  // Supply voltage
+local Vo = 2.5;  // Offset voltage
+local G = 0.01;  // Sensitivity (V/A)
+
+Value = (5*SensorVoltage/Uc - Vo)/G;

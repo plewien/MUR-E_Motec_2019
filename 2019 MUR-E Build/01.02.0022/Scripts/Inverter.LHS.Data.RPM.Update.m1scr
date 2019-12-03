@@ -1,0 +1,7 @@
+// Updates the RPM from this inverter
+
+local bitOffset = 56 - BitLength;
+Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 
+Actual = -Raw * 6000 / 32767;
+Parent.WheelRPM.Update();
+Parent.GroundSpeed.Update();

@@ -1,0 +1,3 @@
+IMU.GyroRollVelocity = CAN.Request(0x01);
+IMU.GyroPitchVelocity = CAN.Request(0x02);
+

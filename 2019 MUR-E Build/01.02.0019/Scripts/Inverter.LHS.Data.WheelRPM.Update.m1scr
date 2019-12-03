@@ -1,0 +1,3 @@
+// Updates the wheel speed based on the driveline ratio
+
+This = Parent.RPM/DrivelineRatio;

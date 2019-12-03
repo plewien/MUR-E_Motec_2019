@@ -1,0 +1,5 @@
+// Updates the RPM from this inverter
+// TODO: Check that WheelDiameter does convert from inch to meters in this calculation
+
+This = 3.6 * Parent.WheelRPM * Calculate.PI() * WheelDiameter / 60;
+wheelfuckindiam = WheelDiameter;

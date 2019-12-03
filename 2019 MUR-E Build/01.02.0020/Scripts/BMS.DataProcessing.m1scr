@@ -1,0 +1,41 @@
+local BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x010, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackVoltage = 0.1 * CanComms.GetInteger(BMSmsg,0,16);
+	Data.PackOpenVoltage = CanComms.GetInteger(BMSmsg,15,16);
+	Data.PackCurrent = 0.1 * CanComms.GetUnsignedInteger(BMSmsg,31,16);
+	Data.SoC = CanComms.GetUnsignedInteger(BMSmsg,47,16) / 2.0;
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x020, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.PackDCL = CanComms.GetInteger(BMSmsg,0,16);
+	Data.PackCCL = CanComms.GetInteger(BMSmsg,15,16);
+	Data.PackResistance = CanComms.GetInteger(BMSmsg,31,16);
+	Data.PackHealth = CanComms.GetInteger(BMSmsg,47,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x030, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.HighCellVoltage = CanComms.GetInteger(BMSmsg,0,8);
+	Data.LowCellVoltage = CanComms.GetInteger(BMSmsg,15,8);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x040, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.HighTemperature = CanComms.GetInteger(BMSmsg,0,16);
+	Data.LowTemperature = CanComms.GetInteger(BMSmsg,15,16);
+	Data.CurrentLimitsStatus = CanComms.GetInteger(BMSmsg,31,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x050, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.DTC Flags 1 = CanComms.GetInteger(BMSmsg,0,16);
+	Data.DTC Flags 2 = CanComms.GetInteger(BMSmsg,15,16);
+	Data.InternalTemperature = CanComms.GetInteger(BMSmsg,31,16);
+	Data.HighThermistorID = CanComms.GetInteger(BMSmsg,47,16);
+}
+
+BMSmsg = CanComms.RxOpenStandard(CAN.Bus, 0x060, 0x0, true);
+if (CanComms.RxMessage(BMSmsg)){
+	Data.LowThermistorID = CanComms.GetInteger(BMSmsg,0,16);
+}

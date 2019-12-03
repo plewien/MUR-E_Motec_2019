@@ -1,0 +1,41 @@
+/*******************************************************************
+*  AcceleratorPedal.Update
+*
+* This scheduled function checks if the accelerator pedal sensors 
+* are producing plausible readings. 
+*
+* By FSAE rules, implausibility (T.6.2.3) is defined as:
+* 	" ... a deviation of more than 10% pedal travel between the 
+	sensors or other failure as defined in this Section T.6.2"
+* 
+* Furthermore, 
+	" if an implausibility occurs between the values of the APPSs 
+	and persists for more than 100msec, [the motor controllers must
+	shut down power to the motors]."
+*
+* To check that the sensor readings are valid, the absolute
+* difference is taken between the sensors and compared to the 
+* Plausibility.Threshold. If this occurs, a timer is set off for 100ms. The
+* timer will reset if pedal plausiblity returns, otherwise upon 
+* timeout the motors will be disabled.
+* 
+*******************************************************************/
+
+// Update the Throttle
+Value = Calculate.Average(MappedThrottleA, MappedThrottleB);
+
+
+// Check for Plausibility
+Plausibility.AbsoluteDifference = Calculate.Absolute(MappedThrottleA - MappedThrottleB);
+if (Plausibility.AbsoluteDifference < Plausibility.Threshold) {
+	Plausibility = Pedal Plausibility.Ok;
+	Plausibility.Timer.Start(0.0);  // reset the timer
+} else if (Plausibility.Timer.Remaining() <= 0.0) {
+	if (Plausibility eq Pedal Plausibility.Warning) {
+		Plausibility = Pedal Plausibility.Implausible;
+	} else {
+		Plausibility.Timer.Start(Plausibility.Timeout);
+	}
+} else {
+	Plausibility = Pedal Plausibility.Warning;
+}

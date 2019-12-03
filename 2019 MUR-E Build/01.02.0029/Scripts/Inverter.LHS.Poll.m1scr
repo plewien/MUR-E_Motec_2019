@@ -1,0 +1,32 @@
+/*******************************************************************
+*  Poll
+*
+* According to the CAN-Complete_English manual in the NDrive folder,
+* up to **8** time-triggered reply requests can be activated. This 
+* is good as it means that some of the important registers can be 
+* requested only once during initialisation and then regular updates
+* will be provided, freeing up CAN for data.
+*
+* Example: 0x0a repeats every 10ms.
+* Warning: Only **8** registers allowed to be setup in this way.
+*
+*
+*******************************************************************/
+
+local <Unsigned Integer> pollTiming = 0x00;
+local <Unsigned Integer> Timing = 0x32;  // Every 50 ms
+
+
+Data.IMaxPk.TxStatus = CAN.Request(Data.IMaxPk.Register, pollTiming);
+Status.StatusMap.TxStatus = CAN.Request(Status.StatusMap.Register, pollTiming);
+
+Status.EWMap.TxStatus = CAN.Request(Status.EWMap.Register, Timing);
+Data.CurrentDC.TxStatus = CAN.Request(Data.CurrentDC.Register, Timing);
+Data.CurrentAC.TxStatus = CAN.Request(Data.CurrentAC.Register, Timing);
+Data.VoltageDC.TxStatus = CAN.Request(Data.VoltageDC.Register, Timing);
+Data.VoltageAC.TxStatus = CAN.Request(Data.VoltageAC.Register, Timing);
+Data.IqActual.TxStatus = CAN.Request(Data.IqActual.Register, Timing);
+Data.RPM.TxStatus = CAN.Request(Data.RPM.Register, Timing);
+Data.TempMotor.TxStatus = CAN.Request(Data.TempMotor.Register, Timing);
+Data.TempIGBT.TxStatus = CAN.Request(Data.TempIGBT.Register, Timing);
+TorqueCmd.TxPollStatus = CAN.Request(TorqueCmd.Register, Timing);

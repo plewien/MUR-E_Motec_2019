@@ -1,0 +1,9 @@
+// From BAMOCAR FAQ Manual (question 7)
+// May need to be calibrated
+
+local bitOffset = 56 - BitLength;
+Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 
+
+local sqrt2 = 1.414;
+local tempVoltage = (Parent.VoltageDC/sqrt2) * (Raw/4096);
+Actual = 0.94*tempVoltage;  // Bamocar says there are 6% of losses in the inverter

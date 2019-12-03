@@ -1,0 +1,4 @@
+// Update the IGBT temperature data
+
+local bitOffset = 56 - BitLength;
+Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 

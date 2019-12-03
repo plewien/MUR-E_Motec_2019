@@ -1,0 +1,11 @@
+/*******************************************************************
+*  Initialise
+*
+* This scheduled function initialises the inverter into an enabled
+* state. It also sets up some of the necessary inverter registers to 
+* be polled at a regular interval.
+* 
+
+*******************************************************************/
+
+FRG.SetState(true);

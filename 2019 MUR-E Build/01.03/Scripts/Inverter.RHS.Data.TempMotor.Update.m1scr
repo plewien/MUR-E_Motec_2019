@@ -1,0 +1,4 @@
+// Update the Motor Temperature reading
+
+local bitOffset = 56 - BitLength;
+Raw = CanComms.GetInteger(In.receiveHandle, bitOffset, BitLength); 
